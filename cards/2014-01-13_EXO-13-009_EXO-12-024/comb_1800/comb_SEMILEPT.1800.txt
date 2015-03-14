@@ -1,4 +1,4 @@
-Combination of comb_xww.1800.txt, comb_xzz.1800.txt
+Combination of comb_xww.1800.txt  comb_xzz.1800.txt
 imax 8 number of bins
 jmax 6 number of processes minus 1
 kmax 74 number of nuisance parameters

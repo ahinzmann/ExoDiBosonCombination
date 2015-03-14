@@ -27,6 +27,7 @@ void plot_Significance(bool unblind){
   gROOT->ProcessLine(".x tdrstyle.cc");
   gStyle->SetPadLeftMargin(0.16);
  
+  gStyle->SetNdivisions(605, "XYZ");
 
 
   //take tree with exp significance for all masses
@@ -121,7 +122,7 @@ void plot_Significance(bool unblind){
   TCanvas *cS=new TCanvas("canSig","Significance EXO-VV",800,800);
   cS->cd();
 
-  double fr_left=590.0, fr_down=1e-06,fr_right=2220.0,fr_up=0.6;
+  double fr_left=590.0, fr_down=1e-06,fr_right=2920.0,fr_up=0.6;
   grExp->GetXaxis()->SetTitle("M_{1} [GeV]");
   grExp->GetYaxis()->SetTitle("p-value");// #rightarrow 2l2q
 
@@ -142,22 +143,22 @@ void plot_Significance(bool unblind){
   l1->SetLineStyle(2);
   l1->SetLineWidth(3.0);
   l1->SetLineColor(kRed);
-  l1->DrawLine(600.0,quant1sigma,2000.0,quant1sigma);
+  l1->DrawLine(600.0,quant1sigma,2900.0,quant1sigma);
   TLine *l2=new TLine();
   l2->SetLineStyle(2);
   l2->SetLineWidth(3.0);
   l2->SetLineColor(kRed);
-  l2->DrawLine(600.0,quant2sigma,2000.0,quant2sigma);
+  l2->DrawLine(600.0,quant2sigma,2900.0,quant2sigma);
   TLine *l3=new TLine();
   l3->SetLineStyle(2);
   l3->SetLineWidth(3.0);
   l3->SetLineColor(kRed);
-  l3->DrawLine(600.0,quant3sigma,2000.0,quant3sigma);
+  l3->DrawLine(600.0,quant3sigma,2900.0,quant3sigma);
   TLine *l4=new TLine();
   l4->SetLineStyle(2);
   l4->SetLineWidth(3.0);
   l4->SetLineColor(kRed);
-  l4->DrawLine(600.0,quant4sigma,2000.0,quant4sigma);
+  l4->DrawLine(600.0,quant4sigma,2900.0,quant4sigma);
 
 
   TPaveText* cmslabel = new TPaveText( 0.145, 0.953, 0.6, 0.975, "brNDC");
@@ -185,8 +186,9 @@ void plot_Significance(bool unblind){
    label_sqrt->Draw();
 
 
-   cS->SaveAs("EXOZZ_2l2q_Significance.root");
-   cS->SaveAs("EXOZZ_2l2q_Significance.eps");
-   cS->SaveAs("EXOZZ_2l2q_Significance.png");
+   cS->SaveAs("EXOVV_Significance.root");
+   cS->SaveAs("EXOVV_Significance.eps");
+   cS->SaveAs("EXOVV_Significance.png");
+   cS->SaveAs("EXOVV_Significance.pdf");
 
 }

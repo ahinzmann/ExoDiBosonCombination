@@ -1,4 +1,4 @@
-Combination of xzz_ee1JHP=xzz_ee1JHP.1400.txt, xzz_mm1JHP=xzz_mm1JHP.1400.txt, xzz_ee1JLP=xzz_ee1JLP.1400.txt, xzz_mm1JLP=xzz_mm1JLP.1400.txt
+Combination of xzz_ee1JHP=xzz_ee1JHP.1400.txt  xzz_mm1JHP=xzz_mm1JHP.1400.txt  xzz_ee1JLP=xzz_ee1JLP.1400.txt  xzz_mm1JLP=xzz_mm1JLP.1400.txt
 imax 4 number of bins
 jmax 1 number of processes minus 1
 kmax 23 number of nuisance parameters

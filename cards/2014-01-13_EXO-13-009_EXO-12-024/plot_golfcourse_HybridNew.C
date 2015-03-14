@@ -728,27 +728,27 @@ void plot_golfcourse_HybridNew(bool unblind, char* width)
   cMCMC->Update();
   char fnam[50];
   if (width != 0) {
-    sprintf(fnam, "EXOVV_2l2q_UL_HybridNew_%s.root", width);
+    sprintf(fnam, "EXOVV_UL_HybridNew_%s.root", width);
     cMCMC->SaveAs(fnam);
-    sprintf(fnam, "EXOVV_2l2q_UL_HybridNew_%s.eps", width);
+    sprintf(fnam, "EXOVV_UL_HybridNew_%s.eps", width);
     cMCMC->SaveAs(fnam);
-    sprintf(fnam, "EXOVV_2l2q_UL_HybridNew_%s.png", width);
+    sprintf(fnam, "EXOVV_UL_HybridNew_%s.png", width);
     cMCMC->SaveAs(fnam);
     gPad->SetLogy();
-    sprintf(fnam, "EXOVV_2l2q_UL_HybridNew_%s_log.eps", width);
+    sprintf(fnam, "EXOVV_UL_HybridNew_%s_log.eps", width);
     cMCMC->SaveAs(fnam);
-    sprintf(fnam, "EXOVV_2l2q_UL_HybridNew_%s_log.png", width);
+    sprintf(fnam, "EXOVV_UL_HybridNew_%s_log.png", width);
     cMCMC->SaveAs(fnam);
   } else {
-    cMCMC->SaveAs("EXOVV_2l2q_UL_HybridNew.root");
-    cMCMC->SaveAs("EXOVV_2l2q_UL_HybridNew.eps");
-    cMCMC->SaveAs("EXOVV_2l2q_UL_HybridNew.pdf");
-    cMCMC->SaveAs("EXOVV_2l2q_UL_HybridNew.png");
+    cMCMC->SaveAs("EXOVV_UL_HybridNew.root");
+    cMCMC->SaveAs("EXOVV_UL_HybridNew.eps");
+    cMCMC->SaveAs("EXOVV_UL_HybridNew.pdf");
+    cMCMC->SaveAs("EXOVV_UL_HybridNew.png");
     gPad->SetLogy();
-    cMCMC->SaveAs("EXOVV_2l2q_UL_HybridNew_log.eps");
-    cMCMC->SaveAs("EXOVV_2l2q_UL_HybridNew_log.pdf");
-    cMCMC->SaveAs("EXOVV_2l2q_UL_HybridNew_log.C");
-    cMCMC->SaveAs("EXOVV_2l2q_UL_HybridNew_log.png");
+    cMCMC->SaveAs("EXOVV_UL_HybridNew_log.eps");
+    cMCMC->SaveAs("EXOVV_UL_HybridNew_log.pdf");
+    cMCMC->SaveAs("EXOVV_UL_HybridNew_log.C");
+    cMCMC->SaveAs("EXOVV_UL_HybridNew_log.png");
   }
 
   cMCMC->Draw();

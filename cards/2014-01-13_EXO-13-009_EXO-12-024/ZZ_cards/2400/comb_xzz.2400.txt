@@ -1,4 +1,4 @@
-Combination of xzz_ee1JHP=xzz_ee1JHP.2400.txt, xzz_mm1JHP=xzz_mm1JHP.2400.txt, xzz_ee1JLP=xzz_ee1JLP.2400.txt, xzz_mm1JLP=xzz_mm1JLP.2400.txt
+Combination of xzz_ee1JHP=xzz_ee1JHP.2400.txt  xzz_mm1JHP=xzz_mm1JHP.2400.txt  xzz_ee1JLP=xzz_ee1JLP.2400.txt  xzz_mm1JLP=xzz_mm1JLP.2400.txt
 imax 4 number of bins
 jmax 1 number of processes minus 1
 kmax 23 number of nuisance parameters
@@ -22,7 +22,7 @@ observation  360.0        575.0        439.0        710.0
 bin                                      xzz_ee1JHP     xzz_ee1JHP     xzz_mm1JHP     xzz_mm1JHP     xzz_ee1JLP     xzz_ee1JLP     xzz_mm1JLP     xzz_mm1JLP   
 process                                  Bulk_xzz       backgroundxzz  Bulk_xzz       backgroundxzz  Bulk_xzz       backgroundxzz  Bulk_xzz       backgroundxzz
 process                                  0              1              0              1              0              1              0              1            
-rate                                     0.0011         369.5230       0.0011         622.2600       0.0005         408.1990       0.0005         671.3750     
+rate                                     0.0011         369.5230       0.0011         622.2600       0.0004598      408.1990       0.0004615      671.3750     
 ----------------------------------------------------------------------------------------------------------------------------------
 CMS_eff_e               lnN              1.03           1.0            -              -              1.03           1.0            -              -            
 CMS_eff_m               lnN              -              -              1.04           1.0            -              -              1.04           1.0          

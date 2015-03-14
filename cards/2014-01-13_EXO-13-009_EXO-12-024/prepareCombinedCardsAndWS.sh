@@ -24,6 +24,9 @@ EXOZZLPCARDS="${LABEL}_ee1JLP=${LABEL}_ee1JLP.${MASS}.txt ${LABEL}_mm1JLP=${LABE
 EXOZZHPCARDS="${LABEL}_ee1JHP=${LABEL}_ee1JHP.${MASS}.txt ${LABEL}_mm1JHP=${LABEL}_mm1JHP.${MASS}.txt"
 EXOZZCARDS="$EXOZZHPCARDS $EXOZZLPCARDS"
 COMBZZCARD="comb_${LABEL}.${MASS}.txt"
+
+if [ $MASS -le 2500 ]
+then
 echo "Moving to "${ZZDIR}/
 cd ${ZZDIR}/
 pwd
@@ -31,7 +34,7 @@ combineCards.py $EXOZZCARDS &> ${COMBZZCARD}
 cd -
 cp ${ZZDIR}/${COMBZZCARD} ${OUTDIR}/${COMBZZCARD}
 cp ${ZZDIR}/${LABEL}_*input*.root  ${OUTDIR}/
-
+fi
 
 ### JJ only
 LABEL="xjj"
@@ -41,9 +44,9 @@ COMBJJCARD="comb_${LABEL}.${MASS}.txt"
 if [ $MASS -ge 1000 ]
 then
 ###sed -e '/CMS_sig_p/ s|0|0.0|g' -e '/CMS_sig_p/ s|1|1.0|g' < CMS_jj_Bulk_1200_8TeV_CMS_jj_VV.txt
-###sed -e 's|datacards/../workspaces/||g' < ${JJDIR}/datacards/${JJCARDORIG} &> $OUTDIR/${COMBJJCARD}
+sed -e 's|datacards/../workspaces/||g' < ${JJDIR}/datacards/${JJCARDORIG} &> $OUTDIR/${COMBJJCARD}
 ###    sed -e 's|datacards/../workspaces/||g' -e '/CMS_sig_p/ s|0|0.0|' -e '/CMS_sig_p1/ s|1|1.0|2' -e '/CMS_sig_p2/ s|1|1.0|' < ${JJDIR}/datacards/${JJCARDORIG} &> $OUTDIR/${COMBJJCARD}
-    cp ${JJDIR}/datacards/${JJCARDORIG}  $OUTDIR/${COMBJJCARD}
+#    cp ${JJDIR}/datacards/${JJCARDORIG}  $OUTDIR/${COMBJJCARD}
     cp ${JJDIR}/workspaces/CMS_jj_Bulk*${MASS}*.root ${OUTDIR}/
     cp ${JJDIR}/workspaces/CMS_jj_bkg_8TeV.root ${OUTDIR}/
 fi
@@ -58,7 +61,7 @@ EXOWWHPCARDS="${LABEL}_ev1JHP=${WWELEBASE}_HP_unbin.txt ${LABEL}_mv1JHP=${WWMUBA
 EXOWWCARDS="$EXOWWHPCARDS $EXOWWLPCARDS"
 COMBWWCARD="comb_${LABEL}.${MASS}.txt"
 
-if [ $MASS -ge 800 ] 
+if [ $MASS -ge 800 ] && [ $MASS -le 2500 ]
     then
     cd ${WWDIR}/
     combineCards.py $EXOWWCARDS &> tmp_XWW_card.txt
@@ -82,12 +85,10 @@ elif [ $MASS -lt 1000 ]
     then
     combineCards.py $COMBWWCARD $COMBZZCARD &>  $COMB3CHANCARD
     combineCards.py $COMBWWCARD $COMBZZCARD &>  $COMBSEMILEPCARD
+elif [ $MASS -gt 2500 ]
+    then
+    combineCards.py $COMBJJCARD &>  $COMB3CHANCARD
 else 
     combineCards.py $COMBJJCARD $COMBWWCARD $COMBZZCARD &>  $COMB3CHANCARD
     combineCards.py $COMBWWCARD $COMBZZCARD &>  $COMBSEMILEPCARD
 fi
-
-
-
-
-

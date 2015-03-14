@@ -14,6 +14,10 @@ For 1d limits (requires datacard creation in 1d mode)
 #11: run with root: $> root -b
      .L plot_golfcourse_Asymptotic.C+
      plot_golfcourse_Asymptotic()
+#12: edit paths and names in plot_Significance.C
+#13: run with root: $> root -b
+     .L plot_Significance.C+
+     plot_Significance()
 
 
 For 2d limits (requires datacard creation in 2d mode)

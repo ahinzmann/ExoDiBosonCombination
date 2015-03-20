@@ -1,0 +1,28 @@
+# Simple counting experiment, with one signal and one background
+imax 1  number of channels
+jmax 1  number of backgrounds
+kmax 9  number of nuisance parameters (sources of systematical uncertainties)
+------------
+# we have just one channel, in which we observe 0 events
+bin TauTau
+observation 8
+------------
+# now we list the expected events for signal and all backgrounds in that bin
+# the second 'process' line must have a positive number for backgrounds, and 0 for signal.
+# the line starting with 'rate' gives the expected yield for each process.
+# Then (after the '-----'-line), we list the independent sources of uncertainties, and give their effect (syst. error)
+# on each process and bin, in this case none.
+bin           TauTau TauTau 
+process         sig   bkg
+process          0     1 
+rate            1.5   6.1  
+------------
+lumi          lnN     1.026      -    lumi affects only mc-driven 
+BG_norm       gmN 29   -        0.21  BG estimate of 6.1 comes from SB
+TauIDStandard lnN     1.18       -
+TauSubjet     lnN     1.1        -
+VTag          lnN     1.06873    -
+PUReweighting lnN     1.01       -
+TauES         lnN     1.0424     -
+JES           lnN     1.0282     -
+JER           lnN     1.0292     -  

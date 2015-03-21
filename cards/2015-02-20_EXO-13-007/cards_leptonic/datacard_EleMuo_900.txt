@@ -1,0 +1,27 @@
+imax 1
+jmax 1
+kmax *
+--------------------------------------------------------------------------------------------
+bin                           EleMuo
+observation                   2
+--------------------------------------------------------------------------------------------
+bin                           EleMuo           EleMuo
+process                       signalEleMuo     backgroundEleMuo
+process                       0                1
+rate                          0.174735         1.72051
+--------------------------------------------------------------------------------------------
+lumi                lnN       1.026            -
+BkgEleMuo           gmN 7     -                0.245787    #1.72051+/-1.21888
+AlphaEleMuo         lnN       -                1.42408
+NormalizationEleMuo lnN       -                1.357
+VTag                lnN       1.06873          -
+PUReweighting       lnN       1.006            -
+BTagSyst            lnN       1.018            -
+JES                 lnN       1.011            -
+JER                 lnN       1.007            -
+EleID         lnN       1.011            -
+EleScale      lnN       1            -
+EleResol      lnN       1            -
+MuoID         lnN       1.01            -
+MuoScale      lnN       1.007            -
+MuoResol      lnN       1            -

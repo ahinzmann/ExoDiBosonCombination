@@ -1,0 +1,28 @@
+imax 1
+jmax 1
+kmax *
+--------------------------------------------------------------------------------------------
+bin                           MuoTau
+observation                   0
+--------------------------------------------------------------------------------------------
+bin                           MuoTau           MuoTau
+process                       signalMuoTau     backgroundMuoTau
+process                       0                1
+rate             1.46256e+00  1.00000e-05  
+--------------------------------------------------------------------------------------------
+lumi                lnN       1.026            -
+BkgMuoTau           gmN 0     -                0.318958    #1e-05+/-0
+AlphaMuoTau         lnN       -                1.37636
+NormalizationMuoTau lnN       -                1.177
+VTag                lnN       1.06873          -
+PUReweighting       lnN       1.004            -
+BTagSyst            lnN       1.025            -
+JES                 lnN       1.001            -
+JER                 lnN       1.017            -
+TauIDStandard       lnN       1.111            -
+TauCleaningMuoTau   lnN       1.06            -
+ModifiedPFIsoMuoTau lnN       1.095            -
+MuoID         lnN       1.008            -
+MuoScale      lnN       1.007            -
+MuoResol      lnN       1.002            -
+TauES         lnN       1.004            -

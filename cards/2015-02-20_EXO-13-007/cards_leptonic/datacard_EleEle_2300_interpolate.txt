@@ -1,0 +1,24 @@
+imax 1
+jmax 1
+kmax *
+--------------------------------------------------------------------------------------------
+bin                           EleEle
+observation                   0
+--------------------------------------------------------------------------------------------
+bin                           EleEle           EleEle
+process                       signalEleEle     backgroundEleEle
+process                       0                1
+rate             1.43564e-01  1.00000e-05  
+--------------------------------------------------------------------------------------------
+lumi                lnN       1.026            -
+BkgEleEle           gmN 0     -                0.496691    #1e-05+/-0
+AlphaEleEle         lnN       -                1.7152
+NormalizationEleEle lnN       -                1.467
+VTag                lnN       1.06873          -
+PUReweighting       lnN       1.004            -
+BTagSyst            lnN       1.03            -
+JES                 lnN       1.02            -
+JER                 lnN       1.017            -
+EleID         lnN       1.03            -
+EleScale      lnN       1.009            -
+EleResol      lnN       1.003            -

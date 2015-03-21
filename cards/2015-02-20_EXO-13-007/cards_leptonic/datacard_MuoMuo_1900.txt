@@ -1,0 +1,24 @@
+imax 1
+jmax 1
+kmax *
+--------------------------------------------------------------------------------------------
+bin                           MuoMuo
+observation                   0
+--------------------------------------------------------------------------------------------
+bin                           MuoMuo           MuoMuo
+process                       signalMuoMuo     backgroundMuoMuo
+process                       0                1
+rate                          0.00621991         0.69111
+--------------------------------------------------------------------------------------------
+lumi                lnN       1.026            -
+BkgMuoMuo           gmN 3     -                0.23037    #0.69111+/-0.431561
+AlphaMuoMuo         lnN       -                1.2042
+NormalizationMuoMuo lnN       -                1.254
+VTag                lnN       1.06873          -
+PUReweighting       lnN       1.015            -
+BTagSyst            lnN       1.023            -
+JES                 lnN       1.012            -
+JER                 lnN       1.016            -
+MuoID         lnN       1.057            -
+MuoScale      lnN       1.002            -
+MuoResol      lnN       1            -

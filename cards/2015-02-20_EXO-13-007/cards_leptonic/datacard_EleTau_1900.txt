@@ -1,0 +1,28 @@
+imax 1
+jmax 1
+kmax *
+--------------------------------------------------------------------------------------------
+bin                           EleTau
+observation                   0
+--------------------------------------------------------------------------------------------
+bin                           EleTau           EleTau
+process                       signalEleTau     backgroundEleTau
+process                       0                1
+rate                          0.0163502         0.621207
+--------------------------------------------------------------------------------------------
+lumi                lnN       1.026            -
+BkgEleTau           gmN 3     -                0.207069    #0.621207+/-0.330918
+AlphaEleTau         lnN       -                1.45919
+NormalizationEleTau lnN       -                1.291
+VTag                lnN       1.06873          -
+PUReweighting       lnN       1.007            -
+BTagSyst            lnN       1.026            -
+JES                 lnN       1.003            -
+JER                 lnN       1.012            -
+TauIDStandard       lnN       1.097            -
+TauCleaningEleTau   lnN       1.031            -
+ModifiedPFIsoEleTau lnN       1.035            -
+EleID         lnN       1.013            -
+EleScale      lnN       1.001            -
+EleResol      lnN       1.002            -
+TauES         lnN       1.006            -

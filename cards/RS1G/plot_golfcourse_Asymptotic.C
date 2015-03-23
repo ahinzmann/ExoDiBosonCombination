@@ -23,7 +23,7 @@ const float intLumi = 19.7;
 const float BRZZ2l2q = isZZChannel ? 0.0941 : 0.2882464;
 const string dirXSect = "./";
 
-void plot_golfcourse_Asymptotic(bool unblind = false, char* width = 0, char* scenario = "xzz");
+void plot_golfcourse_Asymptotic(bool unblind = false, char* width = 0, char* scenario = "JJ813");
 void setFPStyle();
 void scaleGraph(TGraphAsymmErrors* g, double factor)
 {

@@ -12,7 +12,7 @@ echo "Merging M=${MASS}"
 ZZDIR="ZZ_cards/${MASS}"
 WWDIR="WW_cards"
 JJ8DIR="JJ_8TeV"
-JJ13DIR="JJ_13TeV"
+JJ13DIR="JJ_13TeV_1fb"
 
 #prepare output
 OUTDIR="comb_${MASS}"
@@ -44,7 +44,7 @@ LABEL="xjj8"
 JJ8CARDORIG="CMS_jj_RS1_${MASS}_8TeV_CMS_jj_VV.txt" ##Andreas gives us cards with WW and ZZ already merged
 COMBJJ8CARD="comb_${LABEL}.${MASS}.txt"
  
-if [ $MASS -ge 1000 ] && [ $MASS -le 2900 ]
+if [ $MASS -ge 1050 ] && [ $MASS -le 2900 ]
 then
 ###sed -e '/CMS_sig_p/ s|0|0.0|g' -e '/CMS_sig_p/ s|1|1.0|g' < CMS_jj_Bulk_1200_8TeV_CMS_jj_VV.txt
 sed -e 's|datacards/../workspaces/||g' < ${JJ8DIR}/${JJ8CARDORIG} &> $OUTDIR/${COMBJJ8CARD}
@@ -104,7 +104,7 @@ if [ $MASS -lt 800 ]
     combineCards.py $COMBZZCARD &>  $COMB3CHANCARD
     combineCards.py $COMBZZCARD &>  $COMBSEMILEPCARD
     combineCards.py $COMBZZCARD &>  $COMBALL813CARD
-elif [ $MASS -lt 1000 ]
+elif [ $MASS -lt 1050 ]
     then
     combineCards.py $COMBWWCARD $COMBZZCARD &>  $COMB3CHANCARD
     combineCards.py $COMBWWCARD $COMBZZCARD &>  $COMBSEMILEPCARD

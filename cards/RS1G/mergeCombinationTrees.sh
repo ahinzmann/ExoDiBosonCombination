@@ -31,7 +31,7 @@ else
     BASED=comb_${MASS}_${WIDTH}
 fi
 
-LABEL="xzz"
+LABEL="xjj13"
 DIR="output_${LABEL}_Asymptotic_comb_${LABEL}.${MASS}"
 LISTFILES_EXP=""
 LISTFILES_OBS=""

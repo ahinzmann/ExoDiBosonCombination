@@ -13,8 +13,15 @@ xsec_y_array_ZH=array.array('d')
 for p in xsec_x_ZH: xsec_x_array_ZH.append(p)
 for p in xsec_y_ZH: xsec_y_array_ZH.append(p)
 g_ZH=TGraph(len(xsec_x_array_ZH),xsec_x_array_ZH,xsec_y_array_ZH)
-f_out_ZH=open("theory_HVT_ZH_8TeV.txt","w")
+f_out_ZH=open("theory_HVT_ZH_qqtautau_8TeV.txt","w")
 for mass in masses:
         theoryZH=exp(g_ZH.Eval(mass))
 	f_out_ZH.write(str(mass)+" "+str(theoryZH)+"\n")
+        print "mass = ",mass,"theoryZHqqtautau = ",theoryZH
+f_out_ZH.close()
+f_out_ZH=open("theory_HVT_ZH_8TeV.txt","w")
+for mass in masses:
+        theoryZH=exp(g_ZH.Eval(mass))/6.32E-02/0.6991
+	f_out_ZH.write(str(mass)+" "+str(theoryZH)+"\n")
         print "mass = ",mass,"theoryZH = ",theoryZH
+f_out_ZH.close()

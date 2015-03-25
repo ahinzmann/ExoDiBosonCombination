@@ -167,7 +167,7 @@ void plot_golfcourse_Asymptotic(bool unblind, char* width, char* scenario)
 
   string xsect_file_th = dirXSect + "theory_RS1_WW_8TeV.txt";
   if (!isZZChannel)xsect_file_th = dirXSect + "theory_RS1_ZZ_8TeV.txt";
-  if (isFullCombination)xsect_file_th = dirXSect + "theory_HVT_ZH_8TeV.txt";
+  if (isFullCombination)xsect_file_th = dirXSect + "theory_HVT_ZH_qqtautau_8TeV.txt";
   // make_interpolated_xsect(xsect_file_th, xsect_file_interpol);
   // string xsect_file_interpol="./RSGravXSectTimesBRToZZ_AgasheHapola_c10_EXPOINTERP.txt";
 
@@ -536,11 +536,11 @@ void plot_golfcourse_Asymptotic(bool unblind, char* width, char* scenario)
 
   TH1F *hr = cMCMC->DrawFrame(fr_left, fr_down, fr_right, fr_up, "");
   TString VV = "ZZ";
-  if (!isZZChannel)VV = "WW";
+  if (!isZZChannel)VV = "ZH";
   hr->SetXTitle("M_{Z'} [GeV]");
   hr->SetYTitle("#sigma_{95%} #times BR(Z' #rightarrow " + VV + ") [pb]"); // #rightarrow 2l2q
   if(isFullCombination)
-    hr->SetYTitle("#sigma_{95%} / #sigma_{theory}"); // #rightarrow 2l2q
+    hr->SetYTitle("#sigma_{95%} #times BR(Z' #rightarrow " + VV + " #rightarrow qq#tau#tau) [pb]"); // #rightarrow 2l2q
   
 
   gr95_cls->SetFillColor(kYellow);

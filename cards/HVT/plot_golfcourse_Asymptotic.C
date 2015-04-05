@@ -525,7 +525,7 @@ void plot_golfcourse_Asymptotic(bool unblind, char* width, char* scenario)
     fr_left = 750.0, fr_down = 5E-4, fr_right = 3950.0, fr_up = 1.0;
   }
   if (isFullCombination) {
-    fr_left = 750.0, fr_down = 1e-2, fr_right = 2650.0, fr_up = 1e2;
+    fr_left = 750.0, fr_down = 1e-1, fr_right = 2650.0, fr_up = 1e2;
   }
 
   TCanvas *cMCMC = new TCanvas("c_lim_Asymptotic", "canvas with limits for Asymptotic CLs", 630, 600);
@@ -617,7 +617,7 @@ void plot_golfcourse_Asymptotic(bool unblind, char* width, char* scenario)
 
   //more graphics
 
-  TLegend *leg = new TLegend(.30, .75, .76, .90);
+  TLegend *leg = new TLegend(.18, .65, .60, .90);
   //   TLegend *leg = new TLegend(.35,.71,.90,.90);
   leg->SetFillColor(0);
   leg->SetShadowColor(0);

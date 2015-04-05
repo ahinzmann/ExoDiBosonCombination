@@ -23,7 +23,7 @@ const float intLumi = 19.7;
 const float BRZZ2l2q = isZZChannel ? 0.0941 : 0.2882464;
 const string dirXSect = "./";
 
-void plot_golfcourse_Asymptotic(bool unblind = false, char* width = 0, char* scenario = "ALL813");
+void plot_golfcourse_Asymptotic(bool unblind = false, char* width = 0, char* scenario = "WW813");
 void setFPStyle();
 void scaleGraph(TGraphAsymmErrors* g, double factor)
 {
@@ -659,7 +659,7 @@ void plot_golfcourse_Asymptotic(bool unblind, char* width, char* scenario)
 
   //more graphics
 
-  TLegend *leg = new TLegend(.30, .75, .76, .90);
+  TLegend *leg = new TLegend(.18, .65, .60, .90);
   //   TLegend *leg = new TLegend(.35,.71,.90,.90);
   leg->SetFillColor(0);
   leg->SetShadowColor(0);

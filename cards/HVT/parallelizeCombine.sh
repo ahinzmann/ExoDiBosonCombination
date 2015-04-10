@@ -6,7 +6,7 @@ then
     exit 1
 fi
 
-RUN_LOCALLY=1 #if 1 -> do not submit, run locally
+RUN_LOCALLY=0 #if 1 -> do not submit, run locally
 
 startdir=$( pwd )
 NMAXJOBS=1

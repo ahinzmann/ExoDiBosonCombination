@@ -31,8 +31,7 @@ fi
 
 ### VH only
 LABEL="xvh"
-#VHCARDORIG="CMS_jj_HZqq_${MASS}_8TeV_CMS_jj_HZCombined.txt"
-VHCARDORIG="CMS_jj_HWqq_${MASS}_8TeV_CMS_jj_HWCombined.txt"
+VHCARDORIG="CMS_jj_HVqq_${MASS}_8TeV_CMS_jj_HVCombined_adapt.txt"
 COMBVHCARD="comb_${LABEL}.${MASS}.txt"
  
 if [ $MASS -ge 1000 ] && [ $MASS -le 2600 ]

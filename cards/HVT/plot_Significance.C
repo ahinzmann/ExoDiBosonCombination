@@ -17,11 +17,11 @@
 #include "TMath.h"
 #include "TPaveText.h"
 
-void plot_Significance(bool unblind=false);
-const float intLumi=19.5;
+void plot_Significance(bool unblind=true, char* scenario = "ALL");
+const float intLumi=19.7;
 
 
-void plot_Significance(bool unblind){
+void plot_Significance(bool unblind, char* scenario){
 
 
   gROOT->ProcessLine(".x tdrstyle.cc");
@@ -31,11 +31,15 @@ void plot_Significance(bool unblind){
 
 
   //take tree with exp significance for all masses
-  TFile *fexp=new TFile("higgsCombineEXOZZExpSignif.ProfileLikelihood.TOTAL.root","READ");
+  char fnam[50];
+  sprintf(fnam, "higgsCombine%sExpSignif.ProfileLikelihood.TOTAL.root", scenario);
+  TFile *fexp=new TFile(fnam,"READ");
   TTree *texp=(TTree*)fexp->Get("limit");
 
   //take tree with obs significance for all masses
-  TFile *fobs=new TFile("higgsCombineEXOZZObsSignif.ProfileLikelihood.TOTAL.root","READ");
+  char fnam[50];
+  sprintf(fnam, "higgsCombine%sObsSignif.ProfileLikelihood.TOTAL.root", scenario);
+  TFile *fobs=new TFile(fnam,"READ");
   TTree *tobs=(TTree*)fobs->Get("limit");
 
   double expS,expM;
@@ -52,7 +56,7 @@ void plot_Significance(bool unblind){
     return;
   }
 
-  double arrM[N+1],arrExp[N+1],arrObs[N+1];
+  double arrM[100],arrExp[100],arrObs[100];
 
 
   //1st loop on tree for preparing mH ordered list
@@ -113,18 +117,20 @@ void plot_Significance(bool unblind){
   grObs->SetMarkerStyle(20);
   grExp->SetLineStyle(kDashed);
   grObs->SetLineStyle(kSolid);
+  grExp->SetTitle("");
 
   TLegend *l=new TLegend(0.25,0.20,0.65,0.30);
   l->AddEntry(grExp,"Expected Significance","L");
   if(unblind)l->AddEntry(grObs,"Observed Significance","LP");
   l->SetFillColor(kWhite);
 
-  TCanvas *cS=new TCanvas("canSig","Significance EXO-VV",800,800);
+  TCanvas *cS=new TCanvas("canSig","Significance EXO-VH",800,800);
   cS->cd();
 
-  double fr_left=590.0, fr_down=1e-06,fr_right=2920.0,fr_up=0.6;
-  grExp->GetXaxis()->SetTitle("M_{1} [GeV]");
+  double fr_left=750.0, fr_down=1e-06,fr_right=2650.0,fr_up=0.6;
+  grExp->GetXaxis()->SetTitle("M_{V'} [GeV]");
   grExp->GetYaxis()->SetTitle("p-value");// #rightarrow 2l2q
+  grExp->GetYaxis()->SetTitleOffset(1.6);
 
   grExp->Draw("AL");
   if(unblind)  grObs->Draw("LP");
@@ -143,22 +149,22 @@ void plot_Significance(bool unblind){
   l1->SetLineStyle(2);
   l1->SetLineWidth(3.0);
   l1->SetLineColor(kRed);
-  l1->DrawLine(600.0,quant1sigma,2900.0,quant1sigma);
+  l1->DrawLine(800.0,quant1sigma,2600.0,quant1sigma);
   TLine *l2=new TLine();
   l2->SetLineStyle(2);
   l2->SetLineWidth(3.0);
   l2->SetLineColor(kRed);
-  l2->DrawLine(600.0,quant2sigma,2900.0,quant2sigma);
+  l2->DrawLine(800.0,quant2sigma,2600.0,quant2sigma);
   TLine *l3=new TLine();
   l3->SetLineStyle(2);
   l3->SetLineWidth(3.0);
   l3->SetLineColor(kRed);
-  l3->DrawLine(600.0,quant3sigma,2900.0,quant3sigma);
+  l3->DrawLine(800.0,quant3sigma,2600.0,quant3sigma);
   TLine *l4=new TLine();
   l4->SetLineStyle(2);
   l4->SetLineWidth(3.0);
   l4->SetLineColor(kRed);
-  l4->DrawLine(600.0,quant4sigma,2900.0,quant4sigma);
+  l4->DrawLine(800.0,quant4sigma,2600.0,quant4sigma);
 
 
   TPaveText* cmslabel = new TPaveText( 0.145, 0.953, 0.6, 0.975, "brNDC");
@@ -186,9 +192,13 @@ void plot_Significance(bool unblind){
    label_sqrt->Draw();
 
 
-   cS->SaveAs("EXOVV_Significance.root");
-   cS->SaveAs("EXOVV_Significance.eps");
-   cS->SaveAs("EXOVV_Significance.png");
-   cS->SaveAs("EXOVV_Significance.pdf");
-
+   char fnam[50];
+   sprintf(fnam, "EXOVH_%s_Significance.root", scenario);
+   cS->SaveAs(fnam);
+   sprintf(fnam, "EXOVH_%s_Significance.eps", scenario);
+   cS->SaveAs(fnam);
+   sprintf(fnam, "EXOVH_%s_Significance.png", scenario);
+   cS->SaveAs(fnam);
+   sprintf(fnam, "EXOVH_%s_Significance.pdf", scenario);
+   cS->SaveAs(fnam);
 }

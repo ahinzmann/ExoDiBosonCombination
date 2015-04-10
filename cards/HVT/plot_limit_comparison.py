@@ -19,9 +19,11 @@ gStyle.SetLegendBorderSize(0)
 
 if __name__ == '__main__':
  scenarios={}
- scenarios["ALL8TeV"]=["SEMILEPT","xwh","xzh"]
+ scenarios["ALL8TeV"]=["ALL","xzh","xvh","xwh"]
  names={}
+ names["ALL"]="lvbb, qq#tau#tau, qqbb, qqqqqq (8 TeV)"
  names["SEMILEPT"]="lvbb, qq#tau#tau (8 TeV)"
+ names["xvh"]="qqbb, qqqqqq (8 TeV)"
  names["xwh"]="lvbb (8 TeV)"
  names["xzh"]="qq#tau#tau (8 TeV)"
  colors=[4,6,7,8,9]
@@ -44,7 +46,7 @@ if __name__ == '__main__':
       #l1.GetListOfPrimitives().Remove(l1.GetListOfPrimitives()[-1])
       canvas[-1].SetLogy()
       canvas[-1].Draw()
-      l1.AddEntry(graphobs[-1],names[name],"lp")
+      l1.AddEntry(graphobs[-1],names[name],"")
     else:
       graphobs[-1].SetMarkerColor(colors[len(files)-2])
       graphobs[-1].SetMarkerStyle(styles[len(files)-2])

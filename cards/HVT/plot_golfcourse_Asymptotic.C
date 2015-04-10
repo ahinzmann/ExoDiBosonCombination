@@ -23,7 +23,7 @@ const float intLumi = 19.7;
 const float BRZZ2l2q = isZZChannel ? 0.0941 : 0.2882464;
 const string dirXSect = "./";
 
-void plot_golfcourse_Asymptotic(bool unblind = true, char* width = 0, char* scenario = "SEMILEPT");
+void plot_golfcourse_Asymptotic(bool unblind = true, char* width = 0, char* scenario = "ALL");
 void setFPStyle();
 void scaleGraph(TGraphAsymmErrors* g, double factor)
 {
@@ -167,7 +167,7 @@ void plot_golfcourse_Asymptotic(bool unblind, char* width, char* scenario)
 
   string xsect_file_th = dirXSect + "theory_RS1_WW_8TeV.txt";
   if (!isZZChannel)xsect_file_th = dirXSect + "theory_RS1_ZZ_8TeV.txt";
-  if (isFullCombination)xsect_file_th = dirXSect + "theory_HVT_signal_strength.txt";
+  if (isFullCombination)xsect_file_th = dirXSect + "theory_HVT_VH_8TeV.txt";
   // make_interpolated_xsect(xsect_file_th, xsect_file_interpol);
   // string xsect_file_interpol="./RSGravXSectTimesBRToZZ_AgasheHapola_c10_EXPOINTERP.txt";
 
@@ -304,13 +304,13 @@ void plot_golfcourse_Asymptotic(bool unblind, char* width, char* scenario)
     /// This is the part where we multiply the limits in terms of signal strength
     /// by the cross-section, in order to have limits in picobarns.
     //std::cerr << mass[nMassEff] << ":" << v_obs.at(im) << std::endl;
-    obs_lim_cls[nMassEff] = v_obs.at(im);
+    obs_lim_cls[nMassEff] = v_obs.at(im) * fl_xs;
     nMassEff++;
     if (!excl) {
       mass1[nMassEff1] = v_mh.at(im);
-      medianD[nMassEff1] = v_median.at(im);
-      up68err[nMassEff1] = (v_68h.at(im) - v_median.at(im));
-      down68err[nMassEff1] = (v_median.at(im) - v_68l.at(im));
+      medianD[nMassEff1] = v_median.at(im) * fl_xs;
+      up68err[nMassEff1] = (v_68h.at(im) - v_median.at(im)) * fl_xs;
+      down68err[nMassEff1] = (v_median.at(im) - v_68l.at(im)) * fl_xs;
       cout << "M=" << mass1[nMassEff1] << "  Median=" << medianD[nMassEff1] << endl;
 
       //scale factor 100 for making the xsect visible
@@ -328,9 +328,9 @@ void plot_golfcourse_Asymptotic(bool unblind, char* width, char* scenario)
       bool skip95 = false; //
       if (skip95)continue;
       mass95[nM95] = v_mh.at(im);
-      median95[nM95] = v_median.at(im);
-      up95err[nM95] = (v_95h.at(im) - v_median.at(im));
-      down95err[nM95] = (v_median.at(im) - v_95l.at(im));
+      median95[nM95] = v_median.at(im) * fl_xs;
+      up95err[nM95] = (v_95h.at(im) - v_median.at(im)) * fl_xs;
+      down95err[nM95] = (v_median.at(im) - v_95l.at(im)) * fl_xs;
 
       //  cout<<"M95: "<< mass95[nM95]<<" "<<median95[nM95]<<" +"<<up95err[nM95]<<"   -"<< down95err[nM95]<<
       // " ("<<v_95h.at(im) <<" - "<<v_median.at(im) <<")"<<endl;
@@ -525,7 +525,7 @@ void plot_golfcourse_Asymptotic(bool unblind, char* width, char* scenario)
     fr_left = 750.0, fr_down = 5E-4, fr_right = 3950.0, fr_up = 1.0;
   }
   if (isFullCombination) {
-    fr_left = 750.0, fr_down = 1e-1, fr_right = 2650.0, fr_up = 1e2;
+    fr_left = 750.0, fr_down = 1e-3, fr_right = 2650.0, fr_up = 1e1;
   }
 
   TCanvas *cMCMC = new TCanvas("c_lim_Asymptotic", "canvas with limits for Asymptotic CLs", 630, 600);
@@ -540,7 +540,7 @@ void plot_golfcourse_Asymptotic(bool unblind, char* width, char* scenario)
   hr->SetXTitle("M_{V'} [GeV]");
   hr->SetYTitle("#sigma_{95%} #times BR(Z' #rightarrow " + VV + ") [pb]"); // #rightarrow 2l2q
   if(isFullCombination)
-    hr->SetYTitle("#sigma_{95%} / #sigma_{TH}"); // #rightarrow 2l2q
+    hr->SetYTitle("#sigma_{95%} #times BR(V' #rightarrow " + VV + ") [pb]"); // #rightarrow 2l2q
   
 
   gr95_cls->SetFillColor(kYellow);
@@ -548,7 +548,7 @@ void plot_golfcourse_Asymptotic(bool unblind, char* width, char* scenario)
   gr95_cls->SetLineStyle(kDashed);
   gr95_cls->SetLineWidth(3);
   gr95_cls->GetXaxis()->SetTitle("M_{V'} [GeV]");
-  gr95_cls->GetYaxis()->SetTitle("#sigma_{95%} / #sigma_{TH}"); // #rightarrow 2l2q
+  gr95_cls->GetYaxis()->SetTitle("#sigma_{95%} #times BR(V' #rightarrow " + VV + ") [pb]"); // #rightarrow 2l2q
   gr95_cls->GetXaxis()->SetRangeUser(fr_left, fr_right);
 
   gr95_cls->Draw("3");
@@ -559,7 +559,7 @@ void plot_golfcourse_Asymptotic(bool unblind, char* width, char* scenario)
   gr68_cls->SetLineWidth(3);
   gr68_cls->Draw("3same");
   grmedian_cls->GetXaxis()->SetTitle("M_{V'} [GeV]");
-  grmedian_cls->GetYaxis()->SetTitle("#sigma_{95%} / #sigma_{TH}"); // #rightarrow 2l2q
+  grmedian_cls->GetYaxis()->SetTitle("#sigma_{95%} #times BR(V' #rightarrow " + VV + ") [pb]"); // #rightarrow 2l2q
   grmedian_cls->SetMarkerStyle(24);//25=hollow squre
   grmedian_cls->SetMarkerColor(kBlack);
   grmedian_cls->SetLineStyle(2);
@@ -617,7 +617,7 @@ void plot_golfcourse_Asymptotic(bool unblind, char* width, char* scenario)
 
   //more graphics
 
-  TLegend *leg = new TLegend(.18, .65, .60, .90);
+  TLegend *leg = new TLegend(.38, .65, .80, .90);
   //   TLegend *leg = new TLegend(.35,.71,.90,.90);
   leg->SetFillColor(0);
   leg->SetShadowColor(0);

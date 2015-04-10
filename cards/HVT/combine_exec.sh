@@ -27,7 +27,7 @@ echo "Working release directory: ${RELEASEDIR}"   >> ${LOG}
 algo="Asymptotic"
 #algo="ProfileLikelihood"
 hint="ProfileLikelihood" # before the algo method, run the hint method for restricting integration field
-label="xzh"
+label="ALL"
 ntoys=1000
 #WORKDIR=${RELEASEDIR}/HiggsAna/HLLJJCommon/test/fits//${OUTDIR}/${mass}
 WORKDIR=/afs/cern.ch/user/h/hinzmann/workspace/limit_combination/CMSSW_7_1_5/src/ExoDiBosonCombination/cards/HVT/${OUTDIR}/comb_${mass}

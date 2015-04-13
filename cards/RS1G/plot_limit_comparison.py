@@ -23,6 +23,7 @@ if __name__ == '__main__':
  scenarios["JJ813TeV"]=["JJ813","xjj8","xjj13"]
  scenarios["WW813TeV"]=["WW813","xww","xww13"]
  scenarios["ALL813TeV"]=["ALL813","ALL","ALL13"]
+ scenarios["ALL13TeV"]=["ALL13","xww13","xjj13"]
  names={}
  names["ALL"]="lvJ, llJ, JJ (8 TeV)"
  names["xww"]="lvJ (8 TeV)"

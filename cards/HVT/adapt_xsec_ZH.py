@@ -44,6 +44,11 @@ for mass in masses:
 	   split=line.replace("\n","").split(" ")
 	   xsecZH[int(split[0])]=float(split[1])
 
+	xsecVH={}
+	for line in open("theory_HVT_VH_8TeV.txt").readlines():
+	   split=line.replace("\n","").split(" ")
+	   xsecVH[int(split[0])]=float(split[1])
+
 	for l in range(len(fZH)):
 	  if "rate" in fZH[l]:
 	    line="rate                                     "
@@ -55,7 +60,7 @@ for mass in masses:
 	      signal=(s in [1,3,5,7,9,11]) # only change signal
               numberZH=float(fZHsplit[s])
 	      if signal:
-                numberZH=numberZH*xsecZHqqtautau[mass]
+                numberZH=numberZH*xsecZHqqtautau[mass]*(1.+0.95*2.) # WH has 95% lower Z-tagging efficiency than ZH and twice the cross section
               line+="%.5e  " % numberZH
 	    line+="\n"
 	    f.write(line)

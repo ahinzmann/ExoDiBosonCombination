@@ -26,7 +26,7 @@ COMBRS1ZHCARD="datacard_${MASS}_interpolate_adapt.txt"
 if [ $MASS -le 2500 ]
 then
 echo "Moving to "${ZHDIR}/
-cp ${ZHDIR}/${COMBRS1ZHCARD} ${OUTDIR}/${COMBZHCARD}
+sed -e 's|lumi|lumi_8TeV|g' -e 's|PUReweighting|CMS_pu|g' -e 's|VTag|CMS_eff_tau21_sf|g' -e 's|EleScale|CMS_scale_e|g' -e 's|EleResol|CMS_res_e|g' -e 's|MuoScale|CMS_scale_m|g' -e 's|MuoResol|CMS_res_m|g' -e 's|EleID|CMS_eff_e|g' -e 's|MuoID|CMS_eff_m|g' -e 's|JES|CMS_scale_j|g' -e 's|JER|CMS_res_j|g' -e 's|BTagSyst|CMS_btagger|g' < ${ZHDIR}/${COMBRS1ZHCARD} &> $OUTDIR/${COMBZHCARD}
 fi
 
 ### VH only
@@ -37,7 +37,7 @@ COMBVHCARD="comb_${LABEL}.${MASS}.txt"
 if [ $MASS -ge 1000 ] && [ $MASS -le 2600 ]
 then
 ###sed -e '/CMS_sig_p/ s|0|0.0|g' -e '/CMS_sig_p/ s|1|1.0|g' < CMS_vh_Bulk_1200_8TeV_CMS_vh_VH.txt
-sed -e 's|datacards/../workspaces/||g' -e 's|datacards/../HbbVqqHwwworkspaces/||g' < ${VHDIR}/${VHCARDORIG} &> $OUTDIR/${COMBVHCARD}
+sed -e 's|datacards/../workspaces/||g' -e 's|datacards/../HbbVqqHwwworkspaces/||g'  -e 's|CMS_Btagging|CMS_doubleBtagging|g' < ${VHDIR}/${VHCARDORIG} &> $OUTDIR/${COMBVHCARD}
 ###    sed -e 's|datacards/../workspaces/||g' -e '/CMS_sig_p/ s|0|0.0|' -e '/CMS_sig_p1/ s|1|1.0|2' -e '/CMS_sig_p2/ s|1|1.0|' < ${VHDIR}/datacards/${VHCARDORIG} &> $OUTDIR/${COMBVHCARD}
 #    cp ${VHDIR}/datacards/${VHCARDORIG}  $OUTDIR/${COMBVHCARD}
     cp ${VHDIR}/CMS_jj_*${MASS}*.root ${OUTDIR}/
@@ -57,7 +57,7 @@ if [ $MASS -le 2500 ]
     then
     cd ${WHDIR}/
     combineCards.py $EXOWHCARDS &> tmp_XWH_card.txt
-    sed -e 's|cards_mu/||g'  -e 's|cards_el/||g' < tmp_XWH_card.txt  > ${COMBWHCARD}
+    sed -e 's|cards_mu/||g'  -e 's|cards_el/||g'   -e 's|CMS_xwh_prunedmass|CMS_jet_mass|g'   -e 's|CMS_xwh_btagger|CMS_btagger|g' -e 's|CMS_xwh_btag_eff|CMS_doubleBtagging|g' < tmp_XWH_card.txt  > ${COMBWHCARD}
     cd -
     cp ${WHDIR}/${COMBWHCARD} ${OUTDIR}/${COMBWHCARD}
     cp ${WHDIR}/cards_el/${WHBASE}_*workspace.root  ${OUTDIR}/

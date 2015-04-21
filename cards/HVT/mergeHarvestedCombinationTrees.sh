@@ -15,7 +15,7 @@ if [ $# -gt 0 ]
     FMOD=$WIDTH"."
 fi
 
-LABEL="ALL"
+LABEL="xvh"
 LISTFILES_EXP=""
 LISTFILES_OBS=""
 LISTFILES_ASYMPT=""

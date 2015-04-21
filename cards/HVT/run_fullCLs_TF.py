@@ -78,8 +78,7 @@ outputfile.write("echo; echo \"Executing the following command\: "+commandCombin
 outputfile.write('echo \"Path to combine program: $( which combine )\"; echo ;\n')
 outputfile.write(commandCombine)
 outputfile.write("ls -lht * ; echo ; echo -----; echo \n")                     
-#outputfile.write("mv higgsCombineX"+str(chan)"_CLs_"+str(mass)+".HybridNew.mH"+str(mass)+".100"+str(Njob)+".root output.root")
-outputfile.write("mv higgsCombine*.root output.root") # Come on, let's be safer
+outputfile.write("mv higgsCombineX"+str(chan)+"_CLs_"+str(mass)+".HybridNew*.root output.root")
 outputfile.close()
 
 command="source "+submitname

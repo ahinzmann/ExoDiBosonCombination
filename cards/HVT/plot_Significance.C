@@ -17,7 +17,7 @@
 #include "TMath.h"
 #include "TPaveText.h"
 
-void plot_Significance(bool unblind=true, char* scenario = "ALL");
+void plot_Significance(bool unblind=true, char* scenario = "xvh");
 const float intLumi=19.7;
 
 
@@ -26,8 +26,10 @@ void plot_Significance(bool unblind, char* scenario){
 
   gROOT->ProcessLine(".x tdrstyle.cc");
   gStyle->SetPadLeftMargin(0.16);
+  gStyle->SetPadTopMargin(0.05);
  
   gStyle->SetNdivisions(605, "XYZ");
+  gROOT->LoadMacro("CMS_lumi.C");
 
 
   //take tree with exp significance for all masses
@@ -119,7 +121,8 @@ void plot_Significance(bool unblind, char* scenario){
   grObs->SetLineStyle(kSolid);
   grExp->SetTitle("");
 
-  TLegend *l=new TLegend(0.25,0.20,0.65,0.30);
+  TLegend *l=new TLegend(0.2,0.15,0.75,0.40);
+  l->SetTextSize(0.03);
   l->AddEntry(grExp,"Expected Significance","L");
   if(unblind)l->AddEntry(grObs,"Observed Significance","LP");
   l->SetFillColor(kWhite);
@@ -189,8 +192,9 @@ void plot_Significance(bool unblind, char* scenario){
    label_sqrt->SetTextAlign(31); // align right
    // label_sqrt->AddText("#sqrt{s} = 7 TeV");
    label_sqrt->AddText(Form("%s, L = %s at  #sqrt{s} = 8 TeV", leftText.c_str(), lumiText));
-   label_sqrt->Draw();
+   //label_sqrt->Draw();
 
+   CMS_lumi( cS, 2, 0 );
 
    char fnam[50];
    sprintf(fnam, "EXOVH_%s_Significance.root", scenario);

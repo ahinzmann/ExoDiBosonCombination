@@ -23,7 +23,7 @@ const float intLumi = 19.7;
 const float BRZZ2l2q = isZZChannel ? 0.0941 : 0.2882464;
 const string dirXSect = "./";
 
-void plot_golfcourse_Asymptotic(bool unblind = true, char* width = 0, char* scenario = "ALL");
+void plot_golfcourse_Asymptotic(bool unblind = true, char* width = 0, char* scenario = "xvh");
 void setFPStyle();
 void scaleGraph(TGraphAsymmErrors* g, double factor)
 {
@@ -81,6 +81,7 @@ void plot_golfcourse_Asymptotic(bool unblind, char* width, char* scenario)
 
   bool useNewStyle = true;
   if (useNewStyle)  setFPStyle();
+  gROOT->LoadMacro("CMS_lumi.C");
 
   TFile *fFREQ = 0;
   if (width == 0)
@@ -617,12 +618,12 @@ void plot_golfcourse_Asymptotic(bool unblind, char* width, char* scenario)
 
   //more graphics
 
-  TLegend *leg = new TLegend(.38, .65, .80, .90);
+  TLegend *leg = new TLegend(.30, .65, .85, .90);
   //   TLegend *leg = new TLegend(.35,.71,.90,.90);
   leg->SetFillColor(0);
   leg->SetShadowColor(0);
   leg->SetTextFont(42);
-  leg->SetTextSize(0.025);
+  leg->SetTextSize(0.03);
   //   leg->SetBorderMode(0);
   if (unblind)leg->AddEntry(grobslim_cls, "Frequentist CL_{S} Observed", "LP");
   leg->AddEntry(gr68_cls, "Frequentist CL_{S}  Expected #pm 1#sigma", "LF");
@@ -651,7 +652,7 @@ void plot_golfcourse_Asymptotic(bool unblind, char* width, char* scenario)
     char lumiText[300];
     sprintf(lumiText, "%.1f %s", intLumi, units.c_str());
     cmslabel->AddText(Form("%s", leftText.c_str(), lumiText));
-    cmslabel->Draw();
+    //cmslabel->Draw();
 
     TPaveText* label_sqrt = new TPaveText(0.5, 0.953, 0.96, 0.975, "brNDC");
     label_sqrt->SetFillColor(kWhite);
@@ -669,6 +670,8 @@ void plot_golfcourse_Asymptotic(bool unblind, char* width, char* scenario)
     aNum->SetTextFont(42);
     aNum->SetBorderSize(0);
     aNum->Draw();
+
+    CMS_lumi( cMCMC, 2, 11 );
   }  
   else {
     TLatex * latex = new TLatex();

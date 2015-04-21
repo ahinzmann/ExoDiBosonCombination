@@ -23,7 +23,7 @@ const float intLumi = 19.7;
 const float BRZZ2l2q = isZZChannel ? 0.0941 : 0.2882464;
 const string dirXSect = "./";
 
-void plot_golfcourse_HybridNew(bool unblind = true, char* width = 0);
+void plot_golfcourse_HybridNew(bool unblind = true, char* width = 0, char* scenario = "ALL");
 void setFPStyle();
 void scaleGraph(TGraphAsymmErrors* g, double factor)
 {
@@ -76,18 +76,22 @@ double linear_interp(double s2, double s1, double mass, double m2, double m1)
 
 
 
-void plot_golfcourse_HybridNew(bool unblind, char* width)
+void plot_golfcourse_HybridNew(bool unblind, char* width, char* scenario)
 {
 
   bool useNewStyle = true;
   if (useNewStyle)  setFPStyle();
+  gROOT->LoadMacro("CMS_lumi.C");
 
   TFile *fFREQ = 0;
   if (width == 0)
-    fFREQ = new TFile("higgsCombineEXOZZ.HybridNew.TOTAL.root", "READ");
-  else {
+  {
     char fnam[50];
-    sprintf(fnam, "higgsCombineEXOZZ.HybridNew.%s.TOTAL.root", width);
+    sprintf(fnam, "higgsCombine%s.HybridNew.TOTAL.root", scenario);
+    fFREQ = new TFile(fnam, "READ");
+  } else {
+    char fnam[50];
+    sprintf(fnam, "higgsCombine%s.HybridNew.%s.TOTAL.root", scenario, width);
     fFREQ = new TFile(fnam, "READ");
   }
 
@@ -104,11 +108,11 @@ void plot_golfcourse_HybridNew(bool unblind, char* width)
   for (int i = 0; i < t->GetEntries(); i++) {
     t->GetEntry(i);
     double innerMH = mh;
-    if (quant > -1.01 && quant < -0.99) {
+    if (quant > 0.49 && quant < 0.51) {
       v_mhTMP.push_back(mh);
     }
   }
-  cout << "Vector of mh filled." << endl;
+  cout << "Vector of mh filled." << v_mhTMP.size() << endl;
   std::sort(v_mhTMP.begin(), v_mhTMP.end());
 
   /// 2nd loop on tree to fill vectors with limits and error bands
@@ -126,7 +130,6 @@ void plot_golfcourse_HybridNew(bool unblind, char* width)
       /// Map: mh --> observed, 95low, 68low, expected, 68hi, 95hi, xsec
       if (quant > -1.01 && quant < -0.99) {
         v_obs.push_back(limit);
-        v_mh.push_back(mh);
       } 
       else if (quant > 0.02 && quant < 0.03) {
 	v_95l.push_back(limit);
@@ -136,6 +139,7 @@ void plot_golfcourse_HybridNew(bool unblind, char* width)
       }
       else if (quant > 0.49 && quant < 0.51) {
 	v_median.push_back(limit);
+        v_mh.push_back(mh);
       }
       else if (quant > 0.83 && quant < 0.85) {
 	v_68h.push_back(limit);
@@ -162,9 +166,9 @@ void plot_golfcourse_HybridNew(bool unblind, char* width)
   // Notice that the values to plot the RED lines in the plot
   // are directly input in this macro (see below).
 
-  string xsect_file_th = dirXSect + "xsect_BulkG_ZZ_c0p5_xsect_in_pb.txt";
-  if (!isZZChannel)xsect_file_th = dirXSect + "xsect_BulkG_WW_c0p5_xsect_in_pb.txt";
-  if (isFullCombination)xsect_file_th = dirXSect + "xsect_BulkGProduction_c0p5_correct.txt";
+  string xsect_file_th = dirXSect + "theory_RS1_WW_8TeV.txt";
+  if (!isZZChannel)xsect_file_th = dirXSect + "theory_RS1_ZZ_8TeV.txt";
+  if (isFullCombination)xsect_file_th = dirXSect + "theory_HVT_VH_8TeV.txt";
   // make_interpolated_xsect(xsect_file_th, xsect_file_interpol);
   // string xsect_file_interpol="./RSGravXSectTimesBRToZZ_AgasheHapola_c10_EXPOINTERP.txt";
 
@@ -191,7 +195,7 @@ void plot_golfcourse_HybridNew(bool unblind, char* width)
   }
   cout << "Size of theory xsects vector" << v_mhxs.size() << endl;
   xsect_file.close();
-
+  /*
   string xsect_file_interpol2 = dirXSect + "xsect_BulkG_ZZ_c0p2_xsect_in_pb.txt";
   if (!isZZChannel)xsect_file_interpol2 = dirXSect + "xsect_BulkG_WW_c0p2_xsect_in_pb.txt";
   if (isFullCombination)xsect_file_interpol2 = dirXSect + "xsect_BulkGProduction_c0p5_correct.txt";
@@ -216,10 +220,13 @@ void plot_golfcourse_HybridNew(bool unblind, char* width)
   }
   cout << "Size of theory xsects vector" << v_xs10.size() << endl;
   xsect_file2.close();
-
+  */
   ///////////////////////////
   // END THEORY INPUT PART //
   ///////////////////////////
+
+  if(!unblind)
+    v_obs=v_median;
 
   /// Here we multiply the limits in terms of signal strength by the cross-section.
   /// There are also some hooks to exclude sick mass points.
@@ -239,6 +246,13 @@ void plot_golfcourse_HybridNew(bool unblind, char* width)
     //if (mass[nMassEff - 1] > 1600.) cout << "Array " << im << flush << "  m = " << v_mh.at(im) << endl;;
 
     // some protection against messed up jobs
+
+    if (im>=v_median.size() || im>=v_68h.size() || im>=v_95h.size() || im>=v_68l.size() || im>=v_95l.size()) {
+      cout << "Point " << im << " at M = " << v_mh.at(im) << " excluded: " << v_median.size() << endl;
+      nexcluded++;
+      continue;
+    }
+
     excl = false;
     if (v_68h.at(im) >= v_95h.at(im) || v_68l.at(im) <= v_95l.at(im)) {
       // sick limits where the 68% band is out of the 95% band.
@@ -247,6 +261,7 @@ void plot_golfcourse_HybridNew(bool unblind, char* width)
       // continue;
       excl = true;
     }
+
     //if(im%2==1)excl=true; //sample only one half of the points
 
     // search for right index in theory vectors
@@ -272,7 +287,7 @@ void plot_golfcourse_HybridNew(bool unblind, char* width)
     }
 
     double fl_xs = double(v_xs.at(ind)); //*1000.0
-    double fl_xs10 = double(v_xs10.at(ind)); //*1000.0
+    double fl_xs10 = 0;//double(v_xs10.at(ind)); //*1000.0
     fl_xs = (fl_xs);
     fl_xs10 = (fl_xs10);
 
@@ -283,13 +298,13 @@ void plot_golfcourse_HybridNew(bool unblind, char* width)
       //continue;
     }
 
-
     if (fl_xs < fl_xs10)cout << "WARNING ABOUT XSECT! XS=" << fl_xs << "  XS10=" << fl_xs10 << endl;
 
     mass[nMassEff] = v_mh.at(im);
 
     /// This is the part where we multiply the limits in terms of signal strength
     /// by the cross-section, in order to have limits in picobarns.
+    //std::cerr << mass[nMassEff] << ":" << v_obs.at(im) << std::endl;
     obs_lim_cls[nMassEff] = v_obs.at(im) * fl_xs;
     nMassEff++;
     if (!excl) {
@@ -508,13 +523,13 @@ void plot_golfcourse_HybridNew(bool unblind, char* width)
   // cout<<"Plotting"<<endl;
   double fr_left = 590.0, fr_down = 5E-4, fr_right = 2520.0, fr_up = 0.5;
   if (!isZZChannel) {
-    fr_left = 750.0, fr_down = 5E-4, fr_right = 2550.0, fr_up = 1.0;
+    fr_left = 750.0, fr_down = 5E-4, fr_right = 3950.0, fr_up = 1.0;
   }
   if (isFullCombination) {
-    fr_left = 550.0, fr_down = 8E-4, fr_right = 2550.0, fr_up = 2.0;
+    fr_left = 750.0, fr_down = 1e-3, fr_right = 2650.0, fr_up = 1e1;
   }
 
-  TCanvas *cMCMC = new TCanvas("c_lim_Hybrid", "canvas with limits for HybridNew CLs", 630, 600);
+  TCanvas *cMCMC = new TCanvas("c_lim_HybridNew", "canvas with limits for HybridNew CLs", 630, 600);
   cMCMC->cd();
   cMCMC->SetGridx(1);
   cMCMC->SetGridy(1);
@@ -522,24 +537,19 @@ void plot_golfcourse_HybridNew(bool unblind, char* width)
 
   TH1F *hr = cMCMC->DrawFrame(fr_left, fr_down, fr_right, fr_up, "");
   TString VV = "ZZ";
-  if (!isZZChannel)VV = "WW";
-  hr->SetXTitle("M_{G*} [GeV]");
-  hr->SetYTitle("#sigma_{95%} #times BR(G* #rightarrow " + VV + ") [pb]"); // #rightarrow 2l2q
+  if (!isZZChannel)VV = "VH";
+  hr->SetXTitle("M_{V'} [GeV]");
+  hr->SetYTitle("#sigma_{95%} #times BR(Z' #rightarrow " + VV + ") [pb]"); // #rightarrow 2l2q
   if(isFullCombination)
-    hr->SetYTitle("#sigma_{95%} (pp #rightarrow G*) [pb]"); // #rightarrow 2l2q
+    hr->SetYTitle("#sigma_{95%} #times BR(V' #rightarrow " + VV + ") [pb]"); // #rightarrow 2l2q
   
-  scaleGraph(gr95_cls,4);
-  scaleGraph(gr68_cls,4);
-  scaleGraph(grmedian_cls,4);
-  scaleGraph(grobslim_cls,4);
-
 
   gr95_cls->SetFillColor(kYellow);
   gr95_cls->SetFillStyle(1001);//solid
   gr95_cls->SetLineStyle(kDashed);
   gr95_cls->SetLineWidth(3);
-  gr95_cls->GetXaxis()->SetTitle("M_{G*} [GeV]");
-  gr95_cls->GetYaxis()->SetTitle("#sigma_{95%} #times BR(G* #rightarrow " + VV + ") [pb]"); // #rightarrow 2l2q
+  gr95_cls->GetXaxis()->SetTitle("M_{V'} [GeV]");
+  gr95_cls->GetYaxis()->SetTitle("#sigma_{95%} #times BR(V' #rightarrow " + VV + ") [pb]"); // #rightarrow 2l2q
   gr95_cls->GetXaxis()->SetRangeUser(fr_left, fr_right);
 
   gr95_cls->Draw("3");
@@ -549,8 +559,8 @@ void plot_golfcourse_HybridNew(bool unblind, char* width)
   gr68_cls->SetLineStyle(kDashed);
   gr68_cls->SetLineWidth(3);
   gr68_cls->Draw("3same");
-  grmedian_cls->GetXaxis()->SetTitle("M_{G*} [GeV]");
-  grmedian_cls->GetYaxis()->SetTitle("#sigma_{95%} #times BR(G* #rightarrow " + VV + ") [pb]"); // #rightarrow 2l2q
+  grmedian_cls->GetXaxis()->SetTitle("M_{V'} [GeV]");
+  grmedian_cls->GetYaxis()->SetTitle("#sigma_{95%} #times BR(V' #rightarrow " + VV + ") [pb]"); // #rightarrow 2l2q
   grmedian_cls->SetMarkerStyle(24);//25=hollow squre
   grmedian_cls->SetMarkerColor(kBlack);
   grmedian_cls->SetLineStyle(2);
@@ -576,24 +586,6 @@ void plot_golfcourse_HybridNew(bool unblind, char* width)
   grthSM10->SetLineStyle(kDashed);
   grthSM10->SetFillColor(kRed);
   grthSM10->SetFillStyle(3344);
-
-  TLine *l1 = new TLine();
-  l1->SetLineStyle(1);
-  l1->SetLineWidth(2.0);
-  l1->SetLineColor(kBlue);
-  l1->SetLineStyle(7);
-  l1->DrawLine(950.0,fr_down,950.0,fr_up);
-  //cMCMC->RedrawAxis("");
-  //gPad->RedrawAxis("");
-  cMCMC->Update();
-
-  TLine *l1b = new TLine();
-  l1b->SetLineStyle(1);
-  l1b->SetLineWidth(2.0);
-  l1b->SetLineColor(kBlue);
-  l1b->SetLineStyle(7);
-  l1b->DrawLine(750.0,fr_down,750.0,fr_up);
-  cMCMC->Update();
 
   grthSM->Draw("L3");
   if(!isFullCombination) {
@@ -626,56 +618,27 @@ void plot_golfcourse_HybridNew(bool unblind, char* width)
 
   //more graphics
 
-  TLegend *leg = new TLegend(.46, .65, .92, .90);
+  TLegend *leg = new TLegend(.30, .65, .85, .90);
   //   TLegend *leg = new TLegend(.35,.71,.90,.90);
   leg->SetFillColor(0);
   leg->SetShadowColor(0);
   leg->SetTextFont(42);
-  leg->SetTextSize(0.025);
+  leg->SetTextSize(0.03);
   //   leg->SetBorderMode(0);
   if (unblind)leg->AddEntry(grobslim_cls, "Frequentist CL_{S} Observed", "LP");
   leg->AddEntry(gr68_cls, "Frequentist CL_{S}  Expected #pm 1#sigma", "LF");
   leg->AddEntry(gr95_cls, "Frequentist CL_{S}  Expected #pm 2#sigma", "LF");
   if(!isFullCombination) {
-    leg->AddEntry(grthSM, "#sigma_{TH} x BR(G* #rightarrow " + VV + "), #tilde{k}=0.50", "L"); // #rightarrow 2l2q
-    leg->AddEntry(grthSM10, "#sigma_{TH} x BR(G* #rightarrow " + VV + "), #tilde{k}=0.20", "L"); // #rightarrow 2l2q
+    leg->AddEntry(grthSM, "#sigma_{TH} x BR(Z' #rightarrow " + VV + "), #tilde{k}=0.50", "L"); // #rightarrow 2l2q
+    leg->AddEntry(grthSM10, "#sigma_{TH} x BR(Z' #rightarrow " + VV + "), #tilde{k}=0.20", "L"); // #rightarrow 2l2q
   }
   if(isFullCombination) {
-    leg->AddEntry(grthSM, "#sigma_{TH} (pp #rightarrow G*), #tilde{k}=0.50", "L");
+    leg->AddEntry(grthSM, "#sigma_{TH} (pp #rightarrow V')", "L");
   }
   leg->Draw();
 
   if (useNewStyle) {
     if(isFullCombination || isZZChannel) {
-      TPaveText* pave1 = new TPaveText(0.18, 0.18, 0.19, 0.22, "brNDC");
-      pave1->SetFillColor(kWhite);
-      pave1->SetTextSize(0.0375);
-      pave1->SetTextAlign(11);
-      pave1->SetTextFont(22);
-      pave1->SetTextColor(kBlue);
-      pave1->SetBorderSize(0);
-      pave1->AddText("I");
-      pave1->Draw();
-      
-      TPaveText* pave2 = new TPaveText(0.25, 0.18, 0.27, 0.22, "brNDC");
-      pave2->SetFillColor(kWhite);
-      pave2->SetTextSize(0.0375);
-      pave2->SetTextAlign(11);
-      pave2->SetTextFont(22);
-      pave2->SetTextColor(kBlue);
-      pave2->SetBorderSize(0);
-      pave2->AddText("II");
-      pave2->Draw();
-      
-      TPaveText* pave3 = new TPaveText(0.375, 0.18, 0.425, 0.22, "brNDC");
-      pave3->SetFillColor(kWhite);
-      pave3->SetTextSize(0.0375);
-      pave3->SetTextAlign(11);
-      pave3->SetTextFont(22);
-      pave3->SetTextColor(kBlue);
-      pave3->SetBorderSize(0);
-      pave3->AddText("III");
-      pave3->Draw();
     } 
     
     TPaveText* cmslabel = new TPaveText(0.145, 0.953, 0.6, 0.975, "brNDC");
@@ -689,7 +652,7 @@ void plot_golfcourse_HybridNew(bool unblind, char* width)
     char lumiText[300];
     sprintf(lumiText, "%.1f %s", intLumi, units.c_str());
     cmslabel->AddText(Form("%s", leftText.c_str(), lumiText));
-    cmslabel->Draw();
+    //cmslabel->Draw();
 
     TPaveText* label_sqrt = new TPaveText(0.5, 0.953, 0.96, 0.975, "brNDC");
     label_sqrt->SetFillColor(kWhite);
@@ -698,7 +661,7 @@ void plot_golfcourse_HybridNew(bool unblind, char* width)
     label_sqrt->SetTextFont(62);
     label_sqrt->SetTextAlign(31); // align right
     label_sqrt->AddText(Form("L = %s at  #sqrt{s} = 8 TeV", lumiText));
-    label_sqrt->Draw();
+    //label_sqrt->Draw();
 
     TPaveText* aNum = new TPaveText(0.13, 0.08, 0.203, 0.135, "brNDC");
     aNum->SetFillColor(kWhite);
@@ -706,11 +669,9 @@ void plot_golfcourse_HybridNew(bool unblind, char* width)
     aNum->SetTextAlign(11);
     aNum->SetTextFont(42);
     aNum->SetBorderSize(0);
-    if(isFullCombination || isZZChannel)
-      aNum->AddText("600");
-    if(!isFullCombination && !isZZChannel)
-      aNum->AddText("800");
     aNum->Draw();
+
+    CMS_lumi( cMCMC, 2, 11 );
   }  
   else {
     TLatex * latex = new TLatex();
@@ -728,27 +689,37 @@ void plot_golfcourse_HybridNew(bool unblind, char* width)
   cMCMC->Update();
   char fnam[50];
   if (width != 0) {
-    sprintf(fnam, "EXOVV_UL_HybridNew_%s.root", width);
+    sprintf(fnam, "EXOVH_%s_UL_HybridNew_%s.root", scenario, width);
     cMCMC->SaveAs(fnam);
-    sprintf(fnam, "EXOVV_UL_HybridNew_%s.eps", width);
+    sprintf(fnam, "EXOVH_%s_UL_HybridNew_%s.eps", scenario, width);
     cMCMC->SaveAs(fnam);
-    sprintf(fnam, "EXOVV_UL_HybridNew_%s.png", width);
+    sprintf(fnam, "EXOVH_%s_UL_HybridNew_%s.png", scenario, width);
+    cMCMC->SaveAs(fnam);
+    sprintf(fnam, "EXOVH_%s_UL_HybridNew_%s.pdf", scenario, width);
     cMCMC->SaveAs(fnam);
     gPad->SetLogy();
-    sprintf(fnam, "EXOVV_UL_HybridNew_%s_log.eps", width);
+    sprintf(fnam, "EXOVH_%s_UL_HybridNew_%s_log.eps", scenario, width);
     cMCMC->SaveAs(fnam);
-    sprintf(fnam, "EXOVV_UL_HybridNew_%s_log.png", width);
+    sprintf(fnam, "EXOVH_%s_UL_HybridNew_%s_log.png", scenario, width);
+    cMCMC->SaveAs(fnam);
+    sprintf(fnam, "EXOVH_%s_UL_HybridNew_%s_log.pdf", scenario, width);
     cMCMC->SaveAs(fnam);
   } else {
-    cMCMC->SaveAs("EXOVV_UL_HybridNew.root");
-    cMCMC->SaveAs("EXOVV_UL_HybridNew.eps");
-    cMCMC->SaveAs("EXOVV_UL_HybridNew.pdf");
-    cMCMC->SaveAs("EXOVV_UL_HybridNew.png");
+    sprintf(fnam, "EXOVH_%s_UL_HybridNew.root", scenario);
+    cMCMC->SaveAs(fnam);
+    sprintf(fnam, "EXOVH_%s_UL_HybridNew.eps", scenario);
+    cMCMC->SaveAs(fnam);
+    sprintf(fnam, "EXOVH_%s_UL_HybridNew.png", scenario);
+    cMCMC->SaveAs(fnam);
+    sprintf(fnam, "EXOVH_%s_UL_HybridNew.pdf", scenario);
+    cMCMC->SaveAs(fnam);
     gPad->SetLogy();
-    cMCMC->SaveAs("EXOVV_UL_HybridNew_log.eps");
-    cMCMC->SaveAs("EXOVV_UL_HybridNew_log.pdf");
-    cMCMC->SaveAs("EXOVV_UL_HybridNew_log.C");
-    cMCMC->SaveAs("EXOVV_UL_HybridNew_log.png");
+    sprintf(fnam, "EXOVH_%s_UL_HybridNew_log.eps", scenario);
+    cMCMC->SaveAs(fnam);
+    sprintf(fnam, "EXOVH_%s_UL_HybridNew_log.png", scenario);
+    cMCMC->SaveAs(fnam);
+    sprintf(fnam, "EXOVH_%s_UL_HybridNew_log.pdf", scenario);
+    cMCMC->SaveAs(fnam);
   }
 
   cMCMC->Draw();

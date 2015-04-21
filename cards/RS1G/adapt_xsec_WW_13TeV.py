@@ -26,11 +26,12 @@ masses =[m*100 for m in range(8,40+1)]
 if len(sys.argv)>1:
   masses=[int(sys.argv[1])]
 
-for mass in masses:
+for lumi in ["1fb","3fb","10fb"]:
+  for mass in masses:
         print "mass = ",mass
 
-	fWW=open("WW_cards_13TeV_1fb/comb_xww13."+str(mass)+".txt").readlines()
-	outfile="WW_cards_13TeV_1fb/comb_xww13_rs1."+str(mass)+".txt"
+	fWW=open("WW_cards_13TeV_"+lumi+"/comb_xww13"+lumi.replace("1fb","")+"."+str(mass)+".txt").readlines()
+	outfile="WW_cards_13TeV_"+lumi+"/comb_xww13"+lumi.replace("1fb","")+"_rs1."+str(mass)+".txt"
 	print outfile
         f=open(outfile,"w")
 

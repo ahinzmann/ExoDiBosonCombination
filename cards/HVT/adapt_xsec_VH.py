@@ -47,7 +47,7 @@ for mass in masses:
 	      try:
 	        float(fVHsplit[s])
 	      except: continue
-	      signal=(s in [1,2,4,5,7,8,10,11,13,14,16,17,19,20,22,21,23,24,26,27,29,30,32,33,35,36,38,39]) # only change signal
+	      signal=(s in [1,2,4,5,7,8,9,10,12,13,14,15,17,18,19,20]) # only change signal
               numberVH=float(fVHsplit[s])
 	      if signal:
                 numberVH=numberVH*xsecVH[mass]/0.03

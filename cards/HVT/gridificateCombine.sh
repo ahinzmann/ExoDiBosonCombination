@@ -9,9 +9,9 @@ fi
 mass=$1
 
 ########## CHANGES GO HERE ##########
-card="comb_ALL.$mass.txt"
-binarycard="binaryDatacard.root"
-channel="FULL"
+card="comb_xvh.$mass.txt"
+binarycard="binaryDatacardxvh.root"
+channel="xvh"
 subdir="comb_${mass}"
 # To change number of toys and iterations, change run_fullCLs_TF.py
 ######### END CHANGES ##########
@@ -42,10 +42,10 @@ echo 'output_file = output.root' >> crab.cfg
 echo '' >> crab.cfg
 echo '[USER]' >> crab.cfg
 echo 'return_data = 1' >> crab.cfg
-echo 'additional_input_files='${binarycard}',combine,CMS*root,xzz*root,ww*root,run_fullCLs_TF.py' >> crab.cfg
+echo 'additional_input_files='${binarycard}',combine,*root,run_fullCLs_TF.py' >> crab.cfg
 echo 'script_exe=run_fullCLs_TF.sh' >> crab.cfg
 echo '[GRID]' >> crab.cfg
-echo 'se_black_list=baylor.edu,kbfi.ee,ufl.edu' >> crab.cfg
+#echo 'se_black_list=baylor.edu,kbfi.ee,ufl.edu' >> crab.cfg
 
 # copy the relevant files inside the mass subdirs
 echo "Copying files inside subdir $subdir"
@@ -62,22 +62,22 @@ minBoundary=0.005
 #change range of scan specifically for BulkG->ZZ with c=0.5
 if [ $mass -gt 2000 ]
     then
-    maxBoundary=100000
-    minBoundary=1
+    maxBoundary=500
+    minBoundary=0.05
     echo "High mass $mass > 2000: boundary of combine is $minBoundary - $maxBoundary "
 elif [ $mass -gt 1500 ]
     then
-    maxBoundary=10000
-    minBoundary=1
+    maxBoundary=100
+    minBoundary=0.01
     echo "High mass $mass 1500-2000: boundary of combine is $minBoundary - $maxBoundary "
 elif [ $mass -gt 1000 ]
     then
-    maxBoundary=200
-    minBoundary=0.1
+    maxBoundary=50
+    minBoundary=0.005
     echo "Medium mass $mass 1000 - 1500: boundary of combine is $minBoundary - $maxBoundary "
 else
-    maxBoundary=50
-    minBoundary=0.1
+    maxBoundary=10
+    minBoundary=0.001
     echo "Low mass $mass <1000: boundary of combine is $minBoundary - $maxBoundary "
 fi
 

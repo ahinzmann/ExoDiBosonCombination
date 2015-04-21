@@ -13,7 +13,7 @@ ACTION="status" #default is to ask the crab status
 if [ $# -eq 2 ]
     then
     ACTION=$2
-    if [ "$ACTION" == "get" ] || [ "$ACTION" == "status" ]
+    if [ "$ACTION" == "get" ] || [ "$ACTION" == "status" ]|| [ "$ACTION" == "kill" ]
 	then
 	ACTION=$2
     else
@@ -26,7 +26,7 @@ if [ $# -eq 2 ]
 fi
 
 
-cd $M
+cd comb_$M
 
 for crabdir in $( ls -d crab_*_[0-9]* )
   do
@@ -36,6 +36,9 @@ for crabdir in $( ls -d crab_*_[0-9]* )
   elif [ ${ACTION} == "get" ] 
       then
       crab -c $crabdir -getoutput 
+  elif [ ${ACTION} == "kill" ] 
+      then
+      crab -c $crabdir -kill all
   else
       echo "Wrong action requested: ${ACTION}. Skipping."
   fi

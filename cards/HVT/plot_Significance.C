@@ -17,7 +17,7 @@
 #include "TMath.h"
 #include "TPaveText.h"
 
-void plot_Significance(bool unblind=true, char* scenario = "xvh");
+void plot_Significance(bool unblind=true, char* scenario = "WZH");
 const float intLumi=19.7;
 
 

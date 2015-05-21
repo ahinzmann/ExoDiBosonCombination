@@ -27,7 +27,7 @@ echo "Working release directory: ${RELEASEDIR}"   >> ${LOG}
 algo="Asymptotic"
 #algo="ProfileLikelihood"
 hint="ProfileLikelihood" # before the algo method, run the hint method for restricting integration field
-label="xvh"
+label="WZH"
 ntoys=1000
 #WORKDIR=${RELEASEDIR}/HiggsAna/HLLJJCommon/test/fits//${OUTDIR}/${mass}
 WORKDIR=/afs/cern.ch/user/h/hinzmann/workspace/limit_combination/CMSSW_7_1_5/src/ExoDiBosonCombination/cards/HVT/${OUTDIR}/comb_${mass}
@@ -79,7 +79,7 @@ elif [ $mass -gt 1500 ]
     echo "High mass $mass 1500-2000: boundary of combine is $minBoundary - $maxBoundary "   >> ${LOG}
 elif [ $mass -gt 1000 ]
     then
-    maxBoundary=50
+    maxBoundary=30
     minBoundary=0.005
     echo "Medium mass $mass 1000 - 1500: boundary of combine is $minBoundary - $maxBoundary "  >> ${LOG}
 else

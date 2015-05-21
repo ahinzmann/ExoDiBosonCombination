@@ -618,7 +618,7 @@ void plot_golfcourse_HybridNew(bool unblind, char* width, char* scenario)
 
   //more graphics
 
-  TLegend *leg = new TLegend(.30, .65, .85, .90);
+  TLegend *leg = new TLegend(.30, .61, .85, .92);
   //   TLegend *leg = new TLegend(.35,.71,.90,.90);
   leg->SetFillColor(0);
   leg->SetShadowColor(0);

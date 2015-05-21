@@ -19,11 +19,12 @@
 
 const bool isZZChannel = false;
 const bool isFullCombination = true;
+const bool isWZHCombination = true;
 const float intLumi = 19.7;
 const float BRZZ2l2q = isZZChannel ? 0.0941 : 0.2882464;
 const string dirXSect = "./";
 
-void plot_golfcourse_Asymptotic(bool unblind = true, char* width = 0, char* scenario = "xvh");
+void plot_golfcourse_Asymptotic(bool unblind = true, char* width = 0, char* scenario = "WZH");
 void setFPStyle();
 void scaleGraph(TGraphAsymmErrors* g, double factor)
 {
@@ -169,6 +170,7 @@ void plot_golfcourse_Asymptotic(bool unblind, char* width, char* scenario)
   string xsect_file_th = dirXSect + "theory_RS1_WW_8TeV.txt";
   if (!isZZChannel)xsect_file_th = dirXSect + "theory_RS1_ZZ_8TeV.txt";
   if (isFullCombination)xsect_file_th = dirXSect + "theory_HVT_VH_8TeV.txt";
+  if (isWZHCombination)xsect_file_th = dirXSect + "theory_HVT_8TeV.txt";
   // make_interpolated_xsect(xsect_file_th, xsect_file_interpol);
   // string xsect_file_interpol="./RSGravXSectTimesBRToZZ_AgasheHapola_c10_EXPOINTERP.txt";
 
@@ -542,6 +544,8 @@ void plot_golfcourse_Asymptotic(bool unblind, char* width, char* scenario)
   hr->SetYTitle("#sigma_{95%} #times BR(Z' #rightarrow " + VV + ") [pb]"); // #rightarrow 2l2q
   if(isFullCombination)
     hr->SetYTitle("#sigma_{95%} #times BR(V' #rightarrow " + VV + ") [pb]"); // #rightarrow 2l2q
+  if (isWZHCombination)
+    hr->SetYTitle("#sigma_{95%} (pp #rightarrow V') [pb]"); // #rightarrow 2l2q
   
 
   gr95_cls->SetFillColor(kYellow);

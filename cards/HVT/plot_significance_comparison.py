@@ -19,16 +19,21 @@ gStyle.SetLegendBorderSize(0)
 
 if __name__ == '__main__':
  scenarios={}
- scenarios["ALL8TeV"]=["ALL","xzh","xvh","xwh"]
+# scenarios["ALL8TeV"]=["ALL","xwh","xzh","xvh"]
+ scenarios["WZH8TeV"]=["WZH","xwh","xzh","xvh","xww","xzz","xjj"]
  names={}
+ names["WZH"]="All channels (8 TeV)"
  names["ALL"]="lvbb, qq#tau#tau, qqbb, qqqqqq (8 TeV)"
  names["SEMILEPT"]="lvbb, qq#tau#tau (8 TeV)"
  names["xvh"]="qqbb, qqqqqq (8 TeV)"
  names["xwh"]="lvbb (8 TeV)"
  names["xzh"]="qq#tau#tau (8 TeV)"
- colors=[4,6,7,8,9]
- styles=[3,4,5,6,7]
- fillstyles=[3007,3007,3007,3007]
+ names["xww"]="lvqq (8 TeV)"
+ names["xzz"]="llqq (8 TeV)"
+ names["xjj"]="qqqq (8 TeV)"
+ colors=[4,6,11,28,8,9]
+ styles=[3,4,5,6,7,8,9]
+ fillstyles=[3007,3007,3007,3007,3007,3007,3007]
  for scenario in scenarios.keys():
   files=[]
   canvas=[]
@@ -43,10 +48,14 @@ if __name__ == '__main__':
     if len(files)==1:
       l1=[a for a in canvas[-1].GetListOfPrimitives() if "TLegend" in str(a)][0]
       #print [a for a in l1.GetListOfPrimitives()]
-      #l1.GetListOfPrimitives().Remove(l1.GetListOfPrimitives()[-1])
+      legendcontent=[a for a in l1.GetListOfPrimitives()]
+      for l in legendcontent:
+        l1.GetListOfPrimitives().Remove(l)
       canvas[-1].SetLogy()
       canvas[-1].Draw()
       l1.AddEntry(graphobs[-1],names[name],"")
+      for l in legendcontent:
+           l1.AddEntry(l.GetObject(),l.GetLabel(),l.GetOption())
     else:
       graphobs[-1].SetMarkerColor(colors[len(files)-2])
       graphobs[-1].SetMarkerStyle(styles[len(files)-2])

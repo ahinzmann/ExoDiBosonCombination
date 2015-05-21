@@ -12,6 +12,9 @@ echo "Merging M=${MASS}"
 ZHDIR="cards_ZH"
 WHDIR="cards_WH"
 VHDIR="cards_VH"
+ZZDIR="ZZ_cards/${MASS}"
+WWDIR="WW_cards"
+JJDIR="JJ_cards"
 
 #prepare output
 OUTDIR="comb_${MASS}"
@@ -51,7 +54,6 @@ WHELEBASE="cards_el/${WHBASE}_el"
 WHMUBASE="cards_mu/${WHBASE}_mu"
 EXOWHCARDS="${LABEL}_mv1JLP=${WHMUBASE}_ALLP_unbin.txt ${LABEL}_ev1JLP=${WHELEBASE}_ALLP_unbin.txt"
 COMBWHCARD="comb_${LABEL}.${MASS}.txt"
-COMBRS1WHCARD="comb_${LABEL}_hvt.${MASS}.txt"
 
 if [ $MASS -le 2500 ]
     then
@@ -64,20 +66,60 @@ if [ $MASS -le 2500 ]
     cp ${WHDIR}/cards_mu/${WHBASE}_*workspace.root  ${OUTDIR}/
 fi
 
+### ZZ only
+LABEL="xzz"
+COMBZZCARD="comb_${LABEL}.${MASS}.txt"
+COMBZZHVTCARD="comb_${LABEL}_hvt.${MASS}.txt"
+
+if [ $MASS -le 2500 ]
+then
+echo "Moving to "${ZZDIR}/
+cp ${ZZDIR}/${COMBZZHVTCARD} ${OUTDIR}/${COMBZZCARD}
+cp ${ZZDIR}/${LABEL}_*input*.root  ${OUTDIR}/
+fi
+
+### JJ only
+LABEL="xjj"
+JJCARDORIG="CMS_jj_HVT_${MASS}_8TeV_CMS_jj_VV.txt" ##Andreas gives us cards with WW and ZZ already merged
+COMBJJCARD="comb_${LABEL}.${MASS}.txt"
+ 
+if [ $MASS -ge 1000 ]
+then
+###sed -e '/CMS_sig_p/ s|0|0.0|g' -e '/CMS_sig_p/ s|1|1.0|g' < CMS_jj_Bulk_1200_8TeV_CMS_jj_VV.txt
+sed -e 's|datacards/../workspaces/||g' -e 's|CMS_jj_bkg_8TeV|CMS_jj_bkg_WZ_8TeV|g' < ${JJDIR}/datacards/${JJCARDORIG} &> $OUTDIR/${COMBJJCARD}
+###    sed -e 's|datacards/../workspaces/||g' -e '/CMS_sig_p/ s|0|0.0|' -e '/CMS_sig_p1/ s|1|1.0|2' -e '/CMS_sig_p2/ s|1|1.0|' < ${JJDIR}/datacards/${JJCARDORIG} &> $OUTDIR/${COMBJJCARD}
+#    cp ${JJDIR}/datacards/${JJCARDORIG}  $OUTDIR/${COMBJJCARD}
+    cp ${JJDIR}/workspaces/CMS_jj_WZ*${MASS}*.root ${OUTDIR}/
+    cp ${JJDIR}/workspaces/CMS_jj_bkg_8TeV.root ${OUTDIR}/CMS_jj_bkg_WZ_8TeV.root
+fi
+
+### WW only
+LABEL="xww"
+WWBASE="wwlvj_BulkG_WW_inclusive_c0p2_M${MASS}"
+COMBWWCARD="comb_${LABEL}.${MASS}.txt"
+COMBWWHVTCARD="comb_${LABEL}_hvt.${MASS}.txt"
+
+if [ $MASS -ge 800 ] && [ $MASS -le 2500 ]
+    then
+    cp ${WWDIR}/${COMBWWHVTCARD} ${OUTDIR}/${COMBWWCARD}
+    cp ${WWDIR}/${WWBASE}_*workspace.root  ${OUTDIR}/
+fi
+
 ###put things together
 cd $OUTDIR/
 
 COMB3CHANCARD="comb_ALL.${MASS}.txt"
-COMBSEMILEPCARD="comb_SEMILEPT.${MASS}.txt"
+COMBWZHCARD="comb_WZH.${MASS}.txt"
 
 if [ $MASS -lt 1000 ]
     then
     combineCards.py $COMBWHCARD $COMBZHCARD &>  $COMB3CHANCARD
-    combineCards.py $COMBWHCARD $COMBZHCARD &>  $COMBSEMILEPCARD
+    combineCards.py $COMBWHCARD $COMBZHCARD $COMBWWCARD $COMBZZCARD &>  $COMBWZHCARD
 elif [ $MASS -gt 2500 ]
     then
     combineCards.py $COMBVHCARD &>  $COMB3CHANCARD
+    combineCards.py $COMBVHCARD $COMBJJCARD &>  $COMBWZHCARD
 else 
     combineCards.py $COMBVHCARD $COMBWHCARD $COMBZHCARD &>  $COMB3CHANCARD
-    combineCards.py $COMBWHCARD $COMBZHCARD &>  $COMBSEMILEPCARD
+    combineCards.py $COMBVHCARD $COMBWHCARD $COMBZHCARD $COMBJJCARD $COMBWWCARD $COMBZZCARD &>  $COMBWZHCARD
 fi

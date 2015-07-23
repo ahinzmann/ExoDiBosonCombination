@@ -11,8 +11,8 @@ git checkout v5.0.1
 scramv1 b clean
 cd ../..
 
-cp ExoDiBosonCombination/HZZ2L2QRooPdfs.h HiggsAnalysis/CombinedLimit/interface/HZZ2L2QRooPdfs2.h
-cp ExoDiBosonCombination/HZZ2L2QRooPdfs.cc HiggsAnalysis/CombinedLimit/src/HZZ2L2QRooPdfs2.cc
+cp ExoDiBosonCombination/HZZ2L2QRooPdfs2.h HiggsAnalysis/CombinedLimit/interface/HZZ2L2QRooPdfs2.h
+cp ExoDiBosonCombination/HZZ2L2QRooPdfs2.cc HiggsAnalysis/CombinedLimit/src/HZZ2L2QRooPdfs2.cc
 cp ExoDiBosonCombination/CombinedLimit_LinkDef.h HiggsAnalysis/CombinedLimit/src/
 
 scramv1 b

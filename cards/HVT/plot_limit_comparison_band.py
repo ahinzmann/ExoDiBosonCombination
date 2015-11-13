@@ -20,19 +20,19 @@ gStyle.SetLegendBorderSize(0)
 if __name__ == '__main__':
  scenarios={}
 # scenarios["ALL8TeV"]=["ALL_UL_Asymptotic","xwh_UL_Asymptotic","xzh_UL_Asymptotic","xvh_UL_Asymptotic"]
-# scenarios["ALL8TeVfullCLs"]=["ALL_UL_HybridNew","xwh_UL_HybridNew","xzh_UL_HybridNew","xvh_UL_HybridNew"]
- scenarios["WZH8TeV"]=["WZH_UL_Asymptotic","xwh_UL_Asymptotic","xzh_UL_Asymptotic","xvh_UL_Asymptotic","xww_UL_Asymptotic","xzz_UL_Asymptotic","xjj_UL_Asymptotic"]
+ scenarios["ALL8TeVfullCLs"]=["ALL_UL_HybridNew","xwh_UL_HybridNew","xzh_UL_HybridNew","xvh_UL_HybridNew"]
+# scenarios["WZH8TeV"]=["WZH_UL_Asymptotic","xwh_UL_Asymptotic","xzh_UL_Asymptotic","xvh_UL_Asymptotic","xww_UL_Asymptotic","xzz_UL_Asymptotic","xjj_UL_Asymptotic"]
  #scenarios["HVT8TeVfullCLs"]=["HVT_UL_HybridNew","xwh_UL_HybridNew","xzh_UL_HybridNew","xvh_UL_HybridNew","xww_UL_HybridNew","xzz_UL_HybridNew","xjj_UL_HybridNew"]
  names={}
- names["WZH"]="All channels (8 TeV)"
- names["ALL"]="lvbb, qq#tau#tau, qqbb, qqqqqq (8 TeV)"
- names["SEMILEPT"]="lvbb, qq#tau#tau (8 TeV)"
- names["xvh"]="qqbb, qqqqqq (8 TeV)"
- names["xwh"]="lvbb (8 TeV)"
- names["xzh"]="qq#tau#tau (8 TeV)"
- names["xww"]="lvqq (8 TeV)"
- names["xzz"]="llqq (8 TeV)"
- names["xjj"]="qqqq (8 TeV)"
+ names["WZH"]="All channels"
+ names["ALL"]="lvbb, qq#tau#tau, qqbb, qqqqqq"
+ names["SEMILEPT"]="lvbb, qq#tau#tau"
+ names["xvh"]="qqbb, qqqqqq"
+ names["xwh"]="lvbb"
+ names["xzh"]="qq#tau#tau"
+ names["xww"]="lvqq"
+ names["xzz"]="llqq"
+ names["xjj"]="qqqq"
  colors=[4,6,11,28,8,9]
  styles=[3,4,5,6,7,8,9]
  fillstyles=[3007,3007,3007,3007,3007,3007,3007]
@@ -82,10 +82,10 @@ if __name__ == '__main__':
       canvas[0].cd()
       graphobs[-1].Draw("LP")
       #graph[-1].Draw("LX")
-      l1.AddEntry(graphobs[-1],names[shortname].replace("TeV)","TeV) CL_{S} Observed"),"lp")
+      l1.AddEntry(graphobs[-1],names[shortname]+" CL_{S} Observed","lp")
       #canvas[0].Update()
   #graph[0].Draw("LX")
   graphobs[0].Draw("LP")
-  l1.AddEntry(legendcontent[-1].GetObject(),legendcontent[-1].GetLabel(),legendcontent[-1].GetOption())
+  l1.AddEntry(legendcontent[-1].GetObject(),"#sigma_{HVT} (pp #rightarrow V')",legendcontent[-1].GetOption())
   l1.Draw()
   canvas[0].SaveAs("EXOVH_compare_"+scenario+"_band.pdf")

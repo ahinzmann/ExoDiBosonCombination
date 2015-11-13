@@ -17,7 +17,7 @@
 #include "TMath.h"
 #include "TPaveText.h"
 
-void plot_Significance(bool unblind=false, char* scenario = "ALL813");
+void plot_Significance(bool unblind=false, char* scenario = "xww133fb");
 const float intLumi=19.7;
 
 
@@ -81,7 +81,7 @@ void plot_Significance(bool unblind, char* scenario){
     for(int i=0;i<N;i++){
       texp->GetEntry(i);
       if(expM!=mhTMP)continue;//follow exactly the order of v_mhTMP
-      if(expS<1e-06)expS=1e-06;
+      if(expS<1e-06)expS=1e-99;
       arrM[iMH]=expM;
       arrExp[iMH]=expS;
       //  cout<<"M="<<expM<<"   ExpSig="<<expS<<endl;

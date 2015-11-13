@@ -69,11 +69,21 @@ if __name__ == '__main__':
     files+=[TFile.Open("EXOVV_"+name+"_UL_Asymptotic.root")]
     canvas+=[files[-1].Get("c_lim_Asymptotic")]
     print [a for a in canvas[-1].GetListOfPrimitives()]
+    canvas[-1].GetListOfPrimitives().Remove(canvas[-1].GetListOfPrimitives()[4])
+    canvas[-1].GetListOfPrimitives().Remove(canvas[-1].GetListOfPrimitives()[4])
+    canvas[-1].GetListOfPrimitives().Remove(canvas[-1].GetListOfPrimitives()[4])
+    canvas[-1].GetListOfPrimitives().Remove(canvas[-1].GetListOfPrimitives()[4])
+    canvas[-1].GetListOfPrimitives().Remove(canvas[-1].GetListOfPrimitives()[4])
+    canvas[-1].GetListOfPrimitives().Remove(canvas[-1].GetListOfPrimitives()[8])
+    canvas[-1].GetListOfPrimitives().Remove(canvas[-1].GetListOfPrimitives()[8])
+    canvas[-1].GetListOfPrimitives().Remove(canvas[-1].GetListOfPrimitives()[8])
+    canvas[-1].GetListOfPrimitives().Remove(canvas[-1].GetListOfPrimitives()[8])
+    canvas[-1].GetListOfPrimitives().Remove(canvas[-1].GetListOfPrimitives()[8])
+    canvas[-1].GetListOfPrimitives().Remove(canvas[-1].GetListOfPrimitives()[8])
     graph+=[[a for a in canvas[-1].GetListOfPrimitives() if "Limit68CLs" in str(a)][0].Clone("graph_"+name)]
     if len(files)==1:
       l1=[a for a in canvas[-1].GetListOfPrimitives() if "TLegend" in str(a)][0]
-      #print [a for a in l1.GetListOfPrimitives()]
-      #l1.GetListOfPrimitives().Remove(l1.GetListOfPrimitives()[-1])
+      print [a for a in l1.GetListOfPrimitives()]
       canvas[-1].SetLogy()
       canvas[-1].Draw()
       l1.AddEntry(graph[-1],names[name],"lf")

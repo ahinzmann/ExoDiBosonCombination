@@ -9,9 +9,9 @@ fi
 mass=$1
 
 ########## CHANGES GO HERE ##########
-card="comb_xvh.$mass.txt"
-binarycard="binaryDatacardxvh.root"
-channel="xvh"
+card="comb_ALL.$mass.txt"
+binarycard="binaryDatacardALL.root"
+channel="ALL"
 subdir="comb_${mass}"
 # To change number of toys and iterations, change run_fullCLs_TF.py
 ######### END CHANGES ##########

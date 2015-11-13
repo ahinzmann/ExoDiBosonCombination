@@ -22,7 +22,7 @@ observation  16.0        9.0
 bin                                          xwh_mv1JLP       xwh_mv1JLP       xwh_mv1JLP       xwh_mv1JLP       xwh_mv1JLP       xwh_ev1JLP       xwh_ev1JLP       xwh_ev1JLP       xwh_ev1JLP       xwh_ev1JLP     
 process                                      MWp_1600_bb_xwh  STop_xwh         VV_xwh           WJets_xwh        TTbar_xwh        MWp_1600_bb_xwh  STop_xwh         VV_xwh           WJets_xwh        TTbar_xwh      
 process                                      0                1                2                3                4                0                1                2                3                4              
-rate                                         1.3929           0.1990           0.6110           8.0140           6.0500           1.3471           3.6770           0.3700           5.2680           2.2290         
+rate                                         1.3929           0.1990           0.6110           6.9910           7.1060           1.3471           3.6770           0.3700           4.6540           2.6180         
 ----------------------------------------------------------------------------------------------------------------------------------
 CMS_eff_e               lnN                  -                -                -                -                -                1.03             1.03             1.03             -                1.03           
 CMS_eff_m               lnN                  1.01             1.01             1.01             -                1.01             -                -                -                -                -              
@@ -34,10 +34,10 @@ CMS_res_m               lnN                  1.002            -                -
 CMS_scale_e             lnN                  -                -                -                -                -                1.01             -                -                -                -              
 CMS_scale_j             lnN                  1.021            -                -                -                -                1.021            -                -                -                -              
 CMS_scale_m             lnN                  1.02             -                -                -                -                -                -                -                -                -              
-CMS_xwh_WJ_norm_el_ALLP   lnN                -                -                -                -                -                -                -                -                1.53             -              
-CMS_xwh_WJ_norm_mu_ALLP   lnN                -                -                -                1.404            -                -                -                -                -                -              
+CMS_xwh_WJ_norm_el_ALLP   lnN                -                -                -                -                -                -                -                -                1.591            -              
+CMS_xwh_WJ_norm_mu_ALLP   lnN                -                -                -                1.419            -                -                -                -                -                -              
 CMS_xwh_XS_STop         lnN                  -                1.3              -                -                -                -                1.3              -                -                -              
-CMS_xwh_XS_TTbar        lnN                  -                -                1.18             -                -                -                -                1.18             -                -              
+CMS_xwh_XS_TTbar        lnN                  -                -                1.054            -                -                -                -                1.054            -                -              
 CMS_xwh_XS_VV           lnN                  -                -                1.25             -                -                -                -                1.25             -                -              
 CMS_doubleBtagging        lnN                  1.035            -                -                -                -                1.035            -                -                -                -              
 CMS_btagger         lnN                  1.001            1.025            1.025            -                1.025            1.001            1.025            1.025            -                1.025          

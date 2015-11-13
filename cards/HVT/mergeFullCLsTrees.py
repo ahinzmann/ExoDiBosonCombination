@@ -5,7 +5,7 @@ import sys
 
 ### Make changes here if it is needed
 channels = ["xvh","xwh","xzh","ALL","WZH"]
-#channels = ["ALL"]
+channels = ["ALL","xwh"]
 m=open("masses.txt")
 masses=[int(mm.strip("\n")) for mm in m.readlines()]
 if len(sys.argv)>1:

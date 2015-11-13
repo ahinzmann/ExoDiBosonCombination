@@ -201,12 +201,12 @@ void plot_golfcourse_Asymptotic_Nevents(bool unblind, char* width){
     }
 
 
-    mass[nMassEff]=v_mh.at(im);
+    mass[nMassEff]=v_mh.at(im)/1000.;
     //if( mass[nMassEff]==600.0)cout<<"=============> 600 !!!"<<endl;
     obs_lim_cls[nMassEff]=v_obs.at(im);
     nMassEff++;
     if(!excl){
-      mass1[nMassEff1]=v_mh.at(im);
+      mass1[nMassEff1]=v_mh.at(im)/1000.;
       medianD[nMassEff1]=v_median.at(im);
       up68err[nMassEff1]=(v_68h.at(im)-v_median.at(im));
       down68err[nMassEff1]=(v_median.at(im)-v_68l.at(im));
@@ -221,7 +221,7 @@ void plot_golfcourse_Asymptotic_Nevents(bool unblind, char* width){
       bool skip95= false;//
       
       if(skip95 )continue;
-      mass95[nM95]=v_mh.at(im);
+      mass95[nM95]=v_mh.at(im)/1000.;
       median95[nM95]=v_median.at(im);
       up95err[nM95]=(v_95h.at(im)-v_median.at(im));
       down95err[nM95]=(v_median.at(im)-v_95l.at(im));
@@ -251,8 +251,8 @@ void plot_golfcourse_Asymptotic_Nevents(bool unblind, char* width){
   grthSM->SetName("SMXSection");
  
   // cout<<"Plotting"<<endl;
-  double fr_left=590.0, fr_down=1,fr_right=2020.0,fr_up=100;
-  if(!isZZChannel){fr_left=500.0, fr_down=0.005,fr_right=2600.0,fr_up=30.0;}
+  double fr_left=590.0/1000., fr_down=1,fr_right=2020/1000..0,fr_up=100;
+  if(!isZZChannel){fr_left=500.0/1000., fr_down=0.005,fr_right=2600/1000..0,fr_up=30.0;}
   TCanvas *cMCMC=new TCanvas("c_lim_Asymp","canvas with limits for Asymptotic CLs",630,600);
   cMCMC->cd();
   cMCMC->SetGridx(1);
@@ -262,7 +262,7 @@ void plot_golfcourse_Asymptotic_Nevents(bool unblind, char* width){
   TH1F *hr = cMCMC->DrawFrame(fr_left,fr_down,fr_right,fr_up,"");
   TString VV = "ZZ";
   if(!isZZChannel)VV="WW";
-  hr->SetXTitle("M_{G*} [GeV]");
+  hr->SetXTitle("M_{G*} [TeV]");
   hr->SetYTitle("N events excl. at 95% C.L.");// #rightarrow 2l2q
   // cMCMC->GetFrame()->SetFillColor(21);
   //cMCMC->GetFrame()->SetBorderSize(12);
@@ -271,7 +271,7 @@ void plot_golfcourse_Asymptotic_Nevents(bool unblind, char* width){
   gr95_cls->SetFillStyle(1001);//solid
   gr95_cls->SetLineStyle(kDashed);
   gr95_cls->SetLineWidth(3);
-  gr95_cls->GetXaxis()->SetTitle("M_{G*} [GeV]");
+  gr95_cls->GetXaxis()->SetTitle("M_{G*} [TeV]");
   gr95_cls->GetYaxis()->SetTitle("N events excl. at 95% C.L.");// #rightarrow 2l2q
   gr95_cls->GetXaxis()->SetRangeUser(fr_left,fr_right);
   
@@ -282,7 +282,7 @@ void plot_golfcourse_Asymptotic_Nevents(bool unblind, char* width){
   gr68_cls->SetLineStyle(kDashed);
   gr68_cls->SetLineWidth(3);
   gr68_cls->Draw("3same");
-  grmedian_cls->GetXaxis()->SetTitle("M_{G*} [GeV]");
+  grmedian_cls->GetXaxis()->SetTitle("M_{G*} [TeV]");
   grmedian_cls->GetYaxis()->SetTitle("N events excl. at 95% C.L.");// #rightarrow 2l2q
   grmedian_cls->SetMarkerStyle(24);//25=hollow squre
   grmedian_cls->SetMarkerColor(kBlack);

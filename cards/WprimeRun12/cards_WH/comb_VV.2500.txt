@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/afs/cern.ch/cms/slc6_amd64_gcc481/cms/cmssw/CMSSW_7_1_5/external/slc6_amd64_gcc481/bin/../../../../../../external/python/2.7.6/lib/python2.7/site.py", line 62, in <module>
+    import os
+  File "/afs/cern.ch/cms/slc6_amd64_gcc481/cms/cmssw/CMSSW_7_1_5/external/slc6_amd64_gcc481/bin/../../../../../../external/python/2.7.6/lib/python2.7/os.py", line 49, in <module>
+    import posixpath as path
+  File "/afs/cern.ch/cms/slc6_amd64_gcc481/cms/cmssw/CMSSW_7_1_5/external/slc6_amd64_gcc481/bin/../../../../../../external/python/2.7.6/lib/python2.7/posixpath.py", line 17, in <module>
+    import warnings
+  File "/afs/cern.ch/cms/slc6_amd64_gcc481/cms/cmssw/CMSSW_7_1_5/external/slc6_amd64_gcc481/bin/../../../../../../external/python/2.7.6/lib/python2.7/warnings.py", line 301, in <module>
+    class catch_warnings(object):
+KeyboardInterrupt

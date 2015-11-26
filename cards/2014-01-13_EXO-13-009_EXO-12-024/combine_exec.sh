@@ -27,7 +27,7 @@ echo "Working release directory: ${RELEASEDIR}"   >> ${LOG}
 algo="Asymptotic"
 #algo="ProfileLikelihood"
 hint="ProfileLikelihood" # before the algo method, run the hint method for restricting integration field
-label="EXOZZ"
+label="ALL"
 ntoys=1000
 #WORKDIR=${RELEASEDIR}/HiggsAna/HLLJJCommon/test/fits//${OUTDIR}/${mass}
 WORKDIR=/afs/cern.ch/user/h/hinzmann/workspace/limit_combination/CMSSW_7_1_5/src/ExoDiBosonCombination/cards/2014-01-13_EXO-13-009_EXO-12-024/${OUTDIR}/comb_${mass}
@@ -92,7 +92,7 @@ fi
  
 echo    >> ${LOG}
 echo "==== Asymptotic CLs limits ====="   >> ${LOG}
-combine -M $algo -n ${label} -m $mass  -s $myrand -d ${datacard}.txt -H $hint --rMax $maxBoundary --rMin $minBoundary  >> ${LOG}
+combine -M $algo -n ${label} -m $mass  -s $myrand -d ${datacard}.txt -H $hint --rMax $maxBoundary --rMin $minBoundary  #>> ${LOG}
 
 echo "Calculating the significances."  >> ${LOG}
 

@@ -6,7 +6,7 @@ then
     exit 1
 fi
 
-RUN_LOCALLY=0 #if 1 -> do not submit, run locally
+RUN_LOCALLY=1 #if 1 -> do not submit, run locally
 
 startdir=$( pwd )
 NMAXJOBS=1
@@ -57,9 +57,9 @@ do
       then
       if [ $twod -eq 1 ]
 	  then
-	  ${startdir}/combine_exec.sh $myrand $mass $width >> ${LOGFULL}
+	  ${startdir}/combine_exec.sh $myrand $mass $width LOG=${LOGFULL}
       else
-	  ${startdir}/combine_exec.sh $myrand $mass >> ${LOGFULL}
+	  ${startdir}/combine_exec.sh $myrand $mass LOG=${LOGFULL}
       fi
 
   else

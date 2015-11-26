@@ -1,0 +1,231 @@
+Welcome:
+
+_BulkG_WW_lvjj_M4000_xww events number in m_lvj from dataset: 98.2797626366
+_WJets0_xww events number in m_lvj from dataset: 148.357042962
+_WJets01_xww events number in m_lvj from dataset: 148.357042962
+_TTbar_xww events number in m_lvj from dataset: 74.244998988
+_VV_xww events number in m_lvj from dataset: 16.6052890228
+_STop_xww events number in m_lvj from dataset: 13.8213987671
+_data_xww events number in m_lvj from dataset: 237.0
+_data_xww++++++++++++++++++++++++++++++++++++
+Events Number in sideband_low from dataset:237.0
+Events Number in Signal Region from dataset:237.0
+Events Number in sideband_high from dataset:78.0
+Total Number in sidebands from dataset:315.0
+Ratio signal_region/sidebands from dataset:0.752380952381
+Events Number in sideband_low from fitting:233.134409426
+Events Number in Signal Region from fitting:255.45328916
+Events Number in sideband_high from fitting:81.9507330843
+Total Number in sidebands from fitting:315.08514251
+Ratio signal_region/sidebands from fitting:0.810743683834
+_TTbar_xww++++++++++++++++++++++++++++++++++++
+Events Number in sideband_low from dataset:25.4842213148
+Events Number in Signal Region from dataset:74.244998988
+Events Number in sideband_high from dataset:20.7867272098
+Total Number in sidebands from dataset:46.2709485245
+Ratio signal_region/sidebands from dataset:1.60457049954
+Events Number in sideband_low from fitting:26.0014725278
+Events Number in Signal Region from fitting:74.1527221559
+Events Number in sideband_high from fitting:23.4601418078
+Total Number in sidebands from fitting:49.4616143356
+Ratio signal_region/sidebands from fitting:1.49919737057
+_STop_xww++++++++++++++++++++++++++++++++++++
+Events Number in sideband_low from dataset:5.43604989712
+Events Number in Signal Region from dataset:13.8213987671
+Events Number in sideband_high from dataset:4.58976518078
+Total Number in sidebands from dataset:10.0258150779
+Ratio signal_region/sidebands from dataset:1.37858105896
+Events Number in sideband_low from fitting:5.08496972776
+Events Number in Signal Region from fitting:12.9063350067
+Events Number in sideband_high from fitting:4.51348419619
+Total Number in sidebands from fitting:9.59845392396
+Ratio signal_region/sidebands from fitting:1.34462644806
+_VV_xww++++++++++++++++++++++++++++++++++++
+Events Number in sideband_low from dataset:4.56289229305
+Events Number in Signal Region from dataset:16.6052890228
+Events Number in sideband_high from dataset:1.25013526564
+Total Number in sidebands from dataset:5.81302755869
+Ratio signal_region/sidebands from dataset:2.85656464813
+Events Number in sideband_low from fitting:4.41472704326
+Events Number in Signal Region from fitting:17.0660217086
+Events Number in sideband_high from fitting:1.25891387218
+Total Number in sidebands from fitting:5.67364091544
+Ratio signal_region/sidebands from fitting:3.00794885735
+_WJets0_xww++++++++++++++++++++++++++++++++++++
+Events Number in sideband_low from dataset:211.106925832
+Events Number in Signal Region from dataset:148.357042962
+Events Number in sideband_high from dataset:49.1558049601
+Total Number in sidebands from dataset:260.262730792
+Ratio signal_region/sidebands from dataset:0.570027996365
+Events Number in sideband_low from fitting:197.633239559
+Events Number in Signal Region from fitting:151.328210046
+Events Number in sideband_high from fitting:52.7181931308
+Total Number in sidebands from fitting:250.35143269
+Ratio signal_region/sidebands from fitting:0.604463127769
+_data_xww++++++++++++++++++++++++++++++++++++
+Events Number in sideband_low from dataset:237.0
+Events Number in Signal Region from dataset:237.0
+Events Number in sideband_high from dataset:78.0
+Total Number in sidebands from dataset:315.0
+Ratio signal_region/sidebands from dataset:0.752380952381
+Events Number in sideband_low from fitting:224.866210396
+Events Number in Signal Region from fitting:257.203597831
+Events Number in sideband_high from fitting:85.2781292486
+Total Number in sidebands from fitting:310.144339645
+Ratio signal_region/sidebands from fitting:0.829302892083
+_TTbar_xww++++++++++++++++++++++++++++++++++++
+Events Number in sideband_low from dataset:25.4842213148
+Events Number in Signal Region from dataset:74.244998988
+Events Number in sideband_high from dataset:20.7867272098
+Total Number in sidebands from dataset:46.2709485245
+Ratio signal_region/sidebands from dataset:1.60457049954
+Events Number in sideband_low from fitting:26.0014725278
+Events Number in Signal Region from fitting:74.1527221559
+Events Number in sideband_high from fitting:23.4601418078
+Total Number in sidebands from fitting:49.4616143356
+Ratio signal_region/sidebands from fitting:1.49919737057
+_STop_xww++++++++++++++++++++++++++++++++++++
+Events Number in sideband_low from dataset:5.43604989712
+Events Number in Signal Region from dataset:13.8213987671
+Events Number in sideband_high from dataset:4.58976518078
+Total Number in sidebands from dataset:10.0258150779
+Ratio signal_region/sidebands from dataset:1.37858105896
+Events Number in sideband_low from fitting:5.08496972776
+Events Number in Signal Region from fitting:12.9063350067
+Events Number in sideband_high from fitting:4.51348419619
+Total Number in sidebands from fitting:9.59845392396
+Ratio signal_region/sidebands from fitting:1.34462644806
+_VV_xww++++++++++++++++++++++++++++++++++++
+Events Number in sideband_low from dataset:4.56289229305
+Events Number in Signal Region from dataset:16.6052890228
+Events Number in sideband_high from dataset:1.25013526564
+Total Number in sidebands from dataset:5.81302755869
+Ratio signal_region/sidebands from dataset:2.85656464813
+Events Number in sideband_low from fitting:4.41472704326
+Events Number in Signal Region from fitting:17.0660217086
+Events Number in sideband_high from fitting:1.25891387218
+Total Number in sidebands from fitting:5.67364091544
+Ratio signal_region/sidebands from fitting:3.00794885735
+_WJets01_xww++++++++++++++++++++++++++++++++++++
+Events Number in sideband_low from dataset:211.106925832
+Events Number in Signal Region from dataset:148.357042962
+Events Number in sideband_high from dataset:49.1558049601
+Total Number in sidebands from dataset:260.262730792
+Ratio signal_region/sidebands from dataset:0.570027996365
+Events Number in sideband_low from fitting:199.877602261
+Events Number in Signal Region from fitting:148.045335841
+Events Number in sideband_high from fitting:50.2651188506
+Total Number in sidebands from fitting:250.142721111
+Ratio signal_region/sidebands from fitting:0.591843469135
+ fit_mlvj_in_Mj_sideband: nPar=3, chiSquare=243.229022494/40
+_BulkG_WW_lvjj_M4000_xww++++++++++++++++++++++++++++++++++++
+Events Number in All Region from dataset : 98.2797626366
+Events Number in Signal Region from dataset: 97.5606825232
+Ratio signal_region/all_range from dataset :0.992683334858
+Events Number in All Region from fitting : 98.2792060454
+
+Events Number in Signal Region from fitting: 95.2261429298
+
+Events Number in High Mass Region from fitting: 98.2783491175
+
+Ratio signal_region/all_range from fitting :0.968934800774
+_TTbar_xww++++++++++++++++++++++++++++++++++++
+Events Number in All Region from dataset : 74.244998988
+Events Number in Signal Region from dataset: 0.0
+Ratio signal_region/all_range from dataset :0.0
+Events Number in All Region from fitting : 74.2450013797
+
+Events Number in Signal Region from fitting: 0.000522233484291
+
+Events Number in High Mass Region from fitting: 0.0273495272418
+
+Ratio signal_region/all_range from fitting :7.0339211339e-06
+_STop_xww++++++++++++++++++++++++++++++++++++
+Events Number in All Region from dataset : 13.8213987671
+Events Number in Signal Region from dataset: 0.0
+Ratio signal_region/all_range from dataset :0.0
+Events Number in All Region from fitting : 13.8213988513
+
+Events Number in Signal Region from fitting: 9.21675114721e-05
+
+Events Number in High Mass Region from fitting: 0.00491306016825
+
+Ratio signal_region/all_range from fitting :6.6684647816e-06
+_VV_xww++++++++++++++++++++++++++++++++++++
+Events Number in All Region from dataset : 16.6052890228
+Events Number in Signal Region from dataset: 0.00882179179241
+Ratio signal_region/all_range from dataset :0.000531263971396
+Events Number in All Region from fitting : 16.6040271631
+
+Events Number in Signal Region from fitting: 0.00269615804289
+
+Events Number in High Mass Region from fitting: 0.0481207091783
+
+Ratio signal_region/all_range from fitting :0.000162379765849
+_WJets01_xww++++++++++++++++++++++++++++++++++++
+Events Number in All Region from dataset : 148.357042962
+Events Number in Signal Region from dataset: 0.0576164427538
+Ratio signal_region/all_range from dataset :0.00038836338069
+Events Number in All Region from fitting : 148.045335841
+
+Events Number in Signal Region from fitting: 0.127767239381
+
+Events Number in High Mass Region from fitting: 0.876476825337
+
+Ratio signal_region/all_range from fitting :0.000863027792496
+ fit_mlvj_in_Mj_sideband: nPar=3, chiSquare=243.229022494/40
+_BulkG_WW_lvjj_M4000_xww++++++++++++++++++++++++++++++++++++
+Events Number in All Region from dataset : 98.2797626366
+Events Number in Signal Region from dataset: 97.5606825232
+Ratio signal_region/all_range from dataset :0.992683334858
+Events Number in All Region from fitting : 98.2792060454
+
+Events Number in Signal Region from fitting: 95.2261429298
+
+Events Number in High Mass Region from fitting: 98.2783491175
+
+Ratio signal_region/all_range from fitting :0.968934800774
+_TTbar_xww++++++++++++++++++++++++++++++++++++
+Events Number in All Region from dataset : 74.244998988
+Events Number in Signal Region from dataset: 0.0
+Ratio signal_region/all_range from dataset :0.0
+Events Number in All Region from fitting : 74.2450013797
+
+Events Number in Signal Region from fitting: 0.000522233484291
+
+Events Number in High Mass Region from fitting: 0.0273495272418
+
+Ratio signal_region/all_range from fitting :7.0339211339e-06
+_STop_xww++++++++++++++++++++++++++++++++++++
+Events Number in All Region from dataset : 13.8213987671
+Events Number in Signal Region from dataset: 0.0
+Ratio signal_region/all_range from dataset :0.0
+Events Number in All Region from fitting : 13.8213988513
+
+Events Number in Signal Region from fitting: 9.21675114721e-05
+
+Events Number in High Mass Region from fitting: 0.00491306016825
+
+Ratio signal_region/all_range from fitting :6.6684647816e-06
+_VV_xww++++++++++++++++++++++++++++++++++++
+Events Number in All Region from dataset : 16.6052890228
+Events Number in Signal Region from dataset: 0.00882179179241
+Ratio signal_region/all_range from dataset :0.000531263971396
+Events Number in All Region from fitting : 16.6040271631
+
+Events Number in Signal Region from fitting: 0.00269615804289
+
+Events Number in High Mass Region from fitting: 0.0481207091783
+
+Ratio signal_region/all_range from fitting :0.000162379765849
+_WJets0_xww++++++++++++++++++++++++++++++++++++
+Events Number in All Region from dataset : 148.357042962
+Events Number in Signal Region from dataset: 0.0576164427538
+Ratio signal_region/all_range from dataset :0.00038836338069
+Events Number in All Region from fitting : 151.328210046
+
+Events Number in Signal Region from fitting: 0.0546858385721
+
+Events Number in High Mass Region from fitting: 0.645186448642
+
+Ratio signal_region/all_range from fitting :0.000361372400795

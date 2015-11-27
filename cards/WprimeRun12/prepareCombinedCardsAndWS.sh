@@ -17,7 +17,7 @@ WWDIR="WW_cards"
 JJDIR="JJ_cards"
 ZZ13DIR="ZZ_cards_13TeV"
 WW13DIR="WW_cards_13TeV"
-JJ13DIR="JJ_13TeV_1fb"
+JJ13DIR="JJ_cards_13TeV"
 
 #prepare output
 OUTDIR="comb_${MASS}"
@@ -119,16 +119,17 @@ fi
 
 ### JJ 13TeV only
 LABEL="xjj13"
-JJ13CARDORIG="CMS_jj_RS1_${MASS}_13TeV_CMS_jj_VVHP.txt" ##Andreas gives us cards with WW and ZZ8 already merged
+JJ13CARDORIG="CMS_jj_WZfix_${MASS}_13TeV_CMS_jj_VVHP.txt"
 COMBJJ13CARD="comb_${LABEL}.${MASS}.txt"
  
 if [ $MASS -ge 1200 ]
 then
+    python adapt_xsec_JJ_13TeV.py ${MASS}
 ###sed -e '/CMS_sig_p/ s|0|0.0|g' -e '/CMS_sig_p/ s|1|1.0|g' < CMS_jj_Bulk_1200_8TeV_CMS_jj_VV.txt
-sed -e 's|../workspaces/||g' < ${JJ13DIR}/${JJ13CARDORIG} &> $OUTDIR/${COMBJJ13CARD}
+sed -e 's|datacards/../workspaces/||g' -e 's|../workspaces/||g' < ${JJ13DIR}/${JJ13CARDORIG} &> $OUTDIR/${COMBJJ13CARD}
 ###    sed -e 's|datacards/../workspaces/||g' -e '/CMS_sig_p/ s|0|0.0|' -e '/CMS_sig_p1/ s|1|1.0|2' -e '/CMS_sig_p2/ s|1|1.0|' < ${JJDIR}/datacards/${JJCARDORIG} &> $OUTDIR/${COMBJJ8CARD}
 #    cp ${JJDIR}/datacards/${JJCARDORIG}  $OUTDIR/${COMBJJ8CARD}
-    cp ${JJ13DIR}/CMS_jj_RS1*${MASS}*.root ${OUTDIR}/
+    cp ${JJ13DIR}/CMS_jj_WZ*${MASS}*.root ${OUTDIR}/
     cp ${JJ13DIR}/CMS_jj_bkg_13TeV.root ${OUTDIR}/
 fi
 

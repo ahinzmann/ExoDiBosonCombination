@@ -29,33 +29,33 @@ if len(sys.argv)>1:
 for mass in masses:
         print "mass = ",mass
         try:
-	  fWW=open("WW_cards_13TeV/wwlvj_BulkG_WW_lvjj_M"+str(mass)+"_combo_ALLP_unbin.txt").readlines()
+	  fWZ=open("JJ_cards_13TeV/CMS_jj_WZ_"+str(mass)+"_13TeV_CMS_jj_VVHP.txt").readlines()
 	except:
 	  print "could not open"
 	  continue
-	outfile="WW_cards_13TeV/wwlvj_BulkGfix_WW_lvjj_M"+str(mass)+"_combo_ALLP_unbin.txt"
+	outfile="JJ_cards_13TeV/CMS_jj_WZfix_"+str(mass)+"_13TeV_CMS_jj_VVHP.txt"
 	print outfile
         f=open(outfile,"w")
 
-	BulkWW={}
-	for line in open("xsect_BulkG_WW_13TeV.txt").readlines():
+	WprimeWZ={}
+	for line in open("theory_HVT_WZ_13TeV.txt").readlines():
 	   split=line.replace("\n","").split(" ")
-	   BulkWW[int(split[0])]=float(split[1])
+	   WprimeWZ[int(split[0])]=float(split[1])
 
-	for l in range(len(fWW)):
-	  if "rate" in fWW[l]:
+	for l in range(len(fWZ)):
+	  if "rate" in fWZ[l]:
 	    line="rate                                     "
-	    fWWsplit=fWW[l].replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").split(" ")
-	    for s in range(len(fWWsplit)):
+	    fWZsplit=fWZ[l].replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").split(" ")
+	    for s in range(len(fWZsplit)):
 	      try:
-	        float(fWWsplit[s])
+	        float(fWZsplit[s])
 	      except: continue
-	      signal=(s in [1,6,11,16,21,26,31,36]) # only change signal
-              numberWW=float(fWWsplit[s])
+	      signal=(s in [2,6]) # only change signal
+              numberWZ=float(fWZsplit[s])
 	      if signal:
-                numberWW=numberWW*BulkWW[mass]*100.*2.*0.322*0.6760 # cards from Jennnifer are in units of 100. pb
-              line+="%.5e  " % numberWW
+                numberWZ=numberWZ*WprimeWZ[mass]*100. # cards from Thea are in units of 100. pb
+              line+="%.5e  " % numberWZ
 	    line+="\n"
 	    f.write(line)
 	  else:
-	    f.write(fWW[l])
+	    f.write(fWZ[l])

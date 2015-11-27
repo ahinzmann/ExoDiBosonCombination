@@ -75,8 +75,9 @@ if __name__ == '__main__':
       legendcontent=legendcontent[1:2]+legendcontent[3:]
       canvas[-1].SetLogy()
       canvas[-1].Draw()
-      for l in legendcontent[:-1]:
-        l1.AddEntry(l.GetObject(),"Frequentist CL_{S} Expected","")
+      #for l in legendcontent[:-1]:
+      #  l1.AddEntry(l.GetObject(),"Frequentist CL_{S} Expected","")
+      l1.AddEntry(graph[-1],"Frequentist CL_{S} Expected","")
       l1.AddEntry(graph[-1],names[name],"lp")
     else:
       #graphobs[-1].SetMarkerColor(colors[len(files)-2])
@@ -95,7 +96,7 @@ if __name__ == '__main__':
       #canvas[0].Update()
   graph[0].Draw("LX")
   #graphobs[0].Draw("LP")
-  l1.AddEntry(legendcontent[-1].GetObject(),legendcontent[-1].GetLabel(),legendcontent[-1].GetOption())
+  #l1.AddEntry(legendcontent[-1].GetObject(),legendcontent[-1].GetLabel(),legendcontent[-1].GetOption())
   l1.Draw()
   canvas[0].SaveAs("EXOVVbulk_compare_"+scenario+"_expected.pdf")
   for f in files:

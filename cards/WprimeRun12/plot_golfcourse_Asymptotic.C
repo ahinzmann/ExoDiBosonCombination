@@ -80,6 +80,12 @@ void plot_golfcourse_Asymptotic(bool unblind, char* width, char* scenario)
   bool useNewStyle = true;
   if (useNewStyle)  setFPStyle();
 
+  gROOT->ProcessLine(".x tdrstyle.cc");
+  gStyle->SetPadLeftMargin(0.16);
+  gStyle->SetPadTopMargin(0.05);
+ 
+  gROOT->LoadMacro("CMS_lumi.C");
+
   TFile *fFREQ = 0;
   if (width == 0)
   {
@@ -745,7 +751,7 @@ void plot_golfcourse_Asymptotic(bool unblind, char* width, char* scenario)
     char lumiText[300];
     sprintf(lumiText, "%.1f %s", intLumi, units.c_str());
     cmslabel->AddText(Form("%s", leftText.c_str(), lumiText));
-    cmslabel->Draw();
+    //cmslabel->Draw();
 
     TPaveText* label_sqrt = new TPaveText(0.5, 0.953, 0.96, 0.975, "brNDC");
     label_sqrt->SetFillColor(kWhite);
@@ -767,6 +773,8 @@ void plot_golfcourse_Asymptotic(bool unblind, char* width, char* scenario)
     //if(!isFullCombination)
     //  aNum->AddText("800");
     //aNum->Draw();
+
+    CMS_lumi( cMCMC, 5, 0 );
   }  
   else {
     TLatex * latex = new TLatex();

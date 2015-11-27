@@ -20,7 +20,7 @@ gStyle.SetLegendBorderSize(0)
 
 if __name__ == '__main__':
  scenarios={}
- scenarios["WW813TeV"]=["WW813_UL_Asymptotic","xww_UL_Asymptotic","xww13_UL_Asymptotic"]
+ scenarios["WW813TeV"]=["WW813","xww","xww13"]
  names={}
  names["ALL"]="lvJ, llJ, JJ (8 TeV)"
  names["WW813"]="lvJ (8+13 TeV)"
@@ -41,7 +41,7 @@ if __name__ == '__main__':
   graph=[]
   graphobs=[]
   for name in scenarios[scenario]:
-    files+=[TFile.Open("EXOVH_"+name+"_Significance.root")]
+    files+=[TFile.Open("EXOVVwprime_"+name+"_Significance.root")]
     canvas+=[files[-1].Get("canSig")]
     print [a for a in canvas[-1].GetListOfPrimitives()]
     graph+=[[a for a in canvas[-1].GetListOfPrimitives() if "Graph" in str(a)][0].Clone("graph_"+name)]
@@ -58,25 +58,23 @@ if __name__ == '__main__':
       for l in legendcontent:
            l1.AddEntry(l.GetObject(),l.GetLabel(),l.GetOption())
     else:
+      graphobs[-1].SetLineWidth(2)
       graphobs[-1].SetMarkerColor(colors[len(files)-2])
       graphobs[-1].SetMarkerStyle(styles[len(files)-2])
       graphobs[-1].SetLineColor(colors[len(files)-2])
       #graphobs[-1].SetLineStyle(styles[len(files)-2])
-      graphobs[-1].SetLineWidth(3)
+      graph[-1].SetLineWidth(2)
       graph[-1].SetLineColor(colors[len(files)-2])
       graph[-1].SetLineStyle(styles[len(files)-2])
       graph[-1].SetFillColor(colors[len(files)-2])
       graph[-1].SetFillStyle(fillstyles[len(files)-2])
-      graph[-1].SetLineWidth(3)
       #print graph[-1].GetErrorY(1)
       canvas[0].cd()
       graph[-1].Draw("L3")
       graphobs[-1].Draw("LP")
       l1.AddEntry(graphobs[-1],names[name],"lp")
       #canvas[0].Update()
-    graph[-1].SetLineWidth(3)
     graph[0].Draw("L3")
-    graphobs[-1].SetLineWidth(3)
     graphobs[0].Draw("LP")
     l1.Draw()
   canvas[0].SaveAs("EXOVVwprime_compare_"+scenario+"_Significance.pdf")

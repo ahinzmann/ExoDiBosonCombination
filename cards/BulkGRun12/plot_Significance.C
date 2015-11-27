@@ -26,8 +26,10 @@ void plot_Significance(bool unblind, char* scenario){
 
   gROOT->ProcessLine(".x tdrstyle.cc");
   gStyle->SetPadLeftMargin(0.16);
+  gStyle->SetPadTopMargin(0.05);
  
   gStyle->SetNdivisions(605, "XYZ");
+  gROOT->LoadMacro("CMS_lumi.C");
 
 
   //take tree with exp significance for all masses
@@ -119,12 +121,13 @@ void plot_Significance(bool unblind, char* scenario){
   grObs->SetLineStyle(kSolid);
   grExp->SetTitle("");
 
-  TLegend *l=new TLegend(0.25,0.15,0.65,0.30);
+  TLegend *l=new TLegend(0.50,0.15,0.89,0.30);
+  l->SetTextSize(0.025);
   l->AddEntry(grExp,"Expected Significance","L");
   if(unblind)l->AddEntry(grObs,"Observed Significance","LP");
   l->SetFillColor(kWhite);
 
-  TCanvas *cS=new TCanvas("canSig","Significance EXO-VV",800,800);
+  TCanvas *cS=new TCanvas("canSig","Significance EXO-VV",800,700);
   cS->cd();
 
   double fr_left=550.0, fr_down=1e-06,fr_right=4050.0,fr_up=0.6;
@@ -132,7 +135,9 @@ void plot_Significance(bool unblind, char* scenario){
   grExp->GetYaxis()->SetTitle("p-value");// #rightarrow 2l2q
   grExp->GetYaxis()->SetTitleOffset(1.6);
 
+  grExp->SetLineWidth(3.0);
   grExp->Draw("AL");
+  grObs->SetLineWidth(3.0);
   if(unblind)  grObs->Draw("LP");
   grExp->GetXaxis()->SetRangeUser(fr_left,fr_right);
   grExp->GetYaxis()->SetRangeUser(fr_down,fr_up);
@@ -149,22 +154,22 @@ void plot_Significance(bool unblind, char* scenario){
   l1->SetLineStyle(2);
   l1->SetLineWidth(3.0);
   l1->SetLineColor(kRed);
-  l1->DrawLine(800.0,quant1sigma,2600.0,quant1sigma);
+  l1->DrawLine(800.0,quant1sigma,4000.0,quant1sigma);
   TLine *l2=new TLine();
   l2->SetLineStyle(2);
   l2->SetLineWidth(3.0);
   l2->SetLineColor(kRed);
-  l2->DrawLine(800.0,quant2sigma,2600.0,quant2sigma);
+  l2->DrawLine(800.0,quant2sigma,4000.0,quant2sigma);
   TLine *l3=new TLine();
   l3->SetLineStyle(2);
   l3->SetLineWidth(3.0);
   l3->SetLineColor(kRed);
-  l3->DrawLine(800.0,quant3sigma,2600.0,quant3sigma);
+  l3->DrawLine(800.0,quant3sigma,4000.0,quant3sigma);
   TLine *l4=new TLine();
   l4->SetLineStyle(2);
   l4->SetLineWidth(3.0);
   l4->SetLineColor(kRed);
-  l4->DrawLine(800.0,quant4sigma,2600.0,quant4sigma);
+  l4->DrawLine(800.0,quant4sigma,4000.0,quant4sigma);
 
 
   TPaveText* cmslabel = new TPaveText( 0.145, 0.953, 0.6, 0.975, "brNDC");
@@ -189,8 +194,9 @@ void plot_Significance(bool unblind, char* scenario){
    label_sqrt->SetTextAlign(31); // align right
    // label_sqrt->AddText("#sqrt{s} = 7 TeV");
    label_sqrt->AddText(Form("%s", leftText.c_str(), lumiText));
-   label_sqrt->Draw();
+   //label_sqrt->Draw();
 
+   CMS_lumi( cS, 5, 0 );
 
    char fnam[50];
    sprintf(fnam, "EXOVVbulk_%s_Significance.root", scenario);

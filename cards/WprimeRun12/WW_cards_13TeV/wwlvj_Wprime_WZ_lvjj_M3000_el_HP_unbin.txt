@@ -34,8 +34,8 @@ CMS_scale_e_13TeV       lnN                      1.002         -             -  
 CMS_scale_j_13TeV       lnN                      0.866/1.154   -             -             -             -             1.083/0.892   -             -             -             -           
 CMS_xww_Top_norm_el_HPW_13TeV   lnN              -             -             1.097         -             1.097         -             -             -             -             -           
 CMS_xww_Top_norm_el_HPZ_13TeV   lnN              -             -             -             -             -             -             -             1.097         -             1.097       
-CMS_xww_WJ_norm_el_HPW_13TeV   lnN               -             1.072         -             -             -             -             -             -             -             -           
-CMS_xww_WJ_norm_el_HPZ_13TeV   lnN               -             -             -             -             -             -             1.089         -             -             -           
+CMS_xww_WJ_norm_el_HPW_13TeV   lnN               -             1.069         -             -             -             -             -             -             -             -           
+CMS_xww_WJ_norm_el_HPZ_13TeV   lnN               -             -             -             -             -             -             1.085         -             -             -           
 CMS_xww_XS_STop_13TeV   lnN                      -             -             1.05          -             -             -             -             1.05          -             -           
 CMS_xww_XS_VV_13TeV     lnN                      -             -             -             1.03          -             -             -             -             1.03          -           
 CMS_xww_btag_eff_13TeV   lnN                     1.002         -             -             -             -             1.002         -             -             -             -           

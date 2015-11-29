@@ -8,12 +8,12 @@ observation 0.00
 bin CMS_xww_el1JLPW CMS_xww_el1JLPW CMS_xww_el1JLPW CMS_xww_el1JLPW CMS_xww_el1JLPW
 process WprimeWZ_xww WJets_xww TTbar_xww STop_xww VV_xww
 process -1 1 2 3 4
-rate 0.19114 0.145 0.000 0.000 0.002
+rate 0.20743 0.145 0.000 0.000 0.002
 -------------------------------- 
 lumi_13TeV lnN 1.048 - 1.048 1.048 1.048
 CMS_xww_XS_STop_13TeV lnN - - - 1.050 -
 CMS_xww_XS_VV_13TeV lnN - - - - 1.030
-CMS_xww_WJ_norm_el_LPW_13TeV lnN - 1.089 - - -
+CMS_xww_WJ_norm_el_LPW_13TeV lnN - 1.092 - - -
 CMS_xww_Top_norm_el_LPW_13TeV lnN - - 1.411 1.411 -
 CMS_eff_vtag_tau21_sf_13TeV lnN 1.112/0.888 - - - 1.112/0.888
 #CMS_eff_vtag_model_13TeV lnN 1.000 - - - 1.000

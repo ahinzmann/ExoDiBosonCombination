@@ -20,7 +20,7 @@ rate 2.77488 151.328 74.245 13.821 16.604
 lumi_13TeV lnN 1.048 - 1.048 1.048 1.048
 CMS_xww_XS_STop_13TeV lnN - - - 1.050 -
 CMS_xww_XS_VV_13TeV lnN - - - - 1.030
-CMS_xww_WJ_norm_el_HPZ_13TeV lnN - 1.089 - - -
+CMS_xww_WJ_norm_el_HPZ_13TeV lnN - 1.085 - - -
 CMS_xww_Top_norm_el_HPZ_13TeV lnN - - 1.097 1.097 -
 CMS_eff_vtag_tau21_sf_13TeV lnN 1.047/0.953 - - - 1.047/0.953
 #CMS_eff_vtag_model_13TeV lnN 1.000 - - - 1.000

@@ -1,6 +1,5 @@
 Welcome:
 
-_BulkG_WW_lvjj_M800_xww events number in m_lvj from dataset: 4.96073792741
 _WJets0_xww events number in m_lvj from dataset: 79.1333056286
 _WJets01_xww events number in m_lvj from dataset: 79.1333056286
 _TTbar_xww events number in m_lvj from dataset: 13.4202385265
@@ -68,11 +67,11 @@ Events Number in Signal Region from dataset:96.0
 Events Number in sideband_high from dataset:12.0
 Total Number in sidebands from dataset:501.0
 Ratio signal_region/sidebands from dataset:0.191616766467
-Events Number in sideband_low from fitting:491.562289088
-Events Number in Signal Region from fitting:85.4974734301
-Events Number in sideband_high from fitting:12.34049655
-Total Number in sidebands from fitting:503.902785638
-Ratio signal_region/sidebands from fitting:0.169670571124
+Events Number in sideband_low from fitting:506.245322634
+Events Number in Signal Region from fitting:80.3864144079
+Events Number in sideband_high from fitting:11.3547399179
+Total Number in sidebands from fitting:517.600062552
+Ratio signal_region/sidebands from fitting:0.155306036888
 _TTbar_xww++++++++++++++++++++++++++++++++++++
 Events Number in sideband_low from dataset:30.8655070637
 Events Number in Signal Region from dataset:13.4202385265
@@ -119,16 +118,8 @@ Total Number in sidebands from fitting:452.002634048
 Ratio signal_region/sidebands from fitting:0.14335835858
  fit_mlvj_in_Mj_sideband: nPar=3, chiSquare=495.911453109/40
 _BulkG_WW_lvjj_M800_xww++++++++++++++++++++++++++++++++++++
-Events Number in All Region from dataset : 4.96073792741
-Events Number in Signal Region from dataset: 3.5899648634
-Ratio signal_region/all_range from dataset :0.723675573257
-Events Number in All Region from fitting : 4.96073845843
+Events Number in Signal Region from fitting: 0.0496100001037
 
-Events Number in Signal Region from fitting: 3.48037782111
-
-Events Number in High Mass Region from fitting: 0.00108397353672
-
-Ratio signal_region/all_range from fitting :0.70158462299
 _TTbar_xww++++++++++++++++++++++++++++++++++++
 Events Number in All Region from dataset : 13.4202385265
 Events Number in Signal Region from dataset: 7.34039328957
@@ -175,16 +166,8 @@ Events Number in High Mass Region from fitting: 0.339768748227
 Ratio signal_region/all_range from fitting :0.595828594543
  fit_mlvj_in_Mj_sideband: nPar=3, chiSquare=495.911453109/40
 _BulkG_WW_lvjj_M800_xww++++++++++++++++++++++++++++++++++++
-Events Number in All Region from dataset : 4.96073792741
-Events Number in Signal Region from dataset: 3.5899648634
-Ratio signal_region/all_range from dataset :0.723675573257
-Events Number in All Region from fitting : 4.96073845843
+Events Number in Signal Region from fitting: 0.0496100001037
 
-Events Number in Signal Region from fitting: 3.48037782111
-
-Events Number in High Mass Region from fitting: 0.00108397353672
-
-Ratio signal_region/all_range from fitting :0.70158462299
 _TTbar_xww++++++++++++++++++++++++++++++++++++
 Events Number in All Region from dataset : 13.4202385265
 Events Number in Signal Region from dataset: 7.34039328957

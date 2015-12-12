@@ -29,11 +29,11 @@ if len(sys.argv)>1:
 for mass in masses:
         print "mass = ",mass
         try:
-	  fWZ=open("JJ_cards_13TeV/CMS_jj_WZ_"+str(mass)+"_13TeV_CMS_jj_VVHP.txt").readlines()
+	  fWZ=open("JJ_cards_13TeV/CMS_jj_WZ_"+str(mass)+"_13TeV_CMS_jj_VVnew.txt").readlines()
 	except:
 	  print "could not open"
 	  continue
-	outfile="JJ_cards_13TeV/CMS_jj_WZfix_"+str(mass)+"_13TeV_CMS_jj_VVHP.txt"
+	outfile="JJ_cards_13TeV/CMS_jj_WZfix_"+str(mass)+"_13TeV_CMS_jj_VVnew.txt"
 	print outfile
         f=open(outfile,"w")
 
@@ -50,7 +50,7 @@ for mass in masses:
 	      try:
 	        float(fWZsplit[s])
 	      except: continue
-	      signal=(s in [2,6]) # only change signal
+	      signal=(s in [2,6,10,14,18,22]) # only change signal
               numberWZ=float(fWZsplit[s])
 	      if signal:
                 numberWZ=numberWZ*WprimeWZ[mass]*100. # cards from Thea are in units of 100. pb

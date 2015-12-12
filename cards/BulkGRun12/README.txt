@@ -56,15 +56,16 @@ points is about 2Gb.
 
 #2: edit paths and names in run_fullCLs_TF.sh and run_fullCLs_TF.py
 #2: edit paths and names in gridificateCombine.sh
-#4: for M in $( cat masses.txt ); do ./gridificateCombine.sh $M >> log_gridificate_$(date +%y%m%d).log ; done
+#4: for M in $( cat masses.txt ); do ./gridificateCombine.sh $M ALL >> log_gridificate_$(date +%y%m%d).log ; done
 #5: you can monitor all the jobs with this script
     for M in $( cat masses.txt ); do ./getCrabJob.sh $M status >> log_crabStatus_$(date +%y%m%d).log ; done
 #6: wait for the jobs in CRAB to be finished. When they are done, you can retrieve 
     the output with
     for M in $( cat masses.txt ); do ./getCrabJob.sh $M get ; done
-#7: edit paths, names and R values in mergeFullCLsTrees.sh
-#8: edit paths and names in harvestFullCLs.sh and makeFullCLsTree.C
-#9: for M in $( cat masses.txt); do ./mergeFullCLsTrees.sh $M ; done
-#10: ./harvestFullCLs.sh
-#11: edit paths and names in plot_golfcourse_HybridNew.C
-#12: run with root: $> root -b plot_golfcourse_HybridNew.C+
+#7: edit paths, names and R values in mergeFullCLsTrees.py
+#8: for M in $( cat masses.txt ); do python mergeFullCLsTrees.py $M ; done
+#9: edit paths and names in harvestFullCLs.py and makeFullCLsTree.py
+#10: python harvestFullCLs.py
+#11: python makeFullCLsTree.py
+#12: edit paths and names in plot_golfcourse_HybridNew.C
+#13: run with root: $> root -b plot_golfcourse_HybridNew.C+

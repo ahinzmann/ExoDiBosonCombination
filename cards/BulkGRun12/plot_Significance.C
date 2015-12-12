@@ -121,7 +121,7 @@ void plot_Significance(bool unblind, char* scenario){
   grObs->SetLineStyle(kSolid);
   grExp->SetTitle("");
 
-  TLegend *l=new TLegend(0.50,0.15,0.89,0.30);
+  TLegend *l=new TLegend(0.50,0.15,0.89,0.38);
   l->SetTextSize(0.025);
   l->AddEntry(grExp,"Expected Significance","L");
   if(unblind)l->AddEntry(grObs,"Observed Significance","LP");
@@ -131,7 +131,7 @@ void plot_Significance(bool unblind, char* scenario){
   cS->cd();
 
   double fr_left=550.0, fr_down=1e-06,fr_right=4050.0,fr_up=0.6;
-  grExp->GetXaxis()->SetTitle("M_{V'} [GeV]");
+  grExp->GetXaxis()->SetTitle("M_{G*} [GeV]");
   grExp->GetYaxis()->SetTitle("p-value");// #rightarrow 2l2q
   grExp->GetYaxis()->SetTitleOffset(1.6);
 

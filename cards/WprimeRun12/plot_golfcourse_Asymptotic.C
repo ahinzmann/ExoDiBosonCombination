@@ -314,7 +314,7 @@ void plot_golfcourse_Asymptotic(bool unblind, char* width, char* scenario)
       medianD[nMassEff1] = v_median.at(im) * fl_xs;
       up68err[nMassEff1] = (v_68h.at(im) - v_median.at(im)) * fl_xs;
       down68err[nMassEff1] = (v_median.at(im) - v_68l.at(im)) * fl_xs;
-      cout << "M=" << mass1[nMassEff1] << "  Median=" << medianD[nMassEff1] << endl;
+      cout << "M=" << mass1[nMassEff1] << "  Median=" << medianD[nMassEff1] << " obs=" << obs_lim_cls[nMassEff1] << endl;
 
       //scale factor 100 for making the xsect visible
       xs[nMassEff1] = fl_xs; // *100.0;

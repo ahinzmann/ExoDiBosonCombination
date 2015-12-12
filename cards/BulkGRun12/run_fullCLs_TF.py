@@ -65,6 +65,10 @@ commandCombine = "./combine ${CARD} -M HybridNew --frequentist --clsAcc 0 "+\
                  "--singlePoint "+point+" --rMin "+str(float(point)*0.33)+" --rMax "+str(float(point)*3.0)+\
                  " -s 100"+str(int(Njob))+" --saveHybridResult --saveToys -m "+\
                  str(mass) + " -n X"+str(chan)+"_CLs_"+str(mass)+"\n"        
+commandCombine2 = "./combine ${CARD} -M ProfileLikelihood -v2 --signif "+\
+                 "-t 200 "+\
+                 " -s 100"+str(int(Njob))+" -m "+\
+                 str(mass) + " -n X"+str(chan)+"_Signif_"+str(mass)+str(int(Njob))+"\n"        
 
 outputfile = open(submitname,'w')
 outputfile.write('#!/bin/bash\n')
@@ -77,9 +81,11 @@ outputfile.write('echo "NJob is ${JOBNUM}"\n\n')
 outputfile.write("echo; echo \"Executing the following command\: "+commandCombine+"   \"\n")
 outputfile.write('echo \"Path to combine program: $( which combine )\"; echo ;\n')
 outputfile.write(commandCombine)
+outputfile.write("echo; echo \"Executing the following command\: "+commandCombine2+"   \"\n")
+outputfile.write('echo \"Path to combine program: $( which combine )\"; echo ;\n')
+outputfile.write(commandCombine2)
 outputfile.write("ls -lht * ; echo ; echo -----; echo \n")                     
-#outputfile.write("mv higgsCombineX"+str(chan)"_CLs_"+str(mass)+".HybridNew.mH"+str(mass)+".100"+str(Njob)+".root output.root")
-outputfile.write("mv higgsCombine*.root output.root") # Come on, let's be safer
+outputfile.write("mv higgsCombineX"+str(chan)+"_CLs_"+str(mass)+".HybridNew*.root output.root")
 outputfile.close()
 
 command="source "+submitname

@@ -79,7 +79,7 @@ elif [ $mass -gt 1500 ]
     echo "High mass $mass 1500-2000: boundary of combine is $minBoundary - $maxBoundary "   >> ${LOG}
 elif [ $mass -gt 1000 ]
     then
-    maxBoundary=1000
+    maxBoundary=500
     minBoundary=0.1
     echo "Medium mass $mass 1000 - 1500: boundary of combine is $minBoundary - $maxBoundary "  >> ${LOG}
 else

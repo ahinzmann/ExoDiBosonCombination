@@ -20,23 +20,52 @@ gStyle.SetLegendBorderSize(0)
 
 if __name__ == '__main__':
  scenarios={}
- #scenarios["WZH8TeV"]=["WZH_UL_Asymptotic","xwh_UL_Asymptotic","xzh_UL_Asymptotic","xvh_UL_Asymptotic","xww_UL_Asymptotic","xzz_UL_Asymptotic","xjj_UL_Asymptotic"]
- #scenarios["VV8TeV"]=["VV_UL_Asymptotic","xww_UL_Asymptotic","xzz_UL_Asymptotic","xjj_UL_Asymptotic"]
- scenarios["WW813TeV"]=["WW813_UL_Asymptotic","xww_UL_Asymptotic","xww13_UL_Asymptotic"]
+ #scenarios["ALL8TeV"]=["ALL","xww","xzz","xjj8"]
+ #scenarios["JJ813TeV"]=["JJ813","xjj8","xjj13"]
+ #scenarios["JJ813TeVold"]=["xjj13","xjj13old","xjj13hp","xjj8"]
+ scenarios["ZZ813TeV"]=["ZZ813","xzz","xzz13"]
+ #scenarios["WW813TeV"]=["WW813","xww","xww13"]
+ #scenarios["ALL813TeV"]=["ALL813","xww","xzz","xjj8","xjj13","xww13"]
+ #scenarios["ALL13TeV"]=["ALL13","xjj13","xww13"]#"ALL13", ,"xzz13"
+ #scenarios["JAM813TeV"]=["JAM813","xww","xzz","xjj8","xww13","xjj13"]
+ #scenarios["JAM13TeV"]=["JAM13","xww13","xjj13"]
+ #scenarios["WZH8TeV"]=["WZH","xwh","xzh","xvh","xww","xzz","xjj"]
+ #scenarios["VV8TeV"]=["VV","xww","xzz","xjj"]
  names={}
- names["VV"]="lvJ, llJ, JJ (8 TeV)"
- names["WW813"]="lvJ (8+13 TeV)"
+ names["ALL"]="lvJ, llJ, JJ (8 TeV)"
  names["xww"]="lvJ (8 TeV)"
+ names["xjj8"]="JJ (8 TeV)"
  names["xzz"]="llJ (8 TeV)"
- names["xjj"]="JJ (8 TeV)"
+ names["JJ813"]="JJ (8+13 TeV)"
+ names["xjj13"]="JJ (13 TeV)"
+ names["xjj13old"]="JJ  (no W/Z cat) (13 TeV)"
+ names["xjj13hp"]="JJ (only HP) (13 TeV)"
+ names["ZZ813"]="llJ (8+13 TeV)"
+ names["xzz13"]="llJ (13 TeV)"
+ names["WW813"]="lvJ (8+13 TeV)"
  names["xww13"]="lvJ (13 TeV)"
+ names["ALL813"]="lvJ, llJ, JJ (8+13 TeV)"
+ names["ALL13"]="lvJ, llJ, JJ (13 TeV)"
+ names["JAM813"]="lvJ, llJ, JJ (8+13 TeV)"
+ names["JAM13"]="lvJ, JJ (13 TeV)"
+ 
+ stylelist={}
+ stylelist["xww"]=0
+ stylelist["xjj8"]=1
+ stylelist["xzz"]=2
+ stylelist["xjj13"]=3
+ stylelist["xzz13"]=4
+ stylelist["xww13"]=5
+ stylelist["xjj13"]=6
+ stylelist["xjj13old"]=0
+ stylelist["xjj13hp"]=2
  
  for name in names.keys():
    os.system('root -b -q plot_golfcourse_Asymptotic.C\(false,0,\\"'+name+'\\"\)')
  
- colors=[4,6,11,28,8,9]
- styles=[3,4,5,6,7,8,9]
- fillstyles=[3007,3007,3007,3007,3007,3007,3007]
+ colors=[4,6,11,28,8,9,7]
+ styles=[3,4,5,6,7,8,9,10]
+ fillstyles=[3007,3007,3007,3007,3007,3007,3007,3007]
  markerstyles=[20,22,23,24,25,26,27,28]
  for scenario in scenarios.keys():
   files=[]
@@ -46,7 +75,7 @@ if __name__ == '__main__':
   for name in scenarios[scenario]:
     print name
     shortname=name.replace("_UL_Asymptotic","").replace("_UL_HybridNew","")
-    files+=[TFile.Open("EXOVVwprime_"+name+".root")]
+    files+=[TFile.Open("EXOVVwprime_"+name+"_UL_Asymptotic.root")]
     if "HybridNew" in name:
       canvas+=[files[-1].Get("c_lim_HybridNew")]
     else:
@@ -75,10 +104,10 @@ if __name__ == '__main__':
       #graphobs[-1].SetMarkerStyle(markerstyles[len(files)-2])
       #graphobs[-1].SetLineColor(colors[len(files)-2])
       #graphobs[-1].SetLineStyle(styles[len(files)-2])
-      graph[-1].SetLineColor(colors[len(files)-2])
-      graph[-1].SetLineStyle(styles[len(files)-2])
-      graph[-1].SetFillColor(colors[len(files)-2])
-      graph[-1].SetFillStyle(fillstyles[len(files)-2])
+      graph[-1].SetLineColor(colors[stylelist[shortname]])
+      graph[-1].SetLineStyle(styles[stylelist[shortname]])
+      graph[-1].SetFillColor(colors[stylelist[shortname]])
+      graph[-1].SetFillStyle(fillstyles[stylelist[shortname]])
       #print graph[-1].GetErrorY(1)
       canvas[0].cd()
       #graphobs[-1].Draw("LP")

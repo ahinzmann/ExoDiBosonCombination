@@ -69,13 +69,13 @@ minBoundary=0.005
 #change range of scan specifically for BulkGRun12->VV with c=0.1
 if [ $mass -gt 2000 ]
     then
-    maxBoundary=1000
+    maxBoundary=100
     minBoundary=0.1
     echo "High mass $mass > 2000: boundary of combine is $minBoundary - $maxBoundary "   >> ${LOG}
 elif [ $mass -gt 1500 ]
     then
-    maxBoundary=1000
-    minBoundary=0.1
+    maxBoundary=300
+    minBoundary=0.03
     echo "High mass $mass 1500-2000: boundary of combine is $minBoundary - $maxBoundary "   >> ${LOG}
 elif [ $mass -gt 1000 ]
     then

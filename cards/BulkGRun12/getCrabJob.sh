@@ -26,7 +26,7 @@ if [ $# -eq 2 ]
 fi
 
 
-cd $M
+cd comb_$M
 
 for crabdir in $( ls -d crab_*_[0-9]* )
   do

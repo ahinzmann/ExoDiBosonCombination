@@ -14,7 +14,7 @@ observation  -1.0        -1.0
 bin                                            CMS_ZZ_EHP  CMS_ZZ_EHP  CMS_ZZ_MHP  CMS_ZZ_MHP
 process                                        ZZ_sig      ZZ_bkg_eig  ZZ_sig      ZZ_bkg_eig
 process                                        0           1           0           1         
-rate                                     1.00371e+00  1.00000e+00  1.26526e+00  1.00000e+00  
+rate                                     1.66760e+00  1.00000e+00  2.12390e+00  1.00000e+00  
 ----------------------------------------------------------------------------------------------------------------------------------
 CMS_eff_vtag_tau21_sf_13TeV   lnN              1.1         1.0         1.1         1.0       
 CMS_scale_E_13TeV       lnN                    1.005       1.0         -           -         

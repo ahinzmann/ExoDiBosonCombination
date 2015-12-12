@@ -21,7 +21,7 @@ gStyle.SetLabelSize(0.05, "XYZ")
 gStyle.SetNdivisions(510, "XYZ")
 gStyle.SetLegendBorderSize(0)
 
-masses =[m*100 for m in range(8,25+1)]
+masses =[m*100 for m in range(6,25+1)]
 
 if len(sys.argv)>1:
   masses=[int(sys.argv[1])]

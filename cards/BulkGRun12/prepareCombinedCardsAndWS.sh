@@ -16,7 +16,7 @@ WW13DIR="WW_cards_13TeV"
 #WW13DIR="WW_cards_13TeV_noMassCategory"
 #WW13DIR="WW_cards_13TeV_oldSys"
 JJ8DIR="JJ_cards"
-JJ13DIR="JJ_13TeV_1fb"
+JJ13DIR="JJ_cards_13TeV"
 
 #prepare output
 OUTDIR="comb_${MASS}"
@@ -80,18 +80,97 @@ sed -e 's|datacards/../workspaces/||g' < ${JJ8DIR}/datacards/${JJ8CARDORIG} &> $
     cp ${JJ8DIR}/workspaces/CMS_jj_bkg_8TeV.root ${OUTDIR}/
 fi
 
+### JJ 8TeV only
+LABEL="xjj8ww"
+JJ8CARDORIG="CMS_jj_BulkWWfix_${MASS}_8TeV_CMS_jj_VV.txt" ##Andreas gives us cards with WW and ZZ8 already merged
+COMBJJWW8CARD="comb_${LABEL}.${MASS}.txt"
+ 
+if [ $MASS -ge 1000 ] && [ $MASS -le 2900 ]
+then
+python adapt_xsec_JJ_BulkWW.py ${MASS}
+###sed -e '/CMS_sig_p/ s|0|0.0|g' -e '/CMS_sig_p/ s|1|1.0|g' < CMS_jj_Bulk_1200_8TeV_CMS_jj_VV.txt
+sed -e 's|datacards/../workspaces/||g' < ${JJ8DIR}/datacards/${JJ8CARDORIG} &> $OUTDIR/${COMBJJWW8CARD}
+###    sed -e 's|datacards/../workspaces/||g' -e '/CMS_sig_p/ s|0|0.0|' -e '/CMS_sig_p1/ s|1|1.0|2' -e '/CMS_sig_p2/ s|1|1.0|' < ${JJDIR}/datacards/${JJCARDORIG} &> $OUTDIR/${COMBJJCARD}
+#    cp ${JJDIR}/datacards/${JJCARDORIG}  $OUTDIR/${COMBJJCARD}
+    cp ${JJ8DIR}/workspaces/CMS_jj_Bulk*${MASS}*.root ${OUTDIR}/
+    cp ${JJ8DIR}/workspaces/CMS_jj_bkg_8TeV.root ${OUTDIR}/
+fi
+
+### JJ 8TeV only
+LABEL="xjj8zz"
+JJ8CARDORIG="CMS_jj_BulkZZfix_${MASS}_8TeV_CMS_jj_VV.txt" ##Andreas gives us cards with WW and ZZ8 already merged
+COMBJJZZ8CARD="comb_${LABEL}.${MASS}.txt"
+ 
+if [ $MASS -ge 1000 ] && [ $MASS -le 2900 ]
+then
+python adapt_xsec_JJ_BulkZZ.py ${MASS}
+###sed -e '/CMS_sig_p/ s|0|0.0|g' -e '/CMS_sig_p/ s|1|1.0|g' < CMS_jj_Bulk_1200_8TeV_CMS_jj_VV.txt
+sed -e 's|datacards/../workspaces/||g' < ${JJ8DIR}/datacards/${JJ8CARDORIG} &> $OUTDIR/${COMBJJZZ8CARD}
+###    sed -e 's|datacards/../workspaces/||g' -e '/CMS_sig_p/ s|0|0.0|' -e '/CMS_sig_p1/ s|1|1.0|2' -e '/CMS_sig_p2/ s|1|1.0|' < ${JJDIR}/datacards/${JJCARDORIG} &> $OUTDIR/${COMBJJCARD}
+#    cp ${JJDIR}/datacards/${JJCARDORIG}  $OUTDIR/${COMBJJCARD}
+    cp ${JJ8DIR}/workspaces/CMS_jj_Bulk*${MASS}*.root ${OUTDIR}/
+    cp ${JJ8DIR}/workspaces/CMS_jj_bkg_8TeV.root ${OUTDIR}/
+fi
+
 ### JJ 13TeV only
-LABEL="xjj13"
-JJ13CARDORIG="CMS_jj_RS1_${MASS}_13TeV_CMS_jj_VVHP.txt" ##Andreas gives us cards with WW and ZZ8 already merged
-COMBJJ13CARD="comb_${LABEL}.${MASS}.txt"
+LABEL="xjj13ww"
+JJ13CARDORIG="CMS_jj_BulkWWfix_${MASS}_13TeV_CMS_jj_VVnew.txt"
+COMBJJWW13CARD="comb_${LABEL}.${MASS}.txt"
+ 
+if [ $MASS -ge 1200 ]
+then
+    python adapt_xsec_JJ_BulkWW_13TeV.py ${MASS}
+###sed -e '/CMS_sig_p/ s|0|0.0|g' -e '/CMS_sig_p/ s|1|1.0|g' < CMS_jj_Bulk_1200_8TeV_CMS_jj_VV.txt
+sed -e 's|datacards/../workspaces/||g' -e 's|../workspaces/||g' < ${JJ13DIR}/${JJ13CARDORIG} &> $OUTDIR/${COMBJJWW13CARD}
+###    sed -e 's|datacards/../workspaces/||g' -e '/CMS_sig_p/ s|0|0.0|' -e '/CMS_sig_p1/ s|1|1.0|2' -e '/CMS_sig_p2/ s|1|1.0|' < ${JJDIR}/datacards/${JJCARDORIG} &> $OUTDIR/${COMBJJCARD}
+#    cp ${JJDIR}/datacards/${JJCARDORIG}  $OUTDIR/${COMBJJCARD}
+    cp ${JJ13DIR}/CMS_jj_Bulk*${MASS}*.root ${OUTDIR}/
+    cp ${JJ13DIR}/CMS_jj_bkg_13TeV.root ${OUTDIR}/
+fi
+
+### JJ 13TeV only
+LABEL="xjj13zz"
+JJ13CARDORIG="CMS_jj_BulkZZfix_${MASS}_13TeV_CMS_jj_VVnew.txt"
+COMBJJZZ13CARD="comb_${LABEL}.${MASS}.txt"
+ 
+if [ $MASS -ge 1200 ]
+then
+    python adapt_xsec_JJ_BulkZZ_13TeV.py ${MASS}
+###sed -e '/CMS_sig_p/ s|0|0.0|g' -e '/CMS_sig_p/ s|1|1.0|g' < CMS_jj_Bulk_1200_8TeV_CMS_jj_VV.txt
+sed -e 's|datacards/../workspaces/||g' -e 's|../workspaces/||g' < ${JJ13DIR}/${JJ13CARDORIG} &> $OUTDIR/${COMBJJZZ13CARD}
+###    sed -e 's|datacards/../workspaces/||g' -e '/CMS_sig_p/ s|0|0.0|' -e '/CMS_sig_p1/ s|1|1.0|2' -e '/CMS_sig_p2/ s|1|1.0|' < ${JJDIR}/datacards/${JJCARDORIG} &> $OUTDIR/${COMBJJCARD}
+#    cp ${JJDIR}/datacards/${JJCARDORIG}  $OUTDIR/${COMBJJCARD}
+    cp ${JJ13DIR}/CMS_jj_Bulk*${MASS}*.root ${OUTDIR}/
+    cp ${JJ13DIR}/CMS_jj_bkg_13TeV.root ${OUTDIR}/
+fi
+
+### JJ 13TeV only
+LABEL="xjj13old"
+JJ13oldCARDORIG="CMS_jj_BulkWWfix_${MASS}_13TeV_CMS_jj_VV.txt"
+COMBJJ13oldCARD="comb_${LABEL}.${MASS}.txt"
  
 if [ $MASS -ge 1200 ]
 then
 ###sed -e '/CMS_sig_p/ s|0|0.0|g' -e '/CMS_sig_p/ s|1|1.0|g' < CMS_jj_Bulk_1200_8TeV_CMS_jj_VV.txt
-sed -e 's|../workspaces/||g' < ${JJ13DIR}/${JJ13CARDORIG} &> $OUTDIR/${COMBJJ13CARD}
+sed -e 's|datacards/../workspaces/||g' -e 's|../workspaces/||g' < ${JJ13DIR}/${JJ13oldCARDORIG} &> $OUTDIR/${COMBJJ13oldCARD}
 ###    sed -e 's|datacards/../workspaces/||g' -e '/CMS_sig_p/ s|0|0.0|' -e '/CMS_sig_p1/ s|1|1.0|2' -e '/CMS_sig_p2/ s|1|1.0|' < ${JJDIR}/datacards/${JJCARDORIG} &> $OUTDIR/${COMBJJCARD}
 #    cp ${JJDIR}/datacards/${JJCARDORIG}  $OUTDIR/${COMBJJCARD}
-    cp ${JJ13DIR}/CMS_jj_RS1*${MASS}*.root ${OUTDIR}/
+    cp ${JJ13DIR}/CMS_jj_Bulk*${MASS}*.root ${OUTDIR}/
+    cp ${JJ13DIR}/CMS_jj_bkg_13TeV.root ${OUTDIR}/
+fi
+
+### JJ 13TeV only
+LABEL="xjj13hp"
+JJ13hpCARDORIG="CMS_jj_BulkWWfix_${MASS}_13TeV_CMS_jj_VVHPnew.txt"
+COMBJJ13hpCARD="comb_${LABEL}.${MASS}.txt"
+ 
+if [ $MASS -ge 1200 ]
+then
+###sed -e '/CMS_sig_p/ s|0|0.0|g' -e '/CMS_sig_p/ s|1|1.0|g' < CMS_jj_Bulk_1200_8TeV_CMS_jj_VV.txt
+sed -e 's|datacards/../workspaces/||g' -e 's|../workspaces/||g' < ${JJ13DIR}/${JJ13hpCARDORIG} &> $OUTDIR/${COMBJJ13hpCARD}
+###    sed -e 's|datacards/../workspaces/||g' -e '/CMS_sig_p/ s|0|0.0|' -e '/CMS_sig_p1/ s|1|1.0|2' -e '/CMS_sig_p2/ s|1|1.0|' < ${JJDIR}/datacards/${JJCARDORIG} &> $OUTDIR/${COMBJJCARD}
+#    cp ${JJDIR}/datacards/${JJCARDORIG}  $OUTDIR/${COMBJJCARD}
+    cp ${JJ13DIR}/CMS_jj_Bulk*${MASS}*.root ${OUTDIR}/
     cp ${JJ13DIR}/CMS_jj_bkg_13TeV.root ${OUTDIR}/
 fi
 
@@ -140,10 +219,15 @@ COMBALLCARD="comb_ALL.${MASS}.txt"
 COMBSEMILEPCARD="comb_SEMILEPT.${MASS}.txt"
 COMBSEMILEP813CARD="comb_SEMILEPT813.${MASS}.txt"
 COMBJJ813CARD="comb_JJ813.${MASS}.txt"
+COMBJJWW813CARD="comb_JJWW813.${MASS}.txt"
+COMBJJZZ813CARD="comb_JJZZ813.${MASS}.txt"
 COMBWW813CARD="comb_WW813.${MASS}.txt"
 COMBZZ813CARD="comb_ZZ813.${MASS}.txt"
 COMBALL13CARD="comb_ALL13.${MASS}.txt"
 COMBALL813CARD="comb_ALL813.${MASS}.txt"
+COMBJAM13CARD="comb_JAM13.${MASS}.txt"
+COMBJAM813CARD="comb_JAM813.${MASS}.txt"
+COMBJAMZZ813CARD="comb_JAMZZ813.${MASS}.txt"
 
 if [ $MASS -lt 800 ]
     then
@@ -151,6 +235,8 @@ if [ $MASS -lt 800 ]
     combineCards.py $COMBZZ8CARD &>  $COMBSEMILEPCARD
     combineCards.py $COMBZZ8CARD &>  $COMBALLCARD
     combineCards.py $COMBZZ8CARD &>  $COMBALL813CARD
+
+    combineCards.py $COMBZZ8CARD &>  $COMBJAMZZ813CARD
 elif [ $MASS -lt 1000 ]
     then
     combineCards.py $COMBZZ8CARD $COMBZZ13CARD &>  $COMBZZ813CARD
@@ -160,9 +246,14 @@ elif [ $MASS -lt 1000 ]
     combineCards.py $COMBWW8CARD $COMBZZ8CARD &>  $COMBALLCARD
     combineCards.py $COMBZZ13CARD $COMBWW13CARD &>  $COMBALL13CARD
     combineCards.py $COMBWW8CARD $COMBWW13CARD $COMBZZ13CARD $COMBZZ8CARD &>  $COMBALL813CARD
+    combineCards.py $COMBWW13CARD &>  $COMBJAM13CARD
+    combineCards.py $COMBWW8CARD $COMBWW13CARD &>  $COMBJAM813CARD
+    combineCards.py $COMBZZ8CARD &>  $COMBJAMZZ813CARD
 elif [ $MASS -lt 1200 ]
     then
     combineCards.py $COMBJJ8CARD &> $COMBJJ813CARD
+    combineCards.py $COMBJJWW8CARD &> $COMBJJWW813CARD
+    combineCards.py $COMBJJZZ8CARD &> $COMBJJZZ813CARD
     combineCards.py $COMBZZ8CARD $COMBZZ13CARD &>  $COMBZZ813CARD
     combineCards.py $COMBWW8CARD $COMBWW13CARD &>  $COMBWW813CARD
     combineCards.py $COMBWW8CARD $COMBZZ8CARD &>  $COMBSEMILEPCARD
@@ -170,28 +261,43 @@ elif [ $MASS -lt 1200 ]
     combineCards.py $COMBJJ8CARD $COMBWW8CARD $COMBZZ8CARD &>  $COMBALLCARD
     combineCards.py $COMBZZ13CARD $COMBWW13CARD &>  $COMBALL13CARD
     combineCards.py $COMBJJ8CARD $COMBWW8CARD $COMBWW13CARD $COMBZZ13CARD $COMBZZ8CARD &>  $COMBALL813CARD
+    combineCards.py $COMBWW13CARD &>  $COMBJAM13CARD
+    combineCards.py $COMBJJWW8CARD $COMBWW8CARD $COMBWW13CARD &>  $COMBJAM813CARD
+    combineCards.py $COMBJJZZ8CARD $COMBZZ8CARD &>  $COMBJAMZZ813CARD
 elif [ $MASS -le 2500 ]
     then
     combineCards.py $COMBJJ8CARD $COMBJJ13CARD &>  $COMBJJ813CARD
+    combineCards.py $COMBJJWW8CARD $COMBJJWW13CARD &>  $COMBJJWW813CARD
+    combineCards.py $COMBJJZZ8CARD $COMBJJZZ13CARD &>  $COMBJJZZ813CARD
     combineCards.py $COMBZZ8CARD $COMBZZ13CARD &>  $COMBZZ813CARD
     combineCards.py $COMBWW8CARD $COMBWW13CARD &>  $COMBWW813CARD
     combineCards.py $COMBWW8CARD $COMBZZ8CARD &>  $COMBSEMILEPCARD
     combineCards.py $COMBWW8CARD $COMBWW13CARD $COMBZZ8CARD &>  $COMBSEMILEP813CARD
     combineCards.py $COMBJJ8CARD $COMBWW8CARD $COMBZZ8CARD &>  $COMBALLCARD
     combineCards.py $COMBJJ13CARD $COMBZZ13CARD $COMBWW13CARD &>  $COMBALL13CARD
-    combineCards.py $COMBJJ8CARD $COMBJJ13CARD $COMBWW8CARD $COMBZZ13CARD $COMBWW13CARD $COMBZZ8CARD &>  $COMBALL813CARD
+    combineCards.py $COMBJJ13CARD $COMBJJ8CARD $COMBWW8CARD $COMBZZ13CARD $COMBWW13CARD $COMBZZ8CARD &>  $COMBALL813CARD
+    combineCards.py $COMBJJWW13CARD $COMBWW13CARD &>  $COMBJAM13CARD
+    combineCards.py $COMBJJWW13CARD $COMBJJWW8CARD $COMBWW8CARD $COMBWW13CARD &>  $COMBJAM813CARD
+    combineCards.py $COMBJJZZ13CARD $COMBJJZZ8CARD $COMBZZ8CARD &>  $COMBJAMZZ813CARD
 elif [ $MASS -le 2900 ]
     then
     combineCards.py $COMBJJ8CARD $COMBJJ13CARD &>  $COMBJJ813CARD
+    combineCards.py $COMBJJWW8CARD $COMBJJWW13CARD &>  $COMBJJWW813CARD
+    combineCards.py $COMBJJZZ8CARD $COMBJJZZ13CARD &>  $COMBJJZZ813CARD
     combineCards.py $COMBZZ13CARD &>  $COMBZZ813CARD
     combineCards.py $COMBWW13CARD &>  $COMBWW813CARD
 
     combineCards.py $COMBWW13CARD &>  $COMBSEMILEP813CARD
     combineCards.py $COMBJJ8CARD &>  $COMBALLCARD
     combineCards.py $COMBJJ13CARD $COMBZZ13CARD $COMBWW13CARD &>  $COMBALL13CARD
-    combineCards.py $COMBJJ8CARD $COMBJJ13CARD $COMBZZ13CARD $COMBWW13CARD &>  $COMBALL813CARD
+    combineCards.py $COMBJJ13CARD $COMBJJ8CARD $COMBZZ13CARD $COMBWW13CARD &>  $COMBALL813CARD
+    combineCards.py $COMBJJWW13CARD $COMBWW13CARD &>  $COMBJAM13CARD
+    combineCards.py $COMBJJWW13CARD $COMBJJWW8CARD $COMBWW13CARD &>  $COMBJAM813CARD
+    combineCards.py $COMBJJZZ13CARD $COMBJJZZ8CARD &>  $COMBJAMZZ813CARD
 else
     combineCards.py $COMBJJ13CARD &>  $COMBJJ813CARD
+    combineCards.py $COMBJJWW13CARD &>  $COMBJJWW813CARD
+    combineCards.py $COMBJJZZ13CARD &>  $COMBJJZZ813CARD
     combineCards.py $COMBZZ13CARD &>  $COMBZZ813CARD
     combineCards.py $COMBWW13CARD &>  $COMBWW813CARD
 
@@ -199,4 +305,7 @@ else
 
     combineCards.py $COMBJJ13CARD $COMBZZ13CARD $COMBWW13CARD &>  $COMBALL13CARD
     combineCards.py $COMBJJ13CARD $COMBZZ13CARD $COMBWW13CARD &>  $COMBALL813CARD
+    combineCards.py $COMBJJWW13CARD $COMBWW13CARD &>  $COMBJAM13CARD
+    combineCards.py $COMBJJWW13CARD $COMBWW13CARD &>  $COMBJAM813CARD
+    combineCards.py $COMBJJZZ13CARD &>  $COMBJAMZZ813CARD
 fi

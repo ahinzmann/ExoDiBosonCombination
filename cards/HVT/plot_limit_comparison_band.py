@@ -68,7 +68,7 @@ if __name__ == '__main__':
       canvas[-1].Draw()
       l1.AddEntry(graphobs[-1],names[shortname],"")
       for l in legendcontent[:-1]:
-        l1.AddEntry(l.GetObject(),l.GetLabel().replace("Frequentist ",""),l.GetOption())
+        l1.AddEntry(l.GetObject(),l.GetLabel().replace("CL_{S}  ","").replace("CL_{S} ","").replace("Frequentist ",""),l.GetOption())
     else:
       graphobs[-1].SetMarkerColor(colors[len(files)-2])
       graphobs[-1].SetMarkerStyle(markerstyles[len(files)-2])

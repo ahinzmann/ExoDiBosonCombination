@@ -1,5 +1,6 @@
 from ROOT import *
 import os
+import sys
 
 gROOT.Reset()
 gROOT.SetStyle("Plain")
@@ -20,19 +21,24 @@ gStyle.SetNdivisions(510, "XYZ")
 gStyle.SetLegendBorderSize(0)
 
 if __name__ == '__main__':
+ fullCLS=False
  scenarios={}
- #scenarios["ALL8TeV"]=["ALL","xww","xzz","xjj8"]
- #scenarios["JJWW813TeV"]=["JJWW813","xjj8ww","xjj13ww"]
- #scenarios["JJZZ813TeV"]=["JJZZ813","xjj8zz","xjj13zz"]
- #scenarios["JJ813TeVold"]=["xjj13","xjj13old","xjj13hp","xjj8"]
- #scenarios["ZZ813TeV"]=["ZZ813","xzz","xzz13"]
- #scenarios["WW813TeV"]=["WW813","xww","xww13"]
- #scenarios["WW813TeVnocat"]=["xww","xww13oldsys","xww13nomasscategory"]
- #scenarios["ALL813TeV"]=["ALL813","xww","xzz","xjj8","xzz13","xww13","xjj13"]
- #scenarios["ALL13TeV"]=["ALL13","xzz13","xww13","xjj13"]
- #scenarios["JAM813TeV"]=["JAM813","xww","xjj8ww","xww13","xjj13ww"]
+ scenarios["ALL8TeV"]=["ALL","xww","xzz","xjj8"]
+ scenarios["JJWW813TeV"]=["JJWW813","xjj8ww","xjj13ww"]
+ scenarios["JJZZ813TeV"]=["JJZZ813","xjj8zz","xjj13zz"]
+ scenarios["JJ813TeVold"]=["xjj13","xjj13old","xjj13hp","xjj8"]
+ scenarios["ZZ813TeV"]=["ZZ813","xzz","xzz13"]
+ scenarios["WW813TeV"]=["WW813","xww","xww13"]
+ scenarios["WW813TeVnocat"]=["xww","xww13oldsys","xww13nomasscategory"]
+ scenarios["ALL813TeV"]=["ALL813","xww","xzz","xjj8","xzz13","xww13","xjj13ww"]
+ scenarios["ALL13TeV"]=["ALL13","xzz13","xww13","xjj13ww"]
+ scenarios["JAM813TeV"]=["JAM813","xww","xjj8ww","xww13","xjj13ww"]
  scenarios["JAMZZ813TeV"]=["JAMZZ813","xzz","xjj8zz","xjj13zz"]
- #scenarios["JAM13TeV"]=["JAM13","xww13","xjj13"]
+ scenarios["JAM13TeV"]=["JAM13","xww13","xjj13ww"]
+ if len(sys.argv)>1:
+    scenarios_arg={}
+    scenarios_arg[sys.argv[1]]=scenarios[sys.argv[1]]
+    scenarios=scenarios_arg
  names={}
  names["ALL"]="lvJ, llJ, JJ (8 TeV)"
  names["xww"]="lvJ (8 TeV)"
@@ -70,8 +76,13 @@ if __name__ == '__main__':
  stylelist["xjj13old"]=0
  stylelist["xjj13hp"]=2
 
- for name in names.keys():
-   os.system('root -b -q plot_golfcourse_Asymptotic.C\(false,0,\\"'+name+'\\"\)')
+ if len(sys.argv)==1:
+  for name in names.keys():
+   if fullCLS:
+     os.system('root -b -q plot_golfcourse_HybridNew.C\(false,0,\\"'+name+'\\"\)')
+     os.system('root -b -q plot_golfcourse_Asymptotic.C\(false,0,\\"'+name+'\\",false\)')
+   else:
+     os.system('root -b -q plot_golfcourse_Asymptotic.C\(false,0,\\"'+name+'\\"\)')
  
  colors=[4,6,11,28,8,9,7]
  styles=[3,4,5,6,7,8,9,10]
@@ -84,8 +95,12 @@ if __name__ == '__main__':
   graphobs=[]
   for name in scenarios[scenario]:
     print name
-    files+=[TFile.Open("EXOVVbulk_"+name+"_UL_Asymptotic.root")]
-    canvas+=[files[-1].Get("c_lim_Asymptotic")]
+    if (name=="JAM13") and fullCLS:
+      files+=[TFile.Open("EXOVVbulk_"+name+"_UL_HybridNew.root")]
+      canvas+=[files[-1].Get("c_lim_HybridNew")]
+    else:
+      files+=[TFile.Open("EXOVVbulk_"+name+"_UL_Asymptotic.root")]
+      canvas+=[files[-1].Get("c_lim_Asymptotic")]
     print [a for a in canvas[-1].GetListOfPrimitives()]
     graph+=[[a for a in canvas[-1].GetListOfPrimitives() if "Limit68CLs" in str(a)][0].Clone("graph_"+name)]
     #graphobs+=[[a for a in canvas[-1].GetListOfPrimitives() if "LimitObservedCLs" in str(a)][0].Clone("graph_"+name)]

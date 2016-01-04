@@ -130,7 +130,7 @@ void plot_Significance(bool unblind, char* scenario){
   TCanvas *cS=new TCanvas("canSig","Significance EXO-VV",800,700);
   cS->cd();
 
-  double fr_left=550.0, fr_down=1e-06,fr_right=4050.0,fr_up=0.6;
+  double fr_left=750.0, fr_down=1e-06,fr_right=4050.0,fr_up=0.6;
   grExp->GetXaxis()->SetTitle("M_{W'} [GeV]");
   grExp->GetYaxis()->SetTitle("p-value");// #rightarrow 2l2q
   grExp->GetYaxis()->SetTitleOffset(1.6);
@@ -196,7 +196,7 @@ void plot_Significance(bool unblind, char* scenario){
    label_sqrt->AddText(Form("%s, L = %s at  #sqrt{s} = 8 TeV", leftText.c_str(), lumiText));
    //label_sqrt->Draw();
 
-   CMS_lumi( cS, 5, 0 );
+   CMS_lumi( cS, 4, 0 );
 
    char fnam[50];
    sprintf(fnam, "EXOVVwprime_%s_Significance.root", scenario);

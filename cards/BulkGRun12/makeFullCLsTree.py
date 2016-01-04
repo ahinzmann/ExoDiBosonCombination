@@ -5,8 +5,8 @@ import sys
 from ROOT import *
 
 ### Make changes here if it is needed
-channels = ["xvh","xwh","xzh","ALL"]
-channels = ["xwh","ALL"]
+channels = ["JAM13","xjj13ww","xjj13zz","xww13"]
+channels = ["xjj13ww","xjj13zz","xww13"]
 m=open("masses.txt")
 masses=[int(mm.strip("")) for mm in m.readlines()]
 

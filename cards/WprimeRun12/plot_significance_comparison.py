@@ -1,5 +1,6 @@
 from ROOT import *
 import os
+import sys
 
 gROOT.Reset()
 gROOT.SetStyle("Plain")
@@ -20,17 +21,19 @@ gStyle.SetLegendBorderSize(0)
 
 if __name__ == '__main__':
  scenarios={}
- #scenarios["ALL8TeV"]=["ALL","xww","xzz","xjj8"]
- #scenarios["JJ813TeV"]=["JJ813","xjj8","xjj13"]
- #scenarios["JJ813TeVold"]=["xjj13","xjj13old","xjj13hp","xjj8"]
+ scenarios["ALL8TeV"]=["ALL","xww","xzz","xjj8"]
+ scenarios["JJ813TeV"]=["JJ813","xjj8","xjj13"]
+ scenarios["JJ813TeVold"]=["xjj13","xjj13old","xjj13hp","xjj8"]
  scenarios["ZZ813TeV"]=["ZZ813","xzz","xzz13"]
- #scenarios["WW813TeV"]=["WW813","xww","xww13"]
- #scenarios["ALL813TeV"]=["ALL813","xww","xzz","xjj8","xjj13","xww13"]
- #scenarios["ALL13TeV"]=["ALL13","xjj13","xww13"]#"ALL13", ,"xzz13"
- #scenarios["JAM813TeV"]=["JAM813","xww","xzz","xjj8","xww13","xjj13"]
- #scenarios["JAM13TeV"]=["JAM13","xww13","xjj13"]
- #scenarios["WZH8TeV"]=["WZH","xwh","xzh","xvh","xww","xzz","xjj"]
- #scenarios["VV8TeV"]=["VV","xww","xzz","xjj"]
+ scenarios["WW813TeV"]=["WW813","xww","xww13"]
+ scenarios["ALL813TeV"]=["ALL813","xww","xzz","xjj8","xjj13","xww13","xzz13"]
+ scenarios["ALL13TeV"]=["ALL13","xjj13","xww13","xzz13"]
+ scenarios["JAM813TeV"]=["JAM813","xww","xzz","xjj8","xww13","xjj13"]
+ scenarios["JAM13TeV"]=["JAM13","xww13","xjj13"]
+ if len(sys.argv)>1:
+    scenarios_arg={}
+    scenarios_arg[sys.argv[1]]=scenarios[sys.argv[1]]
+    scenarios=scenarios_arg
  names={}
  names["ALL"]="lvJ, llJ, JJ (8 TeV)"
  names["xww"]="lvJ (8 TeV)"
@@ -60,7 +63,8 @@ if __name__ == '__main__':
  stylelist["xjj13old"]=0
  stylelist["xjj13hp"]=2
  
- for name in names.keys():
+ if len(sys.argv)==1:
+  for name in names.keys():
    os.system('root -b -q plot_Significance.C\(true,\\"'+name+'\\"\)')
  
  colors=[4,6,11,28,8,9,7]

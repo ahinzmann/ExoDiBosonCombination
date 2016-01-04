@@ -1,8 +1,10 @@
 from ROOT import *
 import os
+import sys
 
 gROOT.Reset()
 gROOT.SetStyle("Plain")
+gROOT.SetBatch(True)
 gStyle.SetOptStat(0)
 gStyle.SetOptFit(0)
 gStyle.SetTitleOffset(1.2,"Y")
@@ -19,19 +21,24 @@ gStyle.SetNdivisions(510, "XYZ")
 gStyle.SetLegendBorderSize(0)
 
 if __name__ == '__main__':
+
  scenarios={}
- #scenarios["ALL8TeV"]=["ALL","xww","xzz","xjj8"]
- #scenarios["JJWW813TeV"]=["JJWW813","xjj8ww","xjj13ww"]
- #scenarios["JJZZ813TeV"]=["JJZZ813","xjj8zz","xjj13zz"]
- #scenarios["JJ813TeVold"]=["xjj13","xjj13old","xjj13hp","xjj8"]
- #scenarios["ZZ813TeV"]=["ZZ813","xzz","xzz13"]
- #scenarios["WW813TeV"]=["WW813","xww","xww13"]
- #scenarios["WW813TeVnocat"]=["xww","xww13oldsys","xww13nomasscategory"]
- #scenarios["ALL813TeV"]=["ALL813","xww","xzz","xjj8","xzz13","xww13","xjj13"]
- #scenarios["ALL13TeV"]=["ALL13","xzz13","xww13","xjj13"]
- #scenarios["JAM813TeV"]=["JAM813","xww","xjj8ww","xww13","xjj13ww"]
+ scenarios["ALL8TeV"]=["ALL","xww","xzz","xjj8"]
+ scenarios["JJWW813TeV"]=["JJWW813","xjj8ww","xjj13ww"]
+ scenarios["JJZZ813TeV"]=["JJZZ813","xjj8zz","xjj13zz"]
+ scenarios["JJ813TeVold"]=["xjj13","xjj13old","xjj13hp","xjj8"]
+ scenarios["ZZ813TeV"]=["ZZ813","xzz","xzz13"]
+ scenarios["WW813TeV"]=["WW813","xww","xww13"]
+ scenarios["WW813TeVnocat"]=["xww","xww13oldsys","xww13nomasscategory"]
+ scenarios["ALL813TeV"]=["ALL813","xww","xzz","xjj8","xzz13","xww13","xjj13ww"]
+ scenarios["ALL13TeV"]=["ALL13","xzz13","xww13","xjj13ww"]
+ scenarios["JAM813TeV"]=["JAM813","xww","xjj8ww","xww13","xjj13ww"]
  scenarios["JAMZZ813TeV"]=["JAMZZ813","xzz","xjj8zz","xjj13zz"]
- #scenarios["JAM13TeV"]=["JAM13","xww13","xjj13"]
+ scenarios["JAM13TeV"]=["JAM13","xww13","xjj13ww"]
+ if len(sys.argv)>1:
+    scenarios_arg={}
+    scenarios_arg[sys.argv[1]]=scenarios[sys.argv[1]]
+    scenarios=scenarios_arg
  names={}
  names["ALL"]="lvJ, llJ, JJ (8 TeV)"
  names["xww"]="lvJ (8 TeV)"
@@ -69,7 +76,8 @@ if __name__ == '__main__':
  stylelist["xjj13old"]=0
  stylelist["xjj13hp"]=2
 
- for name in names.keys():
+ if len(sys.argv)==1:
+  for name in names.keys():
    os.system('root -b -q plot_Significance.C\(true,\\"'+name+'\\"\)')
 
  colors=[4,6,11,28,8,9,7]

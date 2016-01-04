@@ -21,6 +21,7 @@ print "mass =",mass
 print "card =",cardname
 
 midpoint = fromAsymptotic
+if chan=="JAM13" and mass>=2600 and mass<=3400: midpoint*=0.7
 points = []
 for i in range(10):
     stepsize = 0.05

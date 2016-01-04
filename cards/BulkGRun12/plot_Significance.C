@@ -84,7 +84,7 @@ void plot_Significance(bool unblind, char* scenario){
       texp->GetEntry(i);
       if(expM!=mhTMP)continue;//follow exactly the order of v_mhTMP
       if(expS<1e-06)expS=1e-99;
-      arrM[iMH]=expM;
+      arrM[iMH]=expM/1000.;
       arrExp[iMH]=expS;
       //  cout<<"M="<<expM<<"   ExpSig="<<expS<<endl;
     }
@@ -130,8 +130,8 @@ void plot_Significance(bool unblind, char* scenario){
   TCanvas *cS=new TCanvas("canSig","Significance EXO-VV",800,700);
   cS->cd();
 
-  double fr_left=550.0, fr_down=1e-06,fr_right=4050.0,fr_up=0.6;
-  grExp->GetXaxis()->SetTitle("M_{G*} [GeV]");
+  double fr_left=0.750, fr_down=1e-06,fr_right=4.050,fr_up=0.6;
+  grExp->GetXaxis()->SetTitle("M_{G_{Bulk}} (TeV)");
   grExp->GetYaxis()->SetTitle("p-value");// #rightarrow 2l2q
   grExp->GetYaxis()->SetTitleOffset(1.6);
 
@@ -154,22 +154,22 @@ void plot_Significance(bool unblind, char* scenario){
   l1->SetLineStyle(2);
   l1->SetLineWidth(3.0);
   l1->SetLineColor(kRed);
-  l1->DrawLine(800.0,quant1sigma,4000.0,quant1sigma);
+  l1->DrawLine(0.8,quant1sigma,4.0,quant1sigma);
   TLine *l2=new TLine();
   l2->SetLineStyle(2);
   l2->SetLineWidth(3.0);
   l2->SetLineColor(kRed);
-  l2->DrawLine(800.0,quant2sigma,4000.0,quant2sigma);
+  l2->DrawLine(0.8,quant2sigma,4.0,quant2sigma);
   TLine *l3=new TLine();
   l3->SetLineStyle(2);
   l3->SetLineWidth(3.0);
   l3->SetLineColor(kRed);
-  l3->DrawLine(800.0,quant3sigma,4000.0,quant3sigma);
+  l3->DrawLine(0.8,quant3sigma,4.0,quant3sigma);
   TLine *l4=new TLine();
   l4->SetLineStyle(2);
   l4->SetLineWidth(3.0);
   l4->SetLineColor(kRed);
-  l4->DrawLine(800.0,quant4sigma,4000.0,quant4sigma);
+  l4->DrawLine(0.8,quant4sigma,4.0,quant4sigma);
 
 
   TPaveText* cmslabel = new TPaveText( 0.145, 0.953, 0.6, 0.975, "brNDC");
@@ -196,7 +196,10 @@ void plot_Significance(bool unblind, char* scenario){
    label_sqrt->AddText(Form("%s", leftText.c_str(), lumiText));
    //label_sqrt->Draw();
 
-   CMS_lumi( cS, 5, 0 );
+   if(scenario=="JAM813TeV")
+     CMS_lumi( cS, 5, 0 );
+   else
+     CMS_lumi( cS, 4, 0 );
 
    char fnam[50];
    sprintf(fnam, "EXOVVbulk_%s_Significance.root", scenario);

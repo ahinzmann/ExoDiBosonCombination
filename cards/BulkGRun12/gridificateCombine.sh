@@ -10,7 +10,7 @@ mass=$1
 
 ########## CHANGES GO HERE ##########
 card="comb_$2.$mass.txt"
-binarycard="binaryDatacard.root"
+binarycard="binaryDatacard$2.root"
 channel="$2"
 subdir="comb_${mass}"
 # To change number of toys and iterations, change run_fullCLs_TF.py

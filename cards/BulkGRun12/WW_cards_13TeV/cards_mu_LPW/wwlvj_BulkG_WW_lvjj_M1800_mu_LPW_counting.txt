@@ -8,22 +8,23 @@ observation 8.00
 bin CMS_xww_mu1JLPW CMS_xww_mu1JLPW CMS_xww_mu1JLPW CMS_xww_mu1JLPW CMS_xww_mu1JLPW
 process BulkWW_xww WJets_xww TTbar_xww STop_xww VV_xww
 process -1 1 2 3 4
-rate 0.21079 6.953 0.510 0.168 0.265
+rate 0.21079 6.831 0.549 0.181 0.288
 -------------------------------- 
-lumi_13TeV lnN 1.048 - 1.048 1.048 1.048
+lumi_13TeV lnN 1.046 - 1.046 1.046 1.046
+CMS_xww_XS_BulkG_WW_13TeV lnN 1.230 - - - -
 CMS_xww_XS_STop_13TeV lnN - - - 1.050 -
 CMS_xww_XS_VV_13TeV lnN - - - - 1.030
-CMS_xww_WJ_norm_mu_LPW_13TeV lnN - 1.110 - - -
-CMS_xww_Top_norm_mu_LPW_13TeV lnN - - 1.167 1.167 -
-CMS_eff_vtag_tau21_sf_13TeV lnN 1.112/0.888 - - - 1.112/0.888
+CMS_xww_WJ_norm_mu_LPW_13TeV lnN - 1.113 - - -
+CMS_xww_Top_norm_mu_LPW_13TeV lnN - - 1.140 1.140 -
+CMS_eff_vtag_tau21_sf_13TeV lnN 1.490/0.510 - - - 1.490/0.510
 #CMS_eff_vtag_model_13TeV lnN 1.000 - - - 1.000
 CMS_xww_trigger_m_13TeV lnN 1.010 - 1.010 1.010 1.010
 CMS_eff_m_13TeV lnN 1.020 - 1.020 1.020 1.020
 CMS_scale_m_13TeV lnN 1.007 - - - -
 CMS_res_m_13TeV lnN 1.001 - - - -
 CMS_scale_j_13TeV lnN 0.956/1.032 - - - -
-CMS_mass_scale_j_13TeV lnN 0.952/1.037 - - - -
-CMS_mass_res_j_13TeV lnN 0.972/1.029 - - - -
+CMS_mass_scale_j_13TeV lnN 0.989/1.006 - - - -
+CMS_mass_res_j_13TeV lnN 1.009/1.006 - - - -
 CMS_res_j_13TeV lnN 1.003 - - - -
 CMS_xww_btag_eff_13TeV lnN 1.002 - - - -
 Shape_mu_LPW_13TeV lnN - - 1.000 - - -

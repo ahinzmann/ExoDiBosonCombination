@@ -23,7 +23,7 @@ const float intLumi = 19.7;
 const float BRZZ2l2q = isZZChannel ? 0.0941 : 0.2882464;
 const string dirXSect = "./";
 
-void plot_golfcourse_HybridNew(bool unblind = true, char* width = 0, char* scenario = "xwh");
+void plot_golfcourse_HybridNew(bool unblind = true, char* width = 0, char* scenario = "JAM13");
 void setFPStyle();
 void scaleGraph(TGraphAsymmErrors* g, double factor)
 {
@@ -168,7 +168,7 @@ void plot_golfcourse_HybridNew(bool unblind, char* width, char* scenario)
 
   string xsect_file_th = dirXSect + "theory_RS1_WW_8TeV.txt";
   if (!isZZChannel)xsect_file_th = dirXSect + "theory_RS1_ZZ_8TeV.txt";
-  if (isFullCombination)xsect_file_th = dirXSect + "theory_HVT_VH_8TeV.txt";
+  if (isFullCombination)xsect_file_th = dirXSect + "xsect_BulkG_WW_c0p5_13TeV.txt";
   // make_interpolated_xsect(xsect_file_th, xsect_file_interpol);
   // string xsect_file_interpol="./RSGravXSectTimesBRToZZ_AgasheHapola_c10_EXPOINTERP.txt";
 
@@ -526,7 +526,7 @@ void plot_golfcourse_HybridNew(bool unblind, char* width, char* scenario)
     fr_left = 750.0/1000., fr_down = 5E-4, fr_right = 3950.0/1000., fr_up = 1.0;
   }
   if (isFullCombination) {
-    fr_left = 750.0/1000., fr_down = 1e-3, fr_right = 2650.0/1000., fr_up = 1e1;
+    fr_left = 750.0/1000., fr_down = 1e-3, fr_right = 4050.0/1000., fr_up = 1e1;
   }
 
   TCanvas *cMCMC = new TCanvas("c_lim_HybridNew", "canvas with limits for HybridNew CLs", 630, 600);
@@ -538,18 +538,18 @@ void plot_golfcourse_HybridNew(bool unblind, char* width, char* scenario)
   TH1F *hr = cMCMC->DrawFrame(fr_left, fr_down, fr_right, fr_up, "");
   TString VV = "ZZ";
   if (!isZZChannel)VV = "VH";
-  hr->SetXTitle("M_{V'} [TeV]");
-  hr->SetYTitle("#sigma_{95%} #times BR(Z' #rightarrow " + VV + ") [pb]"); // #rightarrow 2l2q
+  hr->SetXTitle("M_{G*} [TeV]");
+  hr->SetYTitle("#sigma_{95%} #times BR(G* #rightarrow WW) [pb]"); // #rightarrow 2l2q
   if(isFullCombination)
-    hr->SetYTitle("#sigma_{95%} #times BR(V' #rightarrow " + VV + ") [pb]"); // #rightarrow 2l2q
+    hr->SetYTitle("#sigma_{95%} #times BR(G* #rightarrow WW) [pb]"); // #rightarrow 2l2q
   
 
   gr95_cls->SetFillColor(kYellow);
   gr95_cls->SetFillStyle(1001);//solid
   gr95_cls->SetLineStyle(kDashed);
   gr95_cls->SetLineWidth(3);
-  gr95_cls->GetXaxis()->SetTitle("M_{V'} [TeV]");
-  gr95_cls->GetYaxis()->SetTitle("#sigma_{95%} #times BR(V' #rightarrow " + VV + ") [pb]"); // #rightarrow 2l2q
+  gr95_cls->GetXaxis()->SetTitle("M_{G*} [TeV]");
+  gr95_cls->GetYaxis()->SetTitle("#sigma_{95%} #times BR(G* #rightarrow WW) [pb]"); // #rightarrow 2l2q
   gr95_cls->GetXaxis()->SetRangeUser(fr_left, fr_right);
 
   gr95_cls->Draw("3");
@@ -559,8 +559,8 @@ void plot_golfcourse_HybridNew(bool unblind, char* width, char* scenario)
   gr68_cls->SetLineStyle(kDashed);
   gr68_cls->SetLineWidth(3);
   gr68_cls->Draw("3same");
-  grmedian_cls->GetXaxis()->SetTitle("M_{V'} [TeV]");
-  grmedian_cls->GetYaxis()->SetTitle("#sigma_{95%} #times BR(V' #rightarrow " + VV + ") [pb]"); // #rightarrow 2l2q
+  grmedian_cls->GetXaxis()->SetTitle("M_{G*} [TeV]");
+  grmedian_cls->GetYaxis()->SetTitle("#sigma_{95%} #times BR(G* #rightarrow WW) [pb]"); // #rightarrow 2l2q
   grmedian_cls->SetMarkerStyle(24);//25=hollow squre
   grmedian_cls->SetMarkerColor(kBlack);
   grmedian_cls->SetLineStyle(2);
@@ -629,11 +629,11 @@ void plot_golfcourse_HybridNew(bool unblind, char* width, char* scenario)
   leg->AddEntry(gr68_cls, "Frequentist CL_{S}  Expected #pm 1#sigma", "LF");
   leg->AddEntry(gr95_cls, "Frequentist CL_{S}  Expected #pm 2#sigma", "LF");
   if(!isFullCombination) {
-    leg->AddEntry(grthSM, "#sigma_{TH} x BR(Z' #rightarrow " + VV + "), #tilde{k}=0.50", "L"); // #rightarrow 2l2q
-    leg->AddEntry(grthSM10, "#sigma_{TH} x BR(Z' #rightarrow " + VV + "), #tilde{k}=0.20", "L"); // #rightarrow 2l2q
+    leg->AddEntry(grthSM, "#sigma_{TH} x BR(G* #rightarrow WW), #tilde{k}=0.50", "L"); // #rightarrow 2l2q
+    //leg->AddEntry(grthSM10, "#sigma_{TH} x BR(G* #rightarrow WW), #tilde{k}=0.20", "L"); // #rightarrow 2l2q
   }
   if(isFullCombination) {
-    leg->AddEntry(grthSM, "#sigma_{TH} (pp #rightarrow V')", "L");
+    leg->AddEntry(grthSM, "#sigma_{TH} (pp #rightarrow G* #rightarrow WW)", "L");
   }
   leg->Draw();
 
@@ -671,7 +671,7 @@ void plot_golfcourse_HybridNew(bool unblind, char* width, char* scenario)
     aNum->SetBorderSize(0);
     aNum->Draw();
 
-    CMS_lumi( cMCMC, 2, 11 );
+    CMS_lumi( cMCMC, 4, 0 );
   }  
   else {
     TLatex * latex = new TLatex();
@@ -689,36 +689,36 @@ void plot_golfcourse_HybridNew(bool unblind, char* width, char* scenario)
   cMCMC->Update();
   char fnam[50];
   if (width != 0) {
-    sprintf(fnam, "EXOVH_%s_UL_HybridNew_%s.root", scenario, width);
+    sprintf(fnam, "EXOVVbulk_%s_UL_HybridNew_%s.root", scenario, width);
     cMCMC->SaveAs(fnam);
-    sprintf(fnam, "EXOVH_%s_UL_HybridNew_%s.eps", scenario, width);
+    sprintf(fnam, "EXOVVbulk_%s_UL_HybridNew_%s.eps", scenario, width);
     cMCMC->SaveAs(fnam);
-    sprintf(fnam, "EXOVH_%s_UL_HybridNew_%s.png", scenario, width);
+    sprintf(fnam, "EXOVVbulk_%s_UL_HybridNew_%s.png", scenario, width);
     cMCMC->SaveAs(fnam);
-    sprintf(fnam, "EXOVH_%s_UL_HybridNew_%s.pdf", scenario, width);
+    sprintf(fnam, "EXOVVbulk_%s_UL_HybridNew_%s.pdf", scenario, width);
     cMCMC->SaveAs(fnam);
     gPad->SetLogy();
-    sprintf(fnam, "EXOVH_%s_UL_HybridNew_%s_log.eps", scenario, width);
+    sprintf(fnam, "EXOVVbulk_%s_UL_HybridNew_%s_log.eps", scenario, width);
     cMCMC->SaveAs(fnam);
-    sprintf(fnam, "EXOVH_%s_UL_HybridNew_%s_log.png", scenario, width);
+    sprintf(fnam, "EXOVVbulk_%s_UL_HybridNew_%s_log.png", scenario, width);
     cMCMC->SaveAs(fnam);
-    sprintf(fnam, "EXOVH_%s_UL_HybridNew_%s_log.pdf", scenario, width);
+    sprintf(fnam, "EXOVVbulk_%s_UL_HybridNew_%s_log.pdf", scenario, width);
     cMCMC->SaveAs(fnam);
   } else {
-    sprintf(fnam, "EXOVH_%s_UL_HybridNew.root", scenario);
+    sprintf(fnam, "EXOVVbulk_%s_UL_HybridNew.root", scenario);
     cMCMC->SaveAs(fnam);
-    sprintf(fnam, "EXOVH_%s_UL_HybridNew.eps", scenario);
+    sprintf(fnam, "EXOVVbulk_%s_UL_HybridNew.eps", scenario);
     cMCMC->SaveAs(fnam);
-    sprintf(fnam, "EXOVH_%s_UL_HybridNew.png", scenario);
+    sprintf(fnam, "EXOVVbulk_%s_UL_HybridNew.png", scenario);
     cMCMC->SaveAs(fnam);
-    sprintf(fnam, "EXOVH_%s_UL_HybridNew.pdf", scenario);
+    sprintf(fnam, "EXOVVbulk_%s_UL_HybridNew.pdf", scenario);
     cMCMC->SaveAs(fnam);
     gPad->SetLogy();
-    sprintf(fnam, "EXOVH_%s_UL_HybridNew_log.eps", scenario);
+    sprintf(fnam, "EXOVVbulk_%s_UL_HybridNew_log.eps", scenario);
     cMCMC->SaveAs(fnam);
-    sprintf(fnam, "EXOVH_%s_UL_HybridNew_log.png", scenario);
+    sprintf(fnam, "EXOVVbulk_%s_UL_HybridNew_log.png", scenario);
     cMCMC->SaveAs(fnam);
-    sprintf(fnam, "EXOVH_%s_UL_HybridNew_log.pdf", scenario);
+    sprintf(fnam, "EXOVVbulk_%s_UL_HybridNew_log.pdf", scenario);
     cMCMC->SaveAs(fnam);
   }
 

@@ -4,8 +4,8 @@ import os
 import sys
 
 ### Make changes here if it is needed
-channels = ["xvh","xwh","xzh","ALL"]
-m=open("masses.txt")
+channels = ["JAM13"]
+m=open("masses13.txt")
 masses=[int(mm.strip("\n")) for mm in m.readlines()]
 
 for channel in channels:

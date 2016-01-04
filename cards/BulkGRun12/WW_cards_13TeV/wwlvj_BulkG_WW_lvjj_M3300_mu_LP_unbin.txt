@@ -1,7 +1,7 @@
 Combination of cards_mu_LPW/wwlvj_BulkG_WW_lvjj_M3300_mu_LPW_unbin.txt  cards_mu_LPZ/wwlvj_BulkG_WW_lvjj_M3300_mu_LPZ_unbin.txt
 imax 2 number of bins
 jmax 4 number of processes minus 1
-kmax 35 number of nuisance parameters
+kmax 36 number of nuisance parameters
 ----------------------------------------------------------------------------------------------------------------------------------
 shapes BulkWW_xww  ch1         cards_mu_LPW/wwlvj_BulkG_WW_lvjj_M3300_mu_LPW_workspace.root workspace4limit_:$PROCESS_mu_LPW
 shapes STop_xww    ch1         cards_mu_LPW/wwlvj_BulkG_WW_lvjj_M3300_mu_LPW_workspace.root workspace4limit_:$PROCESS_mu_LPW
@@ -22,25 +22,26 @@ observation  205.0        96.0
 bin                                              ch1          ch1          ch1          ch1          ch1          ch2          ch2          ch2          ch2          ch2        
 process                                          BulkWW_xww   WJets_xww    VV_xww       STop_xww     TTbar_xww    BulkWW_xww   WJets_xww    VV_xww       STop_xww     TTbar_xww  
 process                                          0            1            2            3            4            0            1            2            3            4          
-rate                                             0.2975       151.5110     3.0670       3.2140       19.7860      0.0532       69.1080      1.8500       2.3270       13.4200    
+rate                                             0.2975       148.5460     3.3380       3.4620       21.3130      0.0532       67.0200      2.0130       2.5070       14.4560    
 ----------------------------------------------------------------------------------------------------------------------------------
 CMS_eff_m_13TeV         lnN                      1.02         -            1.02         1.02         1.02         1.02         -            1.02         1.02         1.02       
-CMS_eff_vtag_tau21_sf_13TeV   lnN                1.112/0.888  -            1.112/0.888  -            -            1.112/0.888  -            1.112/0.888  -            -          
+CMS_eff_vtag_tau21_sf_13TeV   lnN                1.490/0.510  -            1.490/0.510  -            -            1.490/0.510  -            1.490/0.510  -            -          
 CMS_mass_res_j_13TeV    lnN                      1.000/1.000  -            -            -            -            1.000/1.000  -            -            -            -          
 CMS_mass_scale_j_13TeV   lnN                     1.000/1.000  -            -            -            -            1.000/1.000  -            -            -            -          
 CMS_res_j_13TeV         lnN                      1.003        -            -            -            -            1.003        -            -            -            -          
 CMS_res_m_13TeV         lnN                      1.001        -            -            -            -            1.001        -            -            -            -          
-CMS_scale_j_13TeV       lnN                      1.000/1.000  -            -            -            -            1.000/1.000  -            -            -            -          
+CMS_scale_j_13TeV       lnN                      0.952/1.037  -            -            -            -            1.298/0.732  -            -            -            -          
 CMS_scale_m_13TeV       lnN                      1.007        -            -            -            -            1.007        -            -            -            -          
-CMS_xww_Top_norm_mu_LPW_13TeV   lnN              -            -            -            1.167        1.167        -            -            -            -            -          
-CMS_xww_Top_norm_mu_LPZ_13TeV   lnN              -            -            -            -            -            -            -            -            1.167        1.167      
-CMS_xww_WJ_norm_mu_LPW_13TeV   lnN               -            1.11         -            -            -            -            -            -            -            -          
-CMS_xww_WJ_norm_mu_LPZ_13TeV   lnN               -            -            -            -            -            -            1.207        -            -            -          
+CMS_xww_Top_norm_mu_LPW_13TeV   lnN              -            -            -            1.14         1.14         -            -            -            -            -          
+CMS_xww_Top_norm_mu_LPZ_13TeV   lnN              -            -            -            -            -            -            -            -            1.14         1.14       
+CMS_xww_WJ_norm_mu_LPW_13TeV   lnN               -            1.113        -            -            -            -            -            -            -            -          
+CMS_xww_WJ_norm_mu_LPZ_13TeV   lnN               -            -            -            -            -            -            1.215        -            -            -          
+CMS_xww_XS_BulkG_WW_13TeV   lnN                  1.53         -            -            -            -            1.53         -            -            -            -          
 CMS_xww_XS_STop_13TeV   lnN                      -            -            -            1.05         -            -            -            -            1.05         -          
 CMS_xww_XS_VV_13TeV     lnN                      -            -            1.03         -            -            -            -            1.03         -            -          
 CMS_xww_btag_eff_13TeV   lnN                     1.002        -            -            -            -            1.002        -            -            -            -          
 CMS_xww_trigger_m_13TeV   lnN                    1.01         -            1.01         1.01         1.01         1.01         -            1.01         1.01         1.01       
-lumi_13TeV              lnN                      1.048        -            1.048        1.048        1.048        1.048        -            1.048        1.048        1.048      
+lumi_13TeV              lnN                      1.046        -            1.046        1.046        1.046        1.046        -            1.046        1.046        1.046      
 Deco_TTbar_xww_signal_region_mu_LPZ_mlvj_13TeV_eig0  param  0.0 2.0
 CMS_sig_p1_scale_m_13TeV  param  0.0 1.0
 CMS_sig_p2_scale_m_13TeV  param  0.0 1.0

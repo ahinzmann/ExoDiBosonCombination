@@ -40,7 +40,7 @@ for mass in masses:
 	WprimeWZ={}
 	for line in open("theory_HVT_WZ_13TeV.txt").readlines():
 	   split=line.replace("\n","").split(" ")
-	   WprimeWZ[int(split[0])]=float(split[1])
+	   WprimeWZ[int(split[0])]=float(split[1])*(0.6991*0.6760)*(0.6991*0.6760)
 
 	for l in range(len(fWZ)):
 	  if "rate" in fWZ[l]:

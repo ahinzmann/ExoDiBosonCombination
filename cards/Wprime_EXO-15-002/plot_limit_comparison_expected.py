@@ -4,6 +4,7 @@ import sys
 
 gROOT.Reset()
 gROOT.SetStyle("Plain")
+gROOT.SetBatch(True)
 gStyle.SetOptStat(0)
 gStyle.SetOptFit(0)
 gStyle.SetTitleOffset(1.2,"Y")
@@ -64,13 +65,15 @@ if __name__ == '__main__':
  stylelist["xjj13old"]=0
  stylelist["xjj13hp"]=2
  
- if len(sys.argv)==1:
-  for name in names.keys():
+ signalstrength='false'
+ if len(sys.argv)>1 and "813" in sys.argv[1]:
+   signalstrength='true'
+ for name in names.keys():
    if fullCLS:
-     os.system('root -b -q plot_golfcourse_HybridNew.C\(false,0,\\"'+name+'\\"\)')
-     os.system('root -b -q plot_golfcourse_Asymptotic.C\(false,0,\\"'+name+'\\",false\)')
+     os.system('root -b -q plot_golfcourse_HybridNew.C\(false,0,\\"'+name+'\\",'+signalstrength+'\)')
+     os.system('root -b -q plot_golfcourse_Asymptotic.C\(false,0,\\"'+name+'\\",'+signalstrength+'\)')
    else:
-     os.system('root -b -q plot_golfcourse_Asymptotic.C\(false,0,\\"'+name+'\\"\)')
+     os.system('root -b -q plot_golfcourse_Asymptotic.C\(false,0,\\"'+name+'\\",'+signalstrength+'\)')
  
  colors=[4,6,11,28,8,9,7]
  styles=[3,4,5,6,7,8,9,10]

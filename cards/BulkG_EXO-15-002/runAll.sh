@@ -47,7 +47,6 @@ for M in $( cat masses.txt ); do ./mergeCombinationTrees.sh $M JAM813; done
 ./mergeHarvestedCombinationTrees.sh JAM13
 ./mergeHarvestedCombinationTrees.sh JAM813
 
-python plot_limit_comparison_expected.py
 python plot_limit_comparison_expected.py JJWW813TeV
 python plot_limit_comparison_expected.py JJZZ813TeV
 python plot_limit_comparison_expected.py ZZ813TeV
@@ -57,7 +56,6 @@ python plot_limit_comparison_expected.py ALL13TeV
 python plot_limit_comparison_expected.py ALL813TeV
 python plot_limit_comparison_expected.py JAM13TeV
 python plot_limit_comparison_expected.py JAM813TeV
-python plot_limit_comparison_band.py
 python plot_limit_comparison_band.py JJWW813TeV
 python plot_limit_comparison_band.py JJZZ813TeV
 python plot_limit_comparison_band.py ZZ813TeV
@@ -67,7 +65,6 @@ python plot_limit_comparison_band.py ALL13TeV
 python plot_limit_comparison_band.py ALL813TeV
 python plot_limit_comparison_band.py JAM13TeV
 python plot_limit_comparison_band.py JAM813TeV
-python plot_significance_comparison.py
 python plot_significance_comparison.py JJWW813TeV
 python plot_significance_comparison.py JJZZ813TeV
 python plot_significance_comparison.py ZZ813TeV

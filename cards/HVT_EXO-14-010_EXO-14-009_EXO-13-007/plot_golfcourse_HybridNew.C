@@ -23,7 +23,7 @@ const float intLumi = 19.7;
 const float BRZZ2l2q = isZZChannel ? 0.0941 : 0.2882464;
 const string dirXSect = "./";
 
-void plot_golfcourse_HybridNew(bool unblind = true, char* width = 0, char* scenario = "xwh");
+void plot_golfcourse_HybridNew(bool unblind = true, char* width = 0, char* scenario = "ALL");
 void setFPStyle();
 void scaleGraph(TGraphAsymmErrors* g, double factor)
 {
@@ -531,25 +531,25 @@ void plot_golfcourse_HybridNew(bool unblind, char* width, char* scenario)
 
   TCanvas *cMCMC = new TCanvas("c_lim_HybridNew", "canvas with limits for HybridNew CLs", 630, 600);
   cMCMC->cd();
-  cMCMC->SetGridx(1);
-  cMCMC->SetGridy(1);
+  //cMCMC->SetGridx(1);
+  //cMCMC->SetGridy(1);
   // draw a frame to define the range
 
   TH1F *hr = cMCMC->DrawFrame(fr_left, fr_down, fr_right, fr_up, "");
   TString VV = "ZZ";
   if (!isZZChannel)VV = "VH";
   hr->SetXTitle("M_{V'} [TeV]");
-  hr->SetYTitle("#sigma_{95%} #times BR(Z' #rightarrow " + VV + ") [pb]"); // #rightarrow 2l2q
+  hr->SetYTitle("#sigma #times B(Z' #rightarrow " + VV + ") [pb]"); // #rightarrow 2l2q
   if(isFullCombination)
-    hr->SetYTitle("#sigma_{95%} #times BR(V' #rightarrow " + VV + ") [pb]"); // #rightarrow 2l2q
+    hr->SetYTitle("#sigma #times B(V' #rightarrow " + VV + ") [pb]"); // #rightarrow 2l2q
   
 
-  gr95_cls->SetFillColor(kYellow);
+  gr95_cls->SetFillColor(kYellow+1);
   gr95_cls->SetFillStyle(1001);//solid
   gr95_cls->SetLineStyle(kDashed);
   gr95_cls->SetLineWidth(3);
   gr95_cls->GetXaxis()->SetTitle("M_{V'} [TeV]");
-  gr95_cls->GetYaxis()->SetTitle("#sigma_{95%} #times BR(V' #rightarrow " + VV + ") [pb]"); // #rightarrow 2l2q
+  gr95_cls->GetYaxis()->SetTitle("#sigma #times B(V' #rightarrow " + VV + ") [pb]"); // #rightarrow 2l2q
   gr95_cls->GetXaxis()->SetRangeUser(fr_left, fr_right);
 
   gr95_cls->Draw("3");
@@ -560,7 +560,7 @@ void plot_golfcourse_HybridNew(bool unblind, char* width, char* scenario)
   gr68_cls->SetLineWidth(3);
   gr68_cls->Draw("3same");
   grmedian_cls->GetXaxis()->SetTitle("M_{V'} [TeV]");
-  grmedian_cls->GetYaxis()->SetTitle("#sigma_{95%} #times BR(V' #rightarrow " + VV + ") [pb]"); // #rightarrow 2l2q
+  grmedian_cls->GetYaxis()->SetTitle("#sigma #times B(V' #rightarrow " + VV + ") [pb]"); // #rightarrow 2l2q
   grmedian_cls->SetMarkerStyle(24);//25=hollow squre
   grmedian_cls->SetMarkerColor(kBlack);
   grmedian_cls->SetLineStyle(2);
@@ -626,11 +626,11 @@ void plot_golfcourse_HybridNew(bool unblind, char* width, char* scenario)
   leg->SetTextSize(0.03);
   //   leg->SetBorderMode(0);
   if (unblind)leg->AddEntry(grobslim_cls, "Frequentist CL_{S} Observed", "LP");
-  leg->AddEntry(gr68_cls, "Frequentist CL_{S}  Expected #pm 1#sigma", "LF");
-  leg->AddEntry(gr95_cls, "Frequentist CL_{S}  Expected #pm 2#sigma", "LF");
+  leg->AddEntry(gr68_cls, "Frequentist CL_{S}  Expected #pm 1 s.d.", "LF");
+  leg->AddEntry(gr95_cls, "Frequentist CL_{S}  Expected #pm 2 s.d.", "LF");
   if(!isFullCombination) {
-    leg->AddEntry(grthSM, "#sigma_{TH} x BR(Z' #rightarrow " + VV + "), #tilde{k}=0.50", "L"); // #rightarrow 2l2q
-    leg->AddEntry(grthSM10, "#sigma_{TH} x BR(Z' #rightarrow " + VV + "), #tilde{k}=0.20", "L"); // #rightarrow 2l2q
+    leg->AddEntry(grthSM, "#sigma_{TH} x B(Z' #rightarrow " + VV + "), #tilde{k}=0.50", "L"); // #rightarrow 2l2q
+    leg->AddEntry(grthSM10, "#sigma_{TH} x B(Z' #rightarrow " + VV + "), #tilde{k}=0.20", "L"); // #rightarrow 2l2q
   }
   if(isFullCombination) {
     leg->AddEntry(grthSM, "#sigma_{TH} (pp #rightarrow V')", "L");

@@ -81,10 +81,10 @@ if __name__ == '__main__':
    signalstrength='true'
  for name in names.keys():
    if fullCLS:
-     os.system('root -b -q plot_golfcourse_HybridNew.C\(false,0,\\"'+name+'\\",'+signalstrength+'\)')
-     os.system('root -b -q plot_golfcourse_Asymptotic.C\(false,0,\\"'+name+'\\",'+signalstrength+'\)')
+     os.system('root -b -q plot_golfcourse_HybridNew.C\(true,0,\\"'+name+'\\",'+signalstrength+'\)')
+     os.system('root -b -q plot_golfcourse_Asymptotic.C\(true,0,\\"'+name+'\\",'+signalstrength+'\)')
    else:
-     os.system('root -b -q plot_golfcourse_Asymptotic.C\(false,0,\\"'+name+'\\",'+signalstrength+'\)')
+     os.system('root -b -q plot_golfcourse_Asymptotic.C\(true,0,\\"'+name+'\\",'+signalstrength+'\)')
 
  colors=[4,6,11,28,8,9,7]
  styles=[3,4,5,6,7,8,9,10]

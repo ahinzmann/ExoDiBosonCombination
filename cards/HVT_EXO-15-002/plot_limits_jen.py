@@ -122,7 +122,7 @@ def plot_Asympt_limits(label,signalstrenght):
 	 3600,3700,3800,3900,4000]
  signal = {}
  signal['JJLVJHVT13'] = "V'"
- signal['JJLVJHVT138'] = "V'"
+ signal['ALLHVT138'] = "V'"
  signal['jjwv8'] = "V'"
  signal['lvjwv8'] = "V'"
  signal['lvjwv13'] = "V'"
@@ -134,7 +134,7 @@ def plot_Asympt_limits(label,signalstrenght):
  signal['jjww13'] = "Z'"
  decay = {}
  decay['JJLVJHVT13'] = "WV"
- decay['JJLVJHVT138'] = "WV"
+ decay['ALLHVT138'] = "WV"
  decay['jjwv8'] = "WV"
  decay['lvjwv8'] = "WV"
  decay['lvjwv13'] = "WV"
@@ -147,8 +147,8 @@ def plot_Asympt_limits(label,signalstrenght):
 
  names = {}
  names["JJLVJHVT13"]="lvJ, JJ (13 TeV)"
- names["JJLVJHVT138"]="lvJ, JJ (8+13 TeV)"
- names["JJLVJHVT138"]="lvJ, llJ, JJ (8+13 TeV)"
+ names["ALLHVT138"]="lvJ, JJ (8+13 TeV)"
+ names["ALLHVT138"]="lvJ, llJ, JJ (8+13 TeV)"
  names["lvjwv8"]="lvJ (8 TeV)"
  names["lljwz8"]="llJ (8 TeV)"
  names["jjwv8"]="JJ (8 TeV)"
@@ -168,7 +168,7 @@ def plot_Asympt_limits(label,signalstrenght):
  	     
  scale = {}
  scale['JJLVJHVT13'] = {}
- scale['JJLVJHVT138'] = {}
+ scale['ALLHVT138'] = {}
  scale['jjwv8'] = {}
  scale['lvjwv8'] = {}
  scale['lljwz8'] = {}
@@ -183,7 +183,7 @@ def plot_Asympt_limits(label,signalstrenght):
    idx2 = int((m-745)/5)
    if signalstrenght:
     scale['JJLVJHVT13'][m] = 1
-    scale['JJLVJHVT138'][m] = 1
+    scale['ALLHVT138'][m] = 1
     scale['lvjwv8'][m] = 1
     scale['lljwz8'][m] = 1
     scale['jjwv8'][m] = 1
@@ -201,18 +201,18 @@ def plot_Asympt_limits(label,signalstrenght):
     scale['jjwv13'][m] = (xsecMap13['CX-(pb)'][idx]+xsecMap13['CX+(pb)'][idx])*xsecMap13['BRZW'][idx] + xsecMap13['CX0(pb)'][idx]*xsecMap13['BRWW'][idx]
     scale['jjwz13'][m] = (xsecMap13['CX-(pb)'][idx]+xsecMap13['CX+(pb)'][idx])*xsecMap13['BRZW'][idx] + xsecMap13['CX0(pb)'][idx]*xsecMap13['BRWW'][idx]#(xsecMap13['CX-(pb)'][idx]+xsecMap13['CX+(pb)'][idx])*xsecMap13['BRZW'][idx]
     scale['jjww13'][m] = (xsecMap13['CX-(pb)'][idx]+xsecMap13['CX+(pb)'][idx])*xsecMap13['BRZW'][idx] + xsecMap13['CX0(pb)'][idx]*xsecMap13['BRWW'][idx]#xsecMap13['CX0(pb)'][idx]*xsecMap13['BRWW'][idx]
-    scale['JJLVJHVT138'][m] = (xsecMap13['CX-(pb)'][idx]+xsecMap13['CX+(pb)'][idx])*xsecMap13['BRZW'][idx] + xsecMap13['CX0(pb)'][idx]*xsecMap13['BRWW'][idx]#((xsecMap13['CX-(pb)'][idx]+xsecMap13['CX+(pb)'][idx])*xsecMap13['BRZW'][idx] + xsecMap13['CX0(pb)'][idx]*xsecMap13['BRWW'][idx])+((xsecMap8['CX-(pb)'][idx]+xsecMap8['CX+(pb)'][idx])*xsecMap8['BRZW'][idx] + xsecMap8['CX0(pb)'][idx]*xsecMap8['BRWW'][idx])
+    scale['ALLHVT138'][m] = (xsecMap13['CX-(pb)'][idx]+xsecMap13['CX+(pb)'][idx])*xsecMap13['BRZW'][idx] + xsecMap13['CX0(pb)'][idx]*xsecMap13['BRWW'][idx]#((xsecMap13['CX-(pb)'][idx]+xsecMap13['CX+(pb)'][idx])*xsecMap13['BRZW'][idx] + xsecMap13['CX0(pb)'][idx]*xsecMap13['BRWW'][idx])+((xsecMap8['CX-(pb)'][idx]+xsecMap8['CX+(pb)'][idx])*xsecMap8['BRZW'][idx] + xsecMap8['CX0(pb)'][idx]*xsecMap8['BRWW'][idx])
     
     if m <= 3000:
      scale['lljwz8'][m] = (xsecMap8['CX-(pb)'][idx2]+xsecMap8['CX+(pb)'][idx2])*xsecMap8['BRZW'][idx2]
      scale['lvjwv8'][m] = (xsecMap8['CX-(pb)'][idx2]+xsecMap8['CX+(pb)'][idx2])*xsecMap8['BRZW'][idx2] + xsecMap8['CX0(pb)'][idx2]*xsecMap8['BRWW'][idx2]
      scale['jjwv8'][m] = (xsecMap8['CX-(pb)'][idx2]+xsecMap8['CX+(pb)'][idx2])*xsecMap8['BRZW'][idx2] + xsecMap8['CX0(pb)'][idx2]*xsecMap8['BRWW'][idx2]
-     scale['JJLVJHVT138'][m] = ((xsecMap13['CX-(pb)'][idx]+xsecMap13['CX+(pb)'][idx])*xsecMap13['BRZW'][idx] + xsecMap13['CX0(pb)'][idx]*xsecMap13['BRWW'][idx])+((xsecMap8['CX-(pb)'][idx2]+xsecMap8['CX+(pb)'][idx2])*xsecMap8['BRZW'][idx2] + xsecMap8['CX0(pb)'][idx2]*xsecMap8['BRWW'][idx2])
+     scale['ALLHVT138'][m] = ((xsecMap13['CX-(pb)'][idx]+xsecMap13['CX+(pb)'][idx])*xsecMap13['BRZW'][idx] + xsecMap13['CX0(pb)'][idx]*xsecMap13['BRWW'][idx])+((xsecMap8['CX-(pb)'][idx2]+xsecMap8['CX+(pb)'][idx2])*xsecMap8['BRZW'][idx2] + xsecMap8['CX0(pb)'][idx2]*xsecMap8['BRWW'][idx2])
     else:
      scale['lljwz8'][m] = 1
      scale['lvjwv8'][m] = 1
      scale['jjwv8'][m] = 1
-     scale['JJLVJHVT138'][m] = (xsecMap13['CX-(pb)'][idx]+xsecMap13['CX+(pb)'][idx])*xsecMap13['BRZW'][idx] + xsecMap13['CX0(pb)'][idx]*xsecMap13['BRWW'][idx]
+     scale['ALLHVT138'][m] = (xsecMap13['CX-(pb)'][idx]+xsecMap13['CX+(pb)'][idx])*xsecMap13['BRZW'][idx] + xsecMap13['CX0(pb)'][idx]*xsecMap13['BRWW'][idx]
     
  nPoints = 0
 
@@ -368,55 +368,55 @@ def compare_Asympt_limits(labels,unblind,bands):
  #line color
  lcol = {}
  lcol["JJLVJHVT13"] = kBlack
- lcol["JJLVJHVT138"] = kBlack
+ lcol["ALLHVT138"] = kBlack
  lcol["lvjwv13"] = kBlack
  lcol["lvjwz13"] = kMagenta
  lcol["lvjww13"] = kBlue
  lcol["jjwv13"] = kBlack
  lcol["jjwz13"] = kMagenta
  lcol["jjww13"] = kBlue
- if "JJLVJ" in labels[0]:
-  lcol["lvjwv13"] = kMagenta
-  lcol["jjwv13"] = kBlue
-  lcol["lvjwv8"] = 210
-  lcol["jjwv8"] = kBlue-9
-  lcol["lljwz8"] = kOrange
+ if "JJLVJ" in labels[0] or "ALL" in labels[0]:
+  lcol["lvjwv13"] = 4#kMagenta
+  lcol["jjwv13"] = 6#kBlue
+  lcol["lvjwv8"] = 11#210
+  lcol["jjwv8"] = 28#kBlue-9
+  lcol["lljwz8"] = 8#kOrange
  #marker color
  mcol = {}
  mcol["JJLVJHVT13"] = kBlack
- mcol["JJLVJHVT138"] = kBlack
+ mcol["ALLHVT138"] = kBlack
  mcol["lvjwv13"] = kBlack
  mcol["lvjwz13"] = kMagenta
  mcol["lvjww13"] = kBlue  
  mcol["jjwv13"] = kBlack
  mcol["jjwz13"] = kMagenta
  mcol["jjww13"] = kBlue  
- if "JJLVJ" in labels[0]:
-  mcol["lvjwv13"] = kMagenta
-  mcol["jjwv13"] = kBlue
-  mcol["lvjwv8"] = 210
-  mcol["jjwv8"] = kBlue-9
-  mcol["lljwz8"] = kOrange
+ if "JJLVJ" in labels[0] or "ALL" in labels[0]:
+  mcol["lvjwv13"] = 4#kMagenta
+  mcol["jjwv13"] = 6#kBlue
+  mcol["lvjwv8"] = 11#210
+  mcol["jjwv8"] = 28#kBlue-9
+  mcol["lljwz8"] = 8#kOrange
  #marker style
  msty = {}
  msty["JJLVJHVT13"] = 20
- msty["JJLVJHVT138"] = 20
+ msty["ALLHVT138"] = 20
  msty["lvjwv13"] = 20
  msty["lvjwz13"] = 23
  msty["lvjww13"] = 32
  msty["jjwv13"] = 20
  msty["jjwz13"] = 23
  msty["jjww13"] = 32
- if "JJLVJ" in labels[0]:
-  msty["lvjwv13"] = 23
-  msty["jjwv13"] = 32
+ if "JJLVJ" in labels[0] or "ALL" in labels[0]:
+  msty["lvjwv13"] = 20
+  msty["jjwv13"] = 22
   msty["lvjwv8"] = 24
-  msty["jjwv8"] = 33
-  msty["lljwz8"] = 34
+  msty["jjwv8"] = 25
+  msty["lljwz8"] = 26
    
  signal = {}
  signal['JJLVJHVT13'] = "V'"
- signal['JJLVJHVT138'] = "V'"
+ signal['ALLHVT138'] = "V'"
  signal['lvjwv13'] = "V'"
  signal['lvjwz13'] = "W'"	
  signal['lvjww13'] = "Z'"
@@ -425,7 +425,7 @@ def compare_Asympt_limits(labels,unblind,bands):
  signal['jjww13'] = "Z'"
  decay = {}
  decay['JJLVJHVT13'] = "WV"
- decay['JJLVJHVT138'] = "WV"
+ decay['ALLHVT138'] = "WV"
  decay['lvjwv13'] = "WV"
  decay['lvjwz13'] = "WZ"
  decay['lvjww13'] = "WW"
@@ -435,7 +435,7 @@ def compare_Asympt_limits(labels,unblind,bands):
  
  names = {}
  names["JJLVJHVT13"]="lvJ, JJ (13 TeV)"
- names["JJLVJHVT138"]="lvJ, llJ, JJ (8+13 TeV)"
+ names["ALLHVT138"]="lvJ, llJ, JJ (8+13 TeV)"
  names["lvjwv8"]="lvJ (8 TeV)"
  names["lljwz8"]="llJ (8 TeV)"
  names["jjwv8"]="JJ (8 TeV)"
@@ -473,6 +473,7 @@ def compare_Asympt_limits(labels,unblind,bands):
   graphobs[g].SetMarkerColor(mcol[labels[g]])
   graphobs[g].SetLineColor(lcol[labels[g]])
   graphobs[g].SetMarkerStyle(msty[labels[g]])
+  graphobs[g].SetMarkerSize(0.9)
   if g != 0:
    graphobs[g].SetLineWidth(2)
    graphexp[g].SetLineWidth(2)
@@ -525,7 +526,7 @@ def compare_Asympt_limits(labels,unblind,bands):
     
  if not unblind:  
   leg.AddEntry(graphobs[0],"Asympt. CL_{S} Observed","LP")
-  for g in range(1,len(graphobs)): leg2.AddEntry(graphobs[g],names[labels[g]],"L")   
+  for g in range(1,len(graphobs)): leg2.AddEntry(graphobs[g],names[labels[g]],"LP")   
   if bands:
    graph_2s[0].Draw("F")
    graph_1s[0].Draw("Fsame")
@@ -533,7 +534,7 @@ def compare_Asympt_limits(labels,unblind,bands):
    leg.AddEntry(graph_2s[0],"Asympt. CL_{S} Expected #pm 2#sigma","LF")
   graphexp[0].Draw("Lsame")
   graphobs[0].Draw("LPsame")
-  for g in range(1,len(graphobs)): graphobs[g].Draw("Lsame")
+  for g in range(1,len(graphobs)): graphobs[g].Draw("LPsame")
  else:
   graphexp[0].Draw("L")
   leg.AddEntry(graphexp[0],"Asympt. CL_{S} Expected","L")
@@ -594,7 +595,7 @@ if __name__ == '__main__':
  scenarios["LVJHVT13TeV"]=["lvjwv13","lvjwz13","lvjww13"]
  scenarios["JJHVT13TeV"]=["jjwv13","jjwz13","jjww13"]
  scenarios["JJLVJHVT13TeV"]=["JJLVJHVT13","jjwv13","lvjwv13"]
- scenarios["JJLVJHVT138TeV"]=["JJLVJHVT138","lvjwv8","lljwz8","jjwv8","jjwv13","lvjwv13"]
+ scenarios["ALLHVT138TeV"]=["ALLHVT138","lvjwv8","lljwz8","jjwv8","jjwv13","lvjwv13"]
  if len(sys.argv)>1:
     scenarios_arg={}
     scenarios_arg[sys.argv[1]]=scenarios[sys.argv[1]]

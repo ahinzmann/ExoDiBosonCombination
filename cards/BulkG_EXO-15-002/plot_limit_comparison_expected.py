@@ -1,6 +1,7 @@
 from ROOT import *
 import os
 import sys
+import time
 
 gROOT.Reset()
 gROOT.SetStyle("Plain")
@@ -79,13 +80,14 @@ if __name__ == '__main__':
  signalstrength='false'
  if len(sys.argv)>1 and "813" in sys.argv[1]:
    signalstrength='true'
- for name in names.keys():
+ for name in names.keys(): #scenarios['JAM813TeV']:#JEN
+   print name
    if fullCLS:
      os.system('root -b -q plot_golfcourse_HybridNew.C\(false,0,\\"'+name+'\\",'+signalstrength+'\)')
      os.system('root -b -q plot_golfcourse_Asymptotic.C\(false,0,\\"'+name+'\\",'+signalstrength+'\)')
    else:
      os.system('root -b -q plot_golfcourse_Asymptotic.C\(false,0,\\"'+name+'\\",'+signalstrength+'\)')
- 
+
  colors=[4,6,11,28,8,9,7]
  styles=[3,4,5,6,7,8,9,10]
  fillstyles=[3007,3007,3007,3007,3007,3007,3007,3007]
@@ -104,7 +106,7 @@ if __name__ == '__main__':
       files+=[TFile.Open("EXOVVbulk_"+name+"_UL_Asymptotic.root")]
       canvas+=[files[-1].Get("c_lim_Asymptotic")]
     print [a for a in canvas[-1].GetListOfPrimitives()]
-    graph+=[[a for a in canvas[-1].GetListOfPrimitives() if "Limit68CLs" in str(a)][0].Clone("graph_"+name)]
+    graph+=[[a for a in canvas[-1].GetListOfPrimitives() if "Limit68CLs" in str(a)][0].Clone("graph_"+name)]    
     #graphobs+=[[a for a in canvas[-1].GetListOfPrimitives() if "LimitObservedCLs" in str(a)][0].Clone("graph_"+name)]
     canvas[-1].GetListOfPrimitives().Remove([a for a in canvas[-1].GetListOfPrimitives() if "Limit95CLs" in str(a)][0])
     canvas[-1].GetListOfPrimitives().Remove([a for a in canvas[-1].GetListOfPrimitives() if "Limit68CLs" in str(a)][0])
@@ -141,6 +143,6 @@ if __name__ == '__main__':
   #graphobs[0].Draw("LP")
   #l1.AddEntry(legendcontent[-1].GetObject(),legendcontent[-1].GetLabel(),legendcontent[-1].GetOption())
   l1.Draw()
-  canvas[0].SaveAs("EXOVVbulk_compare_"+scenario+"_expected.pdf")
+  canvas[0].SaveAs("EXOVVbulk_compare_"+scenario+"_expected.pdf")  
   for f in files:
     f.Close()

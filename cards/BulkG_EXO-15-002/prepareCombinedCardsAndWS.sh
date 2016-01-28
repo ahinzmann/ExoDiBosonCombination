@@ -61,7 +61,8 @@ cd -
 python adapt_xsec_ZZ_13TeV.py ${MASS}
 cp ${ZZ13DIR}/${COMBFIXZZ13CARD} ${OUTDIR}/${COMBZZ13CARD}
 sed -e 's|workSpaces/||g' < ${ZZ13DIR}/${COMBFIXZZ13CARD} &> ${OUTDIR}/${COMBZZ13CARD}
-cp ${ZZ13DIR}/CMS_ZZ*.root  ${OUTDIR}/
+#cp ${ZZ13DIR}/CMS_ZZ*.root  ${OUTDIR}/
+cp ${ZZ13DIR}/CMS_ZZ_${MASS}_*.root  ${OUTDIR}/
 fi
 
 ### JJ 8TeV only

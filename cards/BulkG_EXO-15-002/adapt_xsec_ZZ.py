@@ -29,6 +29,11 @@ if len(sys.argv)>1:
 for mass in masses:
         print "mass = ",mass
 
+	bulkZZ={}
+	for line in open("xsect_BulkG_ZZ_c0p5_xsect_in_pb_factor4wrong.txt").readlines():
+	   split=line.replace(" ","").replace(" ","").replace(" ","").replace("\n","").split("\t")
+	   bulkZZ[int(split[0])]=float(split[1])/4.
+
 	fZZ=open("ZZ_cards/"+str(mass)+"/comb_xzz."+str(mass)+".txt").readlines()
 	outfile="ZZ_cards/"+str(mass)+"/comb_xzz_bulkfix."+str(mass)+".txt"
 	print outfile
@@ -46,6 +51,7 @@ for mass in masses:
               numberZZ=float(fZZsplit[s])
 	      if signal:
                 numberZZ=numberZZ/4.
+	        #if mass==2000: print numberZZ,1/4./bulkZZ[mass]/19700.
               line+="%.5e  " % numberZZ
 	    line+="\n"
 	    f.write(line)

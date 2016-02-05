@@ -36,7 +36,7 @@ for mass in masses:
 
 	BulkZZ={}
 	for line in open("xsect_BulkG_WW_c0p5_13TeV.txt").readlines():
-	   split=line.replace("\n","").split(" ")
+	   split=line.replace("\n","").replace("\t"," ").split(" ")
 	   BulkZZ[int(split[0])]=float(split[1])/2.*2.*(0.6991*0.0672)
 
 	for l in range(len(fZZ)):

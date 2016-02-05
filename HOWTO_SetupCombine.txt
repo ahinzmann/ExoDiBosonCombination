@@ -14,5 +14,6 @@ cd ../..
 cp ExoDiBosonCombination/HZZ2L2QRooPdfs2.h HiggsAnalysis/CombinedLimit/interface/HZZ2L2QRooPdfs2.h
 cp ExoDiBosonCombination/HZZ2L2QRooPdfs2.cc HiggsAnalysis/CombinedLimit/src/HZZ2L2QRooPdfs2.cc
 cp ExoDiBosonCombination/CombinedLimit_LinkDef.h HiggsAnalysis/CombinedLimit/src/
+cp ExoDiBosonCombination/ShapeTools.py HiggsAnalysis/CombinedLimit/python/
 
 scramv1 b

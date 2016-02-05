@@ -35,7 +35,7 @@ for mass in masses:
         f=open(outfile,"w")
 
 	bulkZZ={}
-	for line in open("xsect_BulkG_ZZ_c0p5_xsect_in_pb.txt").readlines():
+	for line in open("xsect_BulkG_ZZ_c0p5_xsect_in_pb_factor4wrong.txt").readlines():
 	   split=line.replace(" ","").replace(" ","").replace(" ","").replace("\n","").split("\t")
 	   bulkZZ[int(split[0])]=float(split[1])
 
@@ -62,7 +62,8 @@ for mass in masses:
 	      if signal:
 	        #print numberZZ/19700./bulkZZ[mass]/0.0941
                 #numberZZ=numberZZ/bulkZZ[mass]*0.8*(HVTWZ[mass]*67.60/69.91/2.+0.27*HVTZH[mass]*57.7/67.60/2.) #factor /2 from combinatorics of llqq into ZZ or WZ
-                numberZZ=numberZZ/bulkZZ[mass]*0.8*(HVTWZ[mass]*67.60/69.91/2.) #factor /2 from combinatorics of llqq into ZZ or WZ
+		numberZZ=numberZZ/bulkZZ[mass]*0.8*(HVTWZ[mass]*67.60/69.91/2.) #factor /2 from combinatorics of llqq into ZZ or WZ
+                #if mass==2000: print numberZZ,1./bulkZZ[mass]*0.8*(HVTWZ[mass]*67.60/69.91/2.)/HVTWZ[mass]/19700.
               line+="%.5e  " % numberZZ
 	    line+="\n"
 	    f.write(line)

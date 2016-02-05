@@ -67,7 +67,7 @@ for mass in masses:
  print outfile
  f=open(outfile,"w")
 
- WprimeWZ[mass]=(xsecMap['CX-(pb)'][m]+xsecMap['CX+(pb)'][m])*xsecMap['BRZW'][m]*(0.6991*0.6760)*(0.6991*0.6760)
+ WprimeWZ[mass]=(xsecMap['CX-(pb)'][m]+xsecMap['CX+(pb)'][m])*xsecMap['BRZW'][m]*(0.6991*0.6760)*(0.6991*0.6760) #fixing bug of inversely applied BR
 
  for l in range(len(fWZ)):
    if "rate" in fWZ[l]:

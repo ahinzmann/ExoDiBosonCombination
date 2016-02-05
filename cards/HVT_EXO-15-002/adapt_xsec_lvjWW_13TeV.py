@@ -55,7 +55,7 @@ ZprimeWW={}
 for mass in masses:
 
  m = int((mass-800)/100)
- print "mass = ",mass
+ #print "mass = ",mass
  
  try:
    fWW=open("LVJ_cards_13TeV/wwlvj_Zprime_WW_lvjj_M"+str(mass)+"_combo_ALLP_unbin.txt").readlines()

@@ -55,7 +55,7 @@ WprimeWZ={}
 for mass in masses:
 
  m = int((mass-800)/100)
- print "mass = ",mass
+ #print "mass = ",mass
  
  try:
    fWZ=open("JJ_cards_13TeV/CMS_jj_WZ_"+str(mass)+"_13TeV_CMS_jj_VVnew.txt").readlines()

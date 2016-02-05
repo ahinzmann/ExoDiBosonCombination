@@ -83,7 +83,7 @@ for mass in masses:
  f=open(outfile,"w")
 
  bulkZZ={}
- for line in open("xsect_BulkG_ZZ_c0p5_xsect_in_pb.txt").readlines():
+ for line in open("xsect_BulkG_ZZ_c0p5_xsect_in_pb_factor4wrong.txt").readlines():
     split=line.replace(" ","").replace(" ","").replace(" ","").replace("\n","").split("\t")
     bulkZZ[int(split[0])]=float(split[1])
 

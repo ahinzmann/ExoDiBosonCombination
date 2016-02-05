@@ -1,4 +1,4 @@
-string="signal & mass & JJ (8 TeV) & lvJ (8 TeV) & llJ (8 TeV) & JJ (13 TeV) & lvJ (13 TeV) & llJ (13 TeV) \\\\\n"
+string="signal & mass & JJ (8 TeV) & lvJ (8 TeV) & llJ (8 TeV) & JJ (13 TeV) & lvJ (13 TeV) & llJ (13 TeV) & bbbb (8 TeV) & lvbb (8 TeV) & qqtautau (8 TeV) \\\\\n"
 
 masses = [2000]
 for mass in masses:
@@ -65,8 +65,15 @@ for mass in masses:
 
   yields+=[(0,0)]
 
+  yields+=[(jjjjcontamination*0.01,-1)] #jjjj
+  yields+=[(lvjjcontamination*0.01,-1)] #lvjj
+  yields+=[(lljjcontamination*0.01,-1)] #lljj
+
   string+="$W' \\to WZ$ & "+str(int(mass/100)/10.)+" TeV &"
   for y1,y2 in yields:
+   if y2<0:
+    string+=" ("+str(int(y1*1000)/10.)+") &"
+   else:
     string+=" "+str(int(y1*1000)/10.).replace("0.0","-")+"/"+str(int(y2*1000)/10.).replace("0.0","-")+" &"
   string+="\\\\\n"
 
@@ -79,10 +86,44 @@ for mass in masses:
   yields+=[(lvjjcontamination*.19*57.7/69.91,-1)] #lvjj
   yields+=[(0,0)] #lljj
 
+  xsec=open("../Wprime_EXO-15-002/theory_HVT_WH_8TeV.txt")
+  for l in xsec.readlines():
+    split=l.replace("\n"," ").replace("\t"," ").replace("     "," ").replace("    "," ").replace("   "," ").replace("  "," ").split(" ")
+    if split[0]==str(mass):
+      crosssection8=float(split[1])
+
+  if mass>=1000 and mass<2500:
+   card=open("comb_"+str(mass)+"/comb_jjwh8."+str(mass)+".txt")
+   for l in card.readlines():
+    split=l.replace("\n"," ").replace("\t"," ").replace("     "," ").replace("    "," ").replace("   "," ").replace("  "," ").split(" ")
+    if split[0]=="rate":
+      yields+=[((float(split[1])+float(split[7])+float(split[10]))/crosssection8/19700.,(float(split[4])+float(split[12])+float(split[15])+float(split[17])+float(split[20]))/crosssection8/19700.)]
+  else:
+    yields+=[(0,0)]
+
+  if mass<2500:
+   card=open("comb_"+str(mass)+"/comb_lvjwh8."+str(mass)+".txt")
+   for l in card.readlines():
+    print l
+    split=l.replace("\n"," ").replace("\t"," ").replace("     "," ").replace("    "," ").replace("   "," ").replace("  "," ").split(" ")
+    if split[0]=="rate":
+      yields+=[((float(split[1])+float(split[6]))/crosssection8/19700.,0)]
+  else:
+    yields+=[(0,0)]
+
+  if mass<2500:
+   card=open("comb_"+str(mass)+"/comb_ttjwh8."+str(mass)+".txt")
+   for l in card.readlines():
+    split=l.replace("\n"," ").replace("\t"," ").replace("     "," ").replace("    "," ").replace("   "," ").replace("  "," ").split(" ")
+    if split[0]=="rate":
+      yields+=[((float(split[1])+float(split[3])+float(split[5])+float(split[7])+float(split[9])+float(split[11]))/crosssection8/19700.,0)]
+  else:
+    yields+=[(0,0)]
+
   string+="$W' \\to WH$ & "+str(int(mass/100)/10.)+" TeV &"
   for y1,y2 in yields:
    if y2<0:
-    string+=" ("+str(int(y1*1000)/10.).replace("0.0","-")+") &"
+    string+=" ("+str(int(y1*1000)/10.)+") &"
    else:
     string+=" "+str(int(y1*1000)/10.).replace("0.0","-")+"/"+str(int(y2*1000)/10.).replace("0.0","-")+" &"
   string+="\\\\\n"
@@ -143,8 +184,15 @@ for mass in masses:
 
   yields+=[(0,0)]
 
+  yields+=[(0,0)]
+  yields+=[(0,0)]
+  yields+=[(0,0)]
+
   string+="$Z' \\to WW$ & "+str(int(mass/100)/10.)+" TeV &"
   for y1,y2 in yields:
+   if y2<0:
+    string+=" ("+str(int(y1*1000)/10.)+") &"
+   else:
     string+=" "+str(int(y1*1000)/10.).replace("0.0","-")+"/"+str(int(y2*1000)/10.).replace("0.0","-")+" &"
   string+="\\\\\n"
 
@@ -157,10 +205,36 @@ for mass in masses:
   yields+=[(lvjjcontamination*.19*57.7/67.60,-1)] #lvjj
   yields+=[(0,0)] #lljj
 
+  xsec=open("../Wprime_EXO-15-002/theory_HVT_ZH_8TeV.txt")
+  for l in xsec.readlines():
+    split=l.replace("\n"," ").replace("\t"," ").replace("     "," ").replace("    "," ").replace("   "," ").replace("  "," ").split(" ")
+    if split[0]==str(mass):
+      crosssection8=float(split[1])
+
+  if mass>=1000 and mass<2500:
+   card=open("comb_"+str(mass)+"/comb_jjzh8."+str(mass)+".txt")
+   for l in card.readlines():
+    split=l.replace("\n"," ").replace("\t"," ").replace("     "," ").replace("    "," ").replace("   "," ").replace("  "," ").split(" ")
+    if split[0]=="rate":
+      yields+=[((float(split[2])+float(split[8])+float(split[9]))/crosssection8/19700.,(float(split[5])+float(split[13])+float(split[14])+float(split[18])+float(split[19]))/crosssection8/19700.)]
+  else:
+    yields+=[(0,0)]
+
+  yields+=[(0,0)]
+
+  if mass<2500:
+   card=open("comb_"+str(mass)+"/comb_ttjzh8."+str(mass)+".txt")
+   for l in card.readlines():
+    split=l.replace("\n"," ").replace("\t"," ").replace("     "," ").replace("    "," ").replace("   "," ").replace("  "," ").split(" ")
+    if split[0]=="rate":
+      yields+=[((float(split[1])+float(split[3])+float(split[5])+float(split[7])+float(split[9])+float(split[11]))/crosssection8/19700.,0)]
+  else:
+    yields+=[(0,0)]
+
   string+="$Z' \\to ZH$ & "+str(int(mass/100)/10.)+" TeV &"
   for y1,y2 in yields:
    if y2<0:
-    string+=" ("+str(int(y1*1000)/10.).replace("0.0","-")+") &"
+    string+=" ("+str(int(y1*1000)/10.)+") &"
    else:
     string+=" "+str(int(y1*1000)/10.).replace("0.0","-")+"/"+str(int(y2*1000)/10.).replace("0.0","-")+" &"
   string+="\\\\\n"
@@ -221,6 +295,12 @@ for mass in masses:
 
   yields+=[(0,0)]
 
+  yields+=[(0,0)]
+
+  yields+=[(0,0)]
+
+  yields+=[(0,0)]
+
   string+="$G_{bulk} \\to WW$ & "+str(int(mass/100)/10.)+" TeV &"
   for y1,y2 in yields:
     string+=" "+str(int(y1*1000)/10.).replace("0.0","-")+"/"+str(int(y2*1000)/10.).replace("0.0","-")+" &"
@@ -272,6 +352,12 @@ for mass in masses:
       yields[-1][1]*=1./(crosssection13zz)/2600.
   else:
     yields+=[(0,0)]
+
+  yields+=[(0,0)]
+
+  yields+=[(0,0)]
+
+  yields+=[(0,0)]
 
   yields+=[(0,0)]
 

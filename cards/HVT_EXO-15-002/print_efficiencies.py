@@ -81,7 +81,7 @@ for mass in masses:
 
   yields+=[(jjjjcontamination*0.019,-1)] #jjjj
   yields+=[(lvjjcontamination*0.017,-1)] #lvjj
-  yields+=[(lljjcontamination*.27*57.7/69.91,0)] #lljj
+  yields+=[(0,0)] #lljj
   yields+=[(jjjjcontamination*0.019,-1)] #jjjj
   yields+=[(lvjjcontamination*.19*57.7/69.91,-1)] #lvjj
   yields+=[(0,0)] #lljj
@@ -199,10 +199,10 @@ for mass in masses:
   yields=[]
 
   yields+=[(jjjjcontamination*0.019,-1)] #jjjj
-  yields+=[(lvjjcontamination*0.017,-1)] #lvjj
-  yields+=[(0,0)] #lljj
+  yields+=[(0,0)] #lvjj
+  yields+=[(lljjcontamination*.27*57.7/69.91,0)] #lljj
   yields+=[(jjjjcontamination*0.019,-1)] #jjjj
-  yields+=[(lvjjcontamination*.19*57.7/67.60,-1)] #lvjj
+  yields+=[(0,0)] #lvjj
   yields+=[(0,0)] #lljj
 
   xsec=open("../Wprime_EXO-15-002/theory_HVT_ZH_8TeV.txt")

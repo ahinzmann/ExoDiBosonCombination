@@ -16,7 +16,7 @@ observation  360.0        575.0
 bin                                      xzz_ee1JHP     xzz_ee1JHP     xzz_mm1JHP     xzz_mm1JHP   
 process                                  Bulk_xzz       backgroundxzz  Bulk_xzz       backgroundxzz
 process                                  0              1              0              1            
-rate                                     3.53966e+00  3.69523e+02  3.70949e+00  6.22260e+02  
+rate 				    3.53966e+00  3.69523e+02  3.70949e+00  6.22260e+02  
 ----------------------------------------------------------------------------------------------------------------------------------
 CMS_eff_e               lnN              1.03           1.0            -              -            
 CMS_eff_m               lnN              -              -              1.04           1.0          

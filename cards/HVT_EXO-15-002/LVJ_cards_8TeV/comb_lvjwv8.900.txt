@@ -22,7 +22,7 @@ observation  892.0        1483.0
 bin                                       xww_ev1JHP   xww_ev1JHP   xww_ev1JHP   xww_ev1JHP   xww_ev1JHP   xww_mv1JHP   xww_mv1JHP   xww_mv1JHP   xww_mv1JHP   xww_mv1JHP 
 process                                   BulkWW_xww   WJets_xww    VV_xww       STop_xww     TTbar_xww    BulkWW_xww   WJets_xww    VV_xww       STop_xww     TTbar_xww  
 process                                   0            1            2            3            4            0            1            2            3            4          
-rate                                     1.50512e+02  5.52178e+02  1.06135e+02  3.34360e+01  1.85799e+02  1.92979e+02  9.59599e+02  1.41108e+02  5.07790e+01  2.82545e+02  
+rate 				    1.50512e+02  5.52178e+02  1.06135e+02  3.34360e+01  1.85799e+02  1.92979e+02  9.59599e+02  1.41108e+02  5.07790e+01  2.82545e+02  
 ----------------------------------------------------------------------------------------------------------------------------------
 CMS_eff_e               lnN               1.02         -            1.02         1.02         1.02         -            -            -            -            -          
 CMS_eff_m               lnN               -            -            -            -            -            1.02         -            1.02         1.02         1.02       

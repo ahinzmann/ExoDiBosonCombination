@@ -1,8 +1,8 @@
 #!/bin/bash
 
-if [ $# -lt 1 ]
+if [ $# -lt 2 ]
 then
-    echo "Usage: ./parallelizeCombine_T3.sh <mass> [width]"
+    echo "Usage: ./parallelizeCombine_T3.sh <mass> <label>"
     exit 1
 fi
 
@@ -27,11 +27,12 @@ DATACARD="${BASEDIR}/comb_${MASS}/comb_${LABEL}.${MASS}"
 MYRAND=$RANDOM #random number generator (short integer: [0-32767])
 LOGFILE="${LOGDIRNAME}/log_local_${MASS}_${MYRAND}_${LABEL}.out"
 LOGFULL=${OUTDIR}/comb_${MASS}/$LOGFILE
-echo $LOGFULL
 
 if [ $RUN_LOCALLY -eq 1 ]
 then
-    ${BASEDIR}/combine_exec_T3.sh ${MASS} ${LABEL} ${MYRAND} ${DATACARD} ${ALGO}
+    ${BASEDIR}/combine_exec_T3.sh ${MASS} ${LABEL} ${MYRAND} ${DATACARD} ${ALGO} #>> ${LOGFILE}
+    #mv higgsCombine* ${OUTDIR}/.
+    #rm roostats-*
     exit 1
 fi    
 

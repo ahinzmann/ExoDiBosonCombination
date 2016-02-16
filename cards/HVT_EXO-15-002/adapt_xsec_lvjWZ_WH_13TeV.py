@@ -35,7 +35,6 @@ def get_efficiency(mass):
      for g in p.GetListOfGraphs(): dEff[g.GetName()] = g.Eval(mass/1000.) 
    fMuLP.Close()
    
-   print dEff
    #keep this order of channels
    effs.append( dEff['mu_HPW'] )
    effs.append( dEff['mu_HPZ'] )
@@ -131,8 +130,8 @@ for mass in masses:
        signal=(s in [1,6,11,16,21,26,31,36]) # only change signal
        numberWZ=float(fWZsplit[s])
        if signal:
+	 #print "ch",i+1," wz ",numberWZ*WprimeWZ[mass]*100.," wh ",WHeff[i]*WprimeWH[mass]*2197.956," effwh ",WHeff[i]," effwz ",numberWZ/0.01/2197.956
  	 numberWZ=numberWZ*WprimeWZ[mass]*100.+WHeff[i]*WprimeWH[mass]*2197.956 # cards from Jennnifer are in units of 0.01 pb
-	 print "ch",i+1," wz ",numberWZ*WprimeWZ[mass]*100.," wh ",WHeff[i]*WprimeWH[mass]*2197.956," effwh ",WHeff[i]
          i+=1
        line+="%.5e  " % numberWZ
      line+="\n"

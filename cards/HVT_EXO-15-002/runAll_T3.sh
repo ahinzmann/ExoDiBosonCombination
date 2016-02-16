@@ -1,4 +1,4 @@
-#for M in $( cat masses.txt ); do ./prepareCombinedCardsAndWS.sh $M ; done
+for M in $( cat masses.txt ); do ./prepareCombinedCardsAndWS.sh $M ; done
 
 #rm comb_*/output_* -r
 #rm -r comb_*/logs
@@ -116,22 +116,28 @@
 #./mergeHarvestedCombinationTrees.sh lvjwh8
 
 #8 TeV VH+WV
-for M in $( cat masses.txt ); do ./parallelizeCombine_T3.sh $M ALLHVT8; done
-for M in $( cat masses.txt ); do ./parallelizeCombine_T3.sh $M ALLWPRIME8; done
-for M in $( cat masses.txt ); do ./parallelizeCombine_T3.sh $M ALLZPRIME8; done
+#for M in $( cat masses.txt ); do ./parallelizeCombine_T3.sh $M ALLHVT8; done
+#for M in $( cat masses.txt ); do ./parallelizeCombine_T3.sh $M ALLWPRIME8; done
+#for M in $( cat masses.txt ); do ./parallelizeCombine_T3.sh $M ALLZPRIME8; done
+#for M in $( cat masses.txt ); do ./parallelizeCombine_T3.sh $M lljzh8; done
+#for M in $( cat masses.txt ); do ./parallelizeCombine_T3.sh $M lljwzh8; done
 
 #for M in $( cat masses.txt ); do ./mergeCombinationTrees.sh $M ALLHVT8; done
 #for M in $( cat masses.txt ); do ./mergeCombinationTrees.sh $M ALLWPRIME8; done
 #for M in $( cat masses.txt ); do ./mergeCombinationTrees.sh $M ALLZPRIME8; done
+#for M in $( cat masses.txt ); do ./mergeCombinationTrees.sh $M lljzh8; done
+#for M in $( cat masses.txt ); do ./mergeCombinationTrees.sh $M lljwzh8; done
 
 #./mergeHarvestedCombinationTrees.sh ALLHVT8
 #./mergeHarvestedCombinationTrees.sh ALLWPRIME8
 #./mergeHarvestedCombinationTrees.sh ALLZPRIME8
+#./mergeHarvestedCombinationTrees.sh lljzh8
+#./mergeHarvestedCombinationTrees.sh lljwzh8
 
 #8 + 13 TeV VH+WV
-for M in $( cat masses.txt ); do ./parallelizeCombine_T3.sh $M ALLHVT138; done
-for M in $( cat masses.txt ); do ./parallelizeCombine_T3.sh $M ALLWPRIME138; done
-for M in $( cat masses.txt ); do ./parallelizeCombine_T3.sh $M ALLZPRIME138; done
+#for M in $( cat masses.txt ); do ./parallelizeCombine_T3.sh $M ALLHVT138; done
+#for M in $( cat masses.txt ); do ./parallelizeCombine_T3.sh $M ALLWPRIME138; done
+#for M in $( cat masses.txt ); do ./parallelizeCombine_T3.sh $M ALLZPRIME138; done
 
 #for M in $( cat masses.txt ); do ./mergeCombinationTrees.sh $M ALLHVT138; done
 #for M in $( cat masses.txt ); do ./mergeCombinationTrees.sh $M ALLWPRIME138; done

@@ -1,0 +1,12 @@
+python plot_limits_xsec.py JJLVJWPRIME13TeV
+python plot_limits_xsec.py JJLVJZPRIME13TeV
+python plot_limits_xsec.py JJLVJHVT13TeV
+python plot_limits_xsec.py ALLWVWPRIME8TeV
+python plot_limits_xsec.py ALLWVZPRIME8TeV 
+python plot_limits_xsec.py ALLWVHVT8TeV
+python plot_limits_xsec.py ALLHVWPRIME8TeV
+python plot_limits_xsec.py ALLHVZPRIME8TeV
+python plot_limits_xsec.py ALLHVHVT8TeV
+python plot_limits_xsec.py ALLWPRIME8TeV
+python plot_limits_xsec.py ALLZPRIME8TeV
+python plot_limits_xsec.py ALLHVT8TeV       

@@ -79,11 +79,27 @@ for mass in masses:
 
   yields=[]
 
+  xsec=open("../Wprime_EXO-15-002/theory_HVT_WH_13TeV.txt")
+  for l in xsec.readlines():
+    split=l.replace("\n"," ").replace("\t"," ").replace("     "," ").replace("    "," ").replace("   "," ").replace("  "," ").split(" ")
+    if split[0]==str(mass):
+      crosssection13=float(split[1])
+
   yields+=[(jjjjcontamination*0.019,-1)] #jjjj
   yields+=[(lvjjcontamination*0.017,-1)] #lvjj
   yields+=[(0,0)] #lljj
   yields+=[(jjjjcontamination*0.019,-1)] #jjjj
-  yields+=[(lvjjcontamination*.19*57.7/69.91,-1)] #lvjj
+  
+  if mass>=1200:
+   card=open("LVJ_cards_13TeV/wwlvj_Wprimefix_WH_lvjj_M"+str(mass)+"_combo_ALLP_unbin.txt")
+   for l in card.readlines():
+    split=l.replace("\n"," ").replace("\t"," ").replace("     "," ").replace("    "," ").replace("   "," ").replace("  "," ").split(" ")
+    if split[0]=="rate":
+      yields+=[((float(split[1])+float(split[6])+float(split[21])+float(split[26]))/crosssection13/2300.,(float(split[11])+float(split[16])+float(split[31])+float(split[36]))/crosssection13/2300.)]
+  else:
+    yields+=[(0,0)]
+  #yields+=[(lvjjcontamination*.19*57.7/69.91,-1)] #lvjj
+  
   yields+=[(0,0)] #lljj
 
   xsec=open("../Wprime_EXO-15-002/theory_HVT_WH_8TeV.txt")
@@ -143,17 +159,17 @@ for mass in masses:
 
   yields=[]
   if mass>=1000 and mass<2500:
-   card=open("../Wprime_EXO-15-002/comb_"+str(mass)+"/comb_xjj8."+str(mass)+".txt")
+   card=open("comb_"+str(mass)+"/comb_jjww8."+str(mass)+".txt")
    for l in card.readlines():
     split=l.replace("\n"," ").replace("\t"," ").replace("     "," ").replace("    "," ").replace("   "," ").replace("  "," ").split(" ")
     if split[0]=="rate":
-      yields+=[((float(split[2]))/2./crosssection8/19700.,(float(split[6]))/2./crosssection8/19700.)]
+      yields+=[((float(split[2]))/crosssection8/19700.,(float(split[6]))/crosssection8/19700.)]
       jjjjcontamination=(float(split[2])+float(split[6]))/crosssection8/19700.
   else:
     yields+=[(0,0)]
 
   if mass<2500:
-   card=open("../Wprime_EXO-15-002/comb_"+str(mass)+"/comb_xww."+str(mass)+".txt")
+   card=open("comb_"+str(mass)+"/comb_lvjww8."+str(mass)+".txt")
    for l in card.readlines():
     split=l.replace("\n"," ").replace("\t"," ").replace("     "," ").replace("    "," ").replace("   "," ").replace("  "," ").split(" ")
     if split[0]=="rate":

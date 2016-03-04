@@ -57,7 +57,6 @@ def get_theo_map():
    f.close()
 
    return [brs,V_mass]
-
 # This script changes multiplies the rate in the data cards
 # from Bulk graviton cross section to W'/Z' cross sections
 # and also account for the efficiency difference for Bulk and W'/Z' selection
@@ -79,7 +78,7 @@ gStyle.SetLabelSize(0.05, "XYZ")
 gStyle.SetNdivisions(510, "XYZ")
 gStyle.SetLegendBorderSize(0)
 
-masses =[m*100 for m in range(8,25+1)]
+masses =[m*100 for m in range(10,29+1)]
 
 if len(sys.argv)>1:
   masses=[int(sys.argv[1])]
@@ -89,26 +88,24 @@ xsecMap = thMap[0]
 #massMap = thMap[1]
 
 for mass in masses:
+
  #print "mass = ",mass
  m = int((mass-745)/5) #for jen's 8 TeV theo map 
  #m = int((mass-800)/100) #for jen'2 13 TeV theo map or 8 TeV alternative model B
-
- fWW=open("LVJ_cards_8TeV/comb_xww."+str(mass)+".txt").readlines()
- outfile="LVJ_cards_8TeV/comb_lvjwv8."+str(mass)+".txt"
+ 
+ fWZ=open("cards_WZ_allLept_8TeV/card_WprimeWZ_M"+str(mass)+".txt").readlines()
+ outfile="cards_WZ_allLept_8TeV/card_WprimeWZfix_M"+str(mass)+".txt"
  print outfile
  f=open(outfile,"w")
 
- bulkWW={}
- for line in open("xsect_BulkG_WW_c0p5_xsect_in_pb_factor4wrong.txt").readlines():
-    split=line.replace(" ","").replace(" ","").replace(" ","").replace("\n","").split("\t")
-    bulkWW[int(split[0])]=float(split[1])
+ HVTZW={}
+ HVTZW[mass]=(xsecMap['CX-(pb)'][m]+xsecMap['CX+(pb)'][m])*xsecMap['BRZW'][m]*0.2132*0.06729
 
- HVTWW={}
- HVTWW[mass] = xsecMap['CX0(pb)'][m]*xsecMap['BRWW'][m]
- 
- HVTWZ={}
- HVTWZ[mass]=(xsecMap['CX-(pb)'][m]+xsecMap['CX+(pb)'][m])*xsecMap['BRZW'][m]
-
+ EGMZW={}
+ for line in open("xsect_Wprime_WZ_lllv_EGM_8TeV.txt").readlines():
+  split=line.replace('\n','').split(' ')
+  EGMZW[int(split[0])]=float(split[1])
+  
  xsecUnc =  get_xsec_unc(mass)
  pdf_Wprime = 1+xsecUnc['qq_PDF_Wprime']
  pdf_Zprime = 1+xsecUnc['qq_PDF_Zprime']
@@ -118,24 +115,22 @@ for mass in masses:
  newline1 = 'CMS_XS_qq_PDF lnN				    '
  newline2 = 'CMS_XS_qq_scale lnN				    '
  
- for l in range(len(fWW)):
-  if "kmax" in fWW[l]:
-   fWWsplit = fWW[l].split(' ') 
-   fWW[l] = fWW[l].replace(fWWsplit[1],str(int(fWWsplit[1])+2))
-  if "rate" in fWW[l]:
-   line="rate 				    "
-   fWWsplit=fWW[l].replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").split(" ")
-   for s in range(len(fWWsplit)):
-    try: float(fWWsplit[s])
+ for l in range(len(fWZ)):
+  if "kmax" in fWZ[l]:
+   fWZsplit = fWZ[l].split(' ') 
+   fWZ[l] = fWZ[l].replace(fWZsplit[1],str(int(fWZsplit[1])+1))
+  if "PDF" in fWZ[l]: continue
+  if "rate" in fWZ[l]:
+   line="rate         "
+   fWZsplit=fWZ[l].replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").split(" ")
+   for s in range(len(fWZsplit)):
+    try: float(fWZsplit[s])
     except: continue
-    signal=(s in [1,6,11,16]) # only change signal
-    numberWW=float(fWWsplit[s])
+    signal=(s in [1,7,13,19]) # only change signal
+    numberWW=float(fWZsplit[s])
     if signal:
-     #print numberWW,efficienciesBulk[mass][0]*19700.*bulkWW[mass]*0.2882464, efficienciesBulk[mass][0],19700.,bulkWW[mass],0.2882464
-     #efficienciesBulk[mass]=numberWW/19700./bulkWW[mass]/0.2882464
-     #print efficienciesBulk[mass]
-     #print "eff corr", (0.73+0.08*mass/1000.), "xsec fac", 1./bulkWW[mass]*(HVTWW[mass]+HVTWZ[mass]*69.91/67.60/2.)
-     numberWW=numberWW/bulkWW[mass]*(0.73+0.08*mass/1000.)*(HVTWW[mass]+HVTWZ[mass]*69.91/67.60/2.) #factor /2 from combinatorics of lnuqq into WW or WZ #+0.19*0.30*HVTWH[mass]*57.7/67.60/2.
+     #print numberWW,numberWW*0.2132*0.06729/EGMZW[mass]/19500.
+     numberWW=numberWW*HVTZW[mass]/EGMZW[mass]
      newline1+="%.3f  "%pdf_Wprime
      newline2+="%.3f  "%scale_Wprime
     else:
@@ -145,9 +140,9 @@ for mass in masses:
    line+="\n"
    f.write(line)
   else:
-   f.write(fWW[l])
-
+   f.write(fWZ[l])
+   
  f.write(newline1)
  f.write('\n')
  f.write(newline2)
- f.close()
+ f.close()   

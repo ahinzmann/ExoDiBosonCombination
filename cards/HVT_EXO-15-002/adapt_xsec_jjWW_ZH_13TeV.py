@@ -1,15 +1,13 @@
-from ROOT import *
-import ROOT
-import array, math
-import os
-import sys
 from array import array
+import sys
+import ROOT
+from ROOT import *
 
 def get_xsec_unc(mass):
 
    uncs = {}
    
-   fin = TFile.Open('XsecUnc/xsec-unc-8TeV.root','READ')   
+   fin = TFile.Open('XsecUnc/xsec-unc-13TeV.root','READ')   
    cin = fin.Get('c')
    for p in cin.GetListOfPrimitives():
     if p.InheritsFrom("TMultiGraph"):
@@ -17,6 +15,43 @@ def get_xsec_unc(mass):
    fin.Close() 
    
    return uncs
+   
+def get_efficiency(mass):
+
+   dEff = {}
+   effs = []
+   
+   #WWHP (g1), WZHP (g2), ZZHP (g3), WWLP (g1), WZLP (g2), ZZLP (g3)
+   
+   fHP = TFile.Open('jjVH_sigEff_13TeV/HP_VH_SigEff.root','R')
+   cHP = fHP.Get('c0')
+   for p in cHP.GetListOfPrimitives():
+    if p.InheritsFrom("TMultiGraph"):
+     for g in p.GetListOfGraphs():
+      if g.GetName() == 'g1': dEff['WWHP'] = g.Eval(mass) 
+      if g.GetName() == 'g2': dEff['WZHP'] = g.Eval(mass) 
+      if g.GetName() == 'g3': dEff['ZZHP'] = g.Eval(mass) 
+   fHP.Close()
+   
+   fLP = TFile.Open('jjVH_sigEff_13TeV/LP_VH_SigEff.root','R')
+   cLP = fLP.Get('c1')
+   for p in cLP.GetListOfPrimitives():
+    if p.InheritsFrom("TMultiGraph"):
+     for g in p.GetListOfGraphs():
+      if g.GetName() == 'g1': dEff['WWLP'] = g.Eval(mass) 
+      if g.GetName() == 'g2': dEff['WZLP'] = g.Eval(mass) 
+      if g.GetName() == 'g3': dEff['ZZLP'] = g.Eval(mass) 
+   fLP.Close()
+   
+   #keep this order
+   effs.append( dEff['WWHP'] )
+   effs.append( dEff['WZHP'] )
+   effs.append( dEff['ZZHP'] )
+   effs.append( dEff['WWLP'] )
+   effs.append( dEff['WZLP'] )
+   effs.append( dEff['ZZLP'] )
+   
+   return effs
    
 def get_theo_map():
 
@@ -32,7 +67,7 @@ def get_theo_map():
    	 brs[mapping[m]] = array('d',[])
    	 #print mapping[m]
 
-   f = open('xsect_HVT_8TeV.txt','r')
+   f = open('xsect_HVT_13TeV.txt','r')
    for line in f:
       brDict = line.split(",")
       for d in xrange(0,len(brDict)):
@@ -45,7 +80,7 @@ def get_theo_map():
 	    
    f.close()
 
-   f = open('xsect_HVT_8TeV.txt','r')
+   f = open('xsect_HVT_13TeV.txt','r')
    for line in f:
       if line.find('M0') != -1: continue
       brDict = line.split(",")  	    
@@ -57,49 +92,37 @@ def get_theo_map():
    f.close()
 
    return [brs,V_mass]
-# This script changes multiplies the rate in the data cards
-# from Bulk graviton cross section to W'/Z' cross sections
-# and also account for the efficiency difference for Bulk and W'/Z' selection
 
-gROOT.Reset()
-gROOT.SetStyle("Plain")
-gStyle.SetOptStat(0)
-gStyle.SetOptFit(0)
-gStyle.SetTitleOffset(1.2,"Y")
-gStyle.SetPadLeftMargin(0.18)
-gStyle.SetPadBottomMargin(0.15)
-gStyle.SetPadTopMargin(0.03)
-gStyle.SetPadRightMargin(0.05)
-gStyle.SetMarkerSize(1.5)
-gStyle.SetHistLineWidth(1)
-gStyle.SetStatFontSize(0.020)
-gStyle.SetTitleSize(0.06, "XYZ")
-gStyle.SetLabelSize(0.05, "XYZ")
-gStyle.SetNdivisions(510, "XYZ")
-gStyle.SetLegendBorderSize(0)
 
-masses =[m*100 for m in range(10,29+1)]
+thMap = get_theo_map()
+xsecMap = thMap[0]
+massMap = thMap[1]
+
+masses =[m*100 for m in range(8,40+1)]
 
 if len(sys.argv)>1:
   masses=[int(sys.argv[1])]
 
-thMap = get_theo_map()
-xsecMap = thMap[0]
-#massMap = thMap[1]
-
+ZprimeWW={}
+ZprimeZH={}
 for mass in masses:
 
+ m = int((mass-800)/100)
  #print "mass = ",mass
- m = int((mass-745)/5) #for jen's 8 TeV theo map 
- #m = int((mass-800)/100) #for jen'2 13 TeV theo map or 8 TeV alternative model B
  
- fWW=open("JJ_cards_8TeV/datacards/CMS_jj_WZ_"+str(mass)+"_8TeV_CMS_jj_VV.txt").readlines()
- outfile="JJ_cards_8TeV/datacards/CMS_jj_WWfix_"+str(mass)+"_8TeV_CMS_jj_VV.txt"
+ try:
+   fWW=open("JJ_cards_13TeV/CMS_jj_ZprimeWW_"+str(mass)+"_13TeV_CMS_jj_VVnew.txt").readlines()
+ except:
+   print "could not open"
+   continue
+   
+ outfile="JJ_cards_13TeV/CMS_jj_Zprimefix_WW_ZH_"+str(mass)+"_13TeV_CMS_jj_VVnew.txt"
  print outfile
  f=open(outfile,"w")
 
- HVTWW={}
- HVTWW[mass]=xsecMap['CX0(pb)'][m]*xsecMap['BRWW'][m]*0.6760/0.6991
+ ZprimeWW[mass]=xsecMap['CX0(pb)'][m]*xsecMap['BRWW'][m]
+ ZprimeZH[mass]=xsecMap['CX0(pb)'][m]*xsecMap['BRhZ'][m]*0.577*0.6991
+ ZHeff = get_efficiency(mass)
 
  xsecUnc =  get_xsec_unc(mass)
  pdf_Wprime = 1+xsecUnc['qq_PDF_Wprime']
@@ -113,17 +136,21 @@ for mass in masses:
  for l in range(len(fWW)):
   if "kmax" in fWW[l]:
    fWWsplit = fWW[l].split(' ') 
-   fWW[l] = fWW[l].replace(fWWsplit[1],str(int(fWWsplit[1])+2))
+   fWW[l] = fWW[l].replace(fWWsplit[1],str(int(fWWsplit[1])+1))
+  if "CMS_xww_XS_Zprime_13TeV" in fWW[l]: continue
   if "rate" in fWW[l]:
    line="rate 				    "
    fWWsplit=fWW[l].replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").split(" ")
+   i = 0
    for s in range(len(fWWsplit)):
     try: float(fWWsplit[s])
     except: continue
-    signal=(s in [2,6]) # only change signal
+    signal=(s in [2,5,8,11,14,17]) # only change signal
     numberWW=float(fWWsplit[s])
     if signal:
-     numberWW=numberWW*100.*HVTWW[mass]
+     #print numberWW*100./2600.,ZHeff[i], ZHeff[i]*0.577*0.6991
+     numberWW=numberWW*ZprimeWW[mass]*100.+ZHeff[i]*ZprimeZH[mass]*2564.649 # cards from Jennnifer are in units of 0.01 pb
+     i+=1
      newline1+="%.3f  "%pdf_Zprime
      newline2+="%.3f  "%scale_Zprime
     else:

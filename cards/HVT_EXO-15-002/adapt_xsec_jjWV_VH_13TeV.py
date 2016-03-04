@@ -1,7 +1,7 @@
 from array import array
 import sys
-from ROOT import *
 import ROOT
+from ROOT import *
 
 def get_xsec_unc(mass):
 
@@ -15,6 +15,43 @@ def get_xsec_unc(mass):
    fin.Close() 
    
    return uncs
+   
+def get_efficiency(mass):
+
+   dEff = {}
+   effs = []
+   
+   #WWHP (g1), WZHP (g2), ZZHP (g3), WWLP (g1), WZLP (g2), ZZLP (g3)
+   
+   fHP = TFile.Open('jjVH_sigEff_13TeV/HP_VH_SigEff.root','R')
+   cHP = fHP.Get('c0')
+   for p in cHP.GetListOfPrimitives():
+    if p.InheritsFrom("TMultiGraph"):
+     for g in p.GetListOfGraphs():
+      if g.GetName() == 'g1': dEff['WWHP'] = g.Eval(mass) 
+      if g.GetName() == 'g2': dEff['WZHP'] = g.Eval(mass) 
+      if g.GetName() == 'g3': dEff['ZZHP'] = g.Eval(mass) 
+   fHP.Close()
+   
+   fLP = TFile.Open('jjVH_sigEff_13TeV/LP_VH_SigEff.root','R')
+   cLP = fLP.Get('c1')
+   for p in cLP.GetListOfPrimitives():
+    if p.InheritsFrom("TMultiGraph"):
+     for g in p.GetListOfGraphs():
+      if g.GetName() == 'g1': dEff['WWLP'] = g.Eval(mass) 
+      if g.GetName() == 'g2': dEff['WZLP'] = g.Eval(mass) 
+      if g.GetName() == 'g3': dEff['ZZLP'] = g.Eval(mass) 
+   fLP.Close()
+   
+   #keep this order
+   effs.append( dEff['WWHP'] )
+   effs.append( dEff['WZHP'] )
+   effs.append( dEff['ZZHP'] )
+   effs.append( dEff['WWLP'] )
+   effs.append( dEff['WZLP'] )
+   effs.append( dEff['ZZLP'] )
+   
+   return effs
    
 def get_theo_map():
 
@@ -68,6 +105,8 @@ if len(sys.argv)>1:
 
 ZprimeWW={}
 WprimeWZ={}
+WprimeWH={}
+ZprimeZH={}
 yieldsWprime={}
 
 for mass in masses:
@@ -82,12 +121,15 @@ for mass in masses:
    print "could not open"
    continue
    
- outfile="JJ_cards_13TeV/CMS_jj_VprimeWVfix_"+str(mass)+"_13TeV.txt"
+ outfile="JJ_cards_13TeV/CMS_jj_Vprimefix_WV_VH_"+str(mass)+"_13TeV.txt"
  print outfile
  f=open(outfile,"w")
 
  WprimeWZ[mass]=(xsecMap['CX-(pb)'][m]+xsecMap['CX+(pb)'][m])*xsecMap['BRZW'][m]*(0.6991*0.6760)*(0.6991*0.6760)
  ZprimeWW[mass]=xsecMap['CX0(pb)'][m]*xsecMap['BRWW'][m] #inclusive sample
+ ZprimeZH[mass]=xsecMap['CX0(pb)'][m]*xsecMap['BRhZ'][m]*0.577*0.6991
+ WprimeWH[mass]=(xsecMap['CX-(pb)'][m]+xsecMap['CX+(pb)'][m])*xsecMap['BRWh'][m]*0.577*0.6760
+ VHeff = get_efficiency(mass)
 
  xsecUnc =  get_xsec_unc(mass)
  pdf_Wprime = 1+xsecUnc['qq_PDF_Wprime']
@@ -103,13 +145,16 @@ for mass in masses:
    if "rate" in fWZ[l]:
      #line="rate 				    "
      fWZsplit=fWZ[l].replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").split(" ")
+     i = 0
      for s in range(len(fWZsplit)):
        try:
  	 float(fWZsplit[s])
        except: continue
        signal=(s in [2,6,10,14,18,22])
        numberWZ=float(fWZsplit[s])
-       if signal: tmp.append(numberWZ*WprimeWZ[mass]*100.)
+       if signal:
+        tmp.append(numberWZ*WprimeWZ[mass]*100.+VHeff[i]*WprimeWH[mass]*2564.649)
+        i+=1
   
  yieldsWprime[mass] = tmp
  bin = 0
@@ -121,6 +166,7 @@ for mass in masses:
   if "rate" in fWW[l]:
    line="rate 				    "
    fWWsplit=fWW[l].replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").split(" ")
+   i=0
    for s in range(len(fWWsplit)):
     try: float(fWWsplit[s])
     except: continue
@@ -128,7 +174,8 @@ for mass in masses:
     signalAlt=(s in [1,4,7,10,13,16])
     numberWW=float(fWWsplit[s])
     if signal:
-     numberWW=numberWW*ZprimeWW[mass]*100. # cards from Jennnifer are in units of 0.01 pb	 
+     numberWW=numberWW*ZprimeWW[mass]*100.+VHeff[i]*ZprimeZH[mass]*2564.649 # cards from Jennnifer are in units of 0.01 pb	
+     i+=1 
      newline1+="%.3f  "%pdf_Zprime
      newline2+="%.3f  "%scale_Zprime
     elif signalAlt:

@@ -1,6 +1,21 @@
 from array import array
 import sys
+from ROOT import *
+import ROOT
 
+def get_xsec_unc(mass):
+
+   uncs = {}
+   
+   fin = TFile.Open('XsecUnc/xsec-unc-13TeV.root','READ')   
+   cin = fin.Get('c')
+   for p in cin.GetListOfPrimitives():
+    if p.InheritsFrom("TMultiGraph"):
+     for g in p.GetListOfGraphs(): uncs[g.GetName()] = g.Eval(mass) 
+   fin.Close() 
+   
+   return uncs
+   
 def get_theo_map():
 
    V_mass = array('d',[])
@@ -68,20 +83,43 @@ for mass in masses:
  f=open(outfile,"w")
 
  WprimeWZ[mass]=(xsecMap['CX-(pb)'][m]+xsecMap['CX+(pb)'][m])*xsecMap['BRZW'][m]*(0.6991*0.6760)*(0.6991*0.6760)
+ 
+ xsecUnc =  get_xsec_unc(mass)
+ pdf_Wprime = 1+xsecUnc['qq_PDF_Wprime']
+ pdf_Zprime = 1+xsecUnc['qq_PDF_Zprime']
+ scale_Wprime = 1+xsecUnc['qq_scale_Wprime']
+ scale_Zprime = 1+xsecUnc['qq_scale_Zprime']
+ 
+ newline1 = 'CMS_XS_qq_PDF lnN				    '
+ newline2 = 'CMS_XS_qq_scale lnN				    '
+ 
  for l in range(len(fWZ)):
-   if "rate" in fWZ[l]:
-     line="rate 				    "
-     fWZsplit=fWZ[l].replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").split(" ")
-     for s in range(len(fWZsplit)):
-       try:
- 	 float(fWZsplit[s])
-       except: continue
-       signal=(s in [2,6,10,14,18,22]) 
-       numberWZ=float(fWZsplit[s])
-       if signal:
- 	 numberWZ=numberWZ*WprimeWZ[mass]*100. # cards from Jennnifer are in units of 0.01 pb
-       line+="%.5e  " % numberWZ
-     line+="\n"
-     f.write(line)
-   else:
-     f.write(fWZ[l])
+  if "kmax" in fWZ[l]:
+   fWZsplit = fWZ[l].split(' ') 
+   fWZ[l] = fWZ[l].replace(fWZsplit[1],str(int(fWZsplit[1])+1))
+  if "CMS_xww_XS_Wprime_WZ_13TeV" in fWZ[l]: continue
+  if "rate" in fWZ[l]:
+   line="rate 				    "
+   fWZsplit=fWZ[l].replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").split(" ")
+   for s in range(len(fWZsplit)):
+    try: float(fWZsplit[s])
+    except: continue
+    signal=(s in [2,6,10,14,18,22]) 
+    numberWZ=float(fWZsplit[s])
+    if signal:
+     numberWZ=numberWZ*WprimeWZ[mass]*100. # cards from Jennnifer are in units of 0.01 pb
+     newline1+="%.3f  "%pdf_Wprime
+     newline2+="%.3f  "%scale_Wprime
+    else:
+     newline1+="-  "
+     newline2+="-  "
+    line+="%.5e  " % numberWZ
+   line+="\n"
+   f.write(line)
+  else:
+   f.write(fWZ[l])
+
+ f.write(newline1)
+ f.write('\n')
+ f.write(newline2)
+ f.close()   

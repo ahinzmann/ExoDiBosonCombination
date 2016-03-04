@@ -17,10 +17,22 @@ LLJ8DIR="LLJ_cards_8TeV"
 TTJZH8DIR="cards_ZH_8TeV"
 LVJWH8DIR="cards_WH_8TeV"
 JJVH8DIR="cards_VH_8TeV"
+LLLV8DIR="cards_WZ_allLept_8TeV"
 
 #prepare output
 OUTDIR="comb_${MASS}"
 mkdir $OUTDIR/
+
+### lllv WprimeWZ 8 TeV only
+LABEL="lllv8"
+LLLV8CARD="card_WprimeWZfix_M${MASS}.txt"
+COMBLLLV8CARD="comb_${LABEL}.${MASS}.txt"
+
+if [ $MASS -ge 800 ] && [ $MASS -le 2000 ]
+then
+python adapt_xsec_lllvWZ_8TeV.py ${MASS}
+sed -e 's|lumi|lumi_8TeV|g' -e 's|PU|CMS_pu|g' -e 's|ElTrig|CMS_xzz_trigger_e|g' -e 's|MuTrig|CMS_xzz_trigger_m|g' -e 's|ElEnScale|CMS_scale_e|g' -e 's|MuPtScale|CMS_scale_m|g' -e 's|MuPtRes|CMS_res_m|g' -e 's|ElIDIso|CMS_eff_e|g' -e 's|MuIDIso|CMS_eff_m|g' < ${LLLV8DIR}/${LLLV8CARD} &> $OUTDIR/${COMBLLLV8CARD}
+fi
 
 ### qqtautau ZprimeZH 8 TeV only
 LABEL="ttjzh8"
@@ -30,7 +42,7 @@ COMBTTJZH8CARD="comb_${LABEL}.${MASS}.txt"
 if [ $MASS -ge 800 ] && [ $MASS -le 2500 ]
 then
 python adapt_xsec_ttjZH_8TeV.py ${MASS}
-sed -e 's|lumi|lumi_8TeV|g' -e 's|PUReweighting|CMS_pu|g' -e 's|VTag|CMS_eff_tau21_sf|g' -e 's|EleScale|CMS_scale_e|g' -e 's|EleResol|CMS_res_e|g' -e 's|MuoScale|CMS_scale_m|g' -e 's|MuoResol|CMS_res_m|g' -e 's|EleID|CMS_eff_e|g' -e 's|MuoID|CMS_eff_m|g' -e 's|JES|CMS_scale_j|g' -e 's|JER|CMS_res_j|g' -e 's|BTagSyst|CMS_btagger|g' < ${TTJZH8DIR}/${TTJZH8CARD} &> $OUTDIR/${COMBTTJZH8CARD}
+sed -e 's|lumi|lumi_8TeV|g' -e 's|PUReweighting|CMS_pu|g' -e 's|VTag|CMS_eff_vtag_tau21_sf|g' -e 's|EleScale|CMS_scale_e|g' -e 's|EleResol|CMS_res_e|g' -e 's|MuoScale|CMS_scale_m|g' -e 's|MuoResol|CMS_res_m|g' -e 's|EleID|CMS_eff_e|g' -e 's|MuoID|CMS_eff_m|g' -e 's|JES|CMS_scale_j|g' -e 's|JER|CMS_res_j|g' -e 's|BTagSyst|CMS_xww_btag_eff|g' < ${TTJZH8DIR}/${TTJZH8CARD} &> $OUTDIR/${COMBTTJZH8CARD}
 fi
 
 ### qqtautau WprimeWH 8 TeV only
@@ -41,7 +53,7 @@ COMBTTJWH8CARD="comb_${LABEL}.${MASS}.txt"
 if [ $MASS -ge 800 ] && [ $MASS -le 2500 ]
 then
 python adapt_xsec_ttjWH_8TeV.py ${MASS}
-sed -e 's|lumi|lumi_8TeV|g' -e 's|PUReweighting|CMS_pu|g' -e 's|VTag|CMS_eff_tau21_sf|g' -e 's|EleScale|CMS_scale_e|g' -e 's|EleResol|CMS_res_e|g' -e 's|MuoScale|CMS_scale_m|g' -e 's|MuoResol|CMS_res_m|g' -e 's|EleID|CMS_eff_e|g' -e 's|MuoID|CMS_eff_m|g' -e 's|JES|CMS_scale_j|g' -e 's|JER|CMS_res_j|g' -e 's|BTagSyst|CMS_btagger|g' < ${TTJZH8DIR}/${TTJWH8CARD} &> $OUTDIR/${COMBTTJWH8CARD}
+sed -e 's|lumi|lumi_8TeV|g' -e 's|PUReweighting|CMS_pu|g' -e 's|VTag|CMS_eff_vtag_tau21_sf|g' -e 's|EleScale|CMS_scale_e|g' -e 's|EleResol|CMS_res_e|g' -e 's|MuoScale|CMS_scale_m|g' -e 's|MuoResol|CMS_res_m|g' -e 's|EleID|CMS_eff_e|g' -e 's|MuoID|CMS_eff_m|g' -e 's|JES|CMS_scale_j|g' -e 's|JER|CMS_res_j|g' -e 's|BTagSyst|CMS_xww_btag_eff|g' < ${TTJZH8DIR}/${TTJWH8CARD} &> $OUTDIR/${COMBTTJWH8CARD}
 fi
 
 ### qqtautau VprimeVH 8 TeV only
@@ -52,7 +64,7 @@ COMBTTJVH8CARD="comb_${LABEL}.${MASS}.txt"
 if [ $MASS -ge 800 ] && [ $MASS -le 2500 ]
 then
 python adapt_xsec_ttjVH_8TeV.py ${MASS}
-sed -e 's|lumi|lumi_8TeV|g' -e 's|PUReweighting|CMS_pu|g' -e 's|VTag|CMS_eff_tau21_sf|g' -e 's|EleScale|CMS_scale_e|g' -e 's|EleResol|CMS_res_e|g' -e 's|MuoScale|CMS_scale_m|g' -e 's|MuoResol|CMS_res_m|g' -e 's|EleID|CMS_eff_e|g' -e 's|MuoID|CMS_eff_m|g' -e 's|JES|CMS_scale_j|g' -e 's|JER|CMS_res_j|g' -e 's|BTagSyst|CMS_btagger|g' < ${TTJZH8DIR}/${TTJVH8CARD} &> $OUTDIR/${COMBTTJVH8CARD}
+sed -e 's|lumi|lumi_8TeV|g' -e 's|PUReweighting|CMS_pu|g' -e 's|VTag|CMS_eff_vtag_tau21_sf|g' -e 's|EleScale|CMS_scale_e|g' -e 's|EleResol|CMS_res_e|g' -e 's|MuoScale|CMS_scale_m|g' -e 's|MuoResol|CMS_res_m|g' -e 's|EleID|CMS_eff_e|g' -e 's|MuoID|CMS_eff_m|g' -e 's|JES|CMS_scale_j|g' -e 's|JER|CMS_res_j|g' -e 's|BTagSyst|CMS_xww_btag_eff|g' < ${TTJZH8DIR}/${TTJVH8CARD} &> $OUTDIR/${COMBTTJVH8CARD}
 fi
 
 ### JJ WprimeWH 8 TeV only
@@ -63,7 +75,7 @@ COMBJJWH8CARD="comb_${LABEL}.${MASS}.txt"
 if [ $MASS -ge 1000 ] && [ $MASS -le 2600 ]
 then
 python adapt_xsec_jjWH_8TeV.py ${MASS}
-sed -e 's|datacards/../workspaces/||g' -e 's|datacards/../HbbVqqHwwworkspaces/||g'  -e 's|CMS_Btagging|CMS_doubleBtagging|g' < ${JJVH8DIR}/${JJWH8CARD} &> $OUTDIR/${COMBJJWH8CARD}
+sed -e 's|datacards/../workspaces/||g' -e 's|datacards/../HbbVqqHwwworkspaces/||g' -e 's|CMS_eff_tau21_sf|CMS_eff_vtag_tau21_sf|g' -e 's|CMS_Btagging|CMS_doubleBtagging|g' < ${JJVH8DIR}/${JJWH8CARD} &> $OUTDIR/${COMBJJWH8CARD}
 cp ${JJVH8DIR}/CMS_jj_*${MASS}*.root ${OUTDIR}/
 cp ${JJVH8DIR}/CMS_jj_bkg_8TeV.root ${OUTDIR}/
 fi
@@ -76,7 +88,7 @@ COMBJJZH8CARD="comb_${LABEL}.${MASS}.txt"
 if [ $MASS -ge 1000 ] && [ $MASS -le 2600 ]
 then
 python adapt_xsec_jjZH_8TeV.py ${MASS}
-sed -e 's|datacards/../workspaces/||g' -e 's|datacards/../HbbVqqHwwworkspaces/||g'  -e 's|CMS_Btagging|CMS_doubleBtagging|g' < ${JJVH8DIR}/${JJZH8CARD} &> $OUTDIR/${COMBJJZH8CARD}
+sed -e 's|datacards/../workspaces/||g' -e 's|datacards/../HbbVqqHwwworkspaces/||g' -e 's|CMS_eff_tau21_sf|CMS_eff_vtag_tau21_sf|g' -e 's|CMS_Btagging|CMS_doubleBtagging|g' < ${JJVH8DIR}/${JJZH8CARD} &> $OUTDIR/${COMBJJZH8CARD}
 cp ${JJVH8DIR}/CMS_jj_*${MASS}*.root ${OUTDIR}/
 cp ${JJVH8DIR}/CMS_jj_bkg_8TeV.root ${OUTDIR}/
 fi
@@ -89,7 +101,7 @@ COMBJJVH8CARD="comb_${LABEL}.${MASS}.txt"
 if [ $MASS -ge 1000 ] && [ $MASS -le 2600 ]
 then
 python adapt_xsec_jjVH_8TeV.py ${MASS}
-sed -e 's|datacards/../workspaces/||g' -e 's|datacards/../HbbVqqHwwworkspaces/||g'  -e 's|CMS_Btagging|CMS_doubleBtagging|g' < ${JJVH8DIR}/${JJVH8CARD} &> $OUTDIR/${COMBJJVH8CARD}
+sed -e 's|datacards/../workspaces/||g' -e 's|datacards/../HbbVqqHwwworkspaces/||g' -e 's|CMS_eff_tau21_sf|CMS_eff_vtag_tau21_sf|g' -e 's|CMS_Btagging|CMS_doubleBtagging|g' < ${JJVH8DIR}/${JJVH8CARD} &> $OUTDIR/${COMBJJVH8CARD}
 cp ${JJVH8DIR}/CMS_jj_*${MASS}*.root ${OUTDIR}/
 cp ${JJVH8DIR}/CMS_jj_bkg_8TeV.root ${OUTDIR}/
 fi    
@@ -106,7 +118,7 @@ if [ $MASS -ge 800 ] && [ $MASS -le 2500 ]
     then
     cd ${LVJWH8DIR}/
     combineCards.py $LVJWH8CARDS &> tmp_XWH_card.txt
-    sed -e 's|cards_mu/||g'  -e 's|cards_el/||g'   -e 's|CMS_xwh_prunedmass|CMS_jet_mass|g'   -e 's|CMS_xwh_btagger|CMS_btagger|g' -e 's|CMS_xwh_btag_eff|CMS_doubleBtagging|g' < tmp_XWH_card.txt  > ${COMBLVJWH8CARD}
+    sed -e 's|cards_mu/||g'  -e 's|cards_el/||g'   -e 's|CMS_xwh_prunedmass|CMS_jet_mass|g' -e 's|CMS_xwh_btag_eff|CMS_doubleBtagging|g' -e 's|CMS_btagger|CMS_xww_btag_eff|g' -e 's|CMS_xwh_trigger_e|CMS_xww_trigger_e|g' -e 's|CMS_xwh_trigger_m|CMS_xww_trigger_m|g' -e 's|CMS_xwh_XS_STop|CMS_xww_XS_STop|g' -e 's|CMS_xwh_XS_VV|CMS_xww_XS_VV|g' < tmp_XWH_card.txt  > ${COMBLVJWH8CARD}
     cd -
     cp ${LVJWH8DIR}/${COMBLVJWH8CARD} ${OUTDIR}/${COMBLVJWH8CARD}
     cp ${LVJWH8DIR}/cards_el/${LVJWH8BASE}_*workspace.root  ${OUTDIR}/
@@ -164,6 +176,18 @@ if [ $MASS -ge 800 ]
     cp ${LVJ13DIR}/cards_*/*_M${MASS}_*.root ${OUTDIR}/
 fi
 
+### LVJ WprimeWZ/WH 13 TeV only
+LABEL="lvjwzh13"
+LVJWZH13CARD="wwlvj_Wprimefix_WZ_WH_lvjj_M${MASS}_combo_ALLP_unbin.txt"
+COMBLVJWZH13CARD="comb_${LABEL}.${MASS}.txt"
+
+if [ $MASS -ge 800 ]
+    then
+    python adapt_xsec_lvjWZ_WH_13TeV.py ${MASS}
+    sed -e 's|cards_mu_HPW/||g' -e 's|cards_mu_HPZ/||g'  -e 's|cards_mu_LPW/||g' -e 's|cards_mu_LPZ/||g' -e 's|cards_el_HPW/||g' -e 's|cards_el_HPZ/||g' -e 's|cards_el_LPW/||g' -e 's|cards_el_LPZ/||g' < ${LVJ13DIR}/${LVJWZH13CARD} &> $OUTDIR/${COMBLVJWZH13CARD}
+    cp ${LVJ13DIR}/cards_*/*_M${MASS}_*.root ${OUTDIR}/
+fi
+
 ### LVJ Zprime 13 TeV only
 LABEL="lvjww13"
 LVJWW13CARD="wwlvj_Zprimefix_WW_lvjj_M${MASS}_combo_ALLP_unbin.txt"
@@ -188,7 +212,19 @@ if [ $MASS -ge 800 ]
     cp ${LVJ13DIR}/cards_*/*_M${MASS}_*.root ${OUTDIR}/
 fi
 
-### JJ Vprime 8 TeV only
+### LVJ VprimeWV/WH 13 TeV only
+LABEL="lvjwvh13"
+LVJWVH13CARD="wwlvj_Vprimefix_WV_VH_lvjj_M${MASS}_combo_ALLP_unbin.txt"
+COMBLVJWVH13CARD="comb_${LABEL}.${MASS}.txt"
+
+if [ $MASS -ge 800 ]
+    then
+    python adapt_xsec_lvjWV_VH_13TeV.py ${MASS}
+    sed -e 's|cards_mu_HPW/||g' -e 's|cards_mu_HPZ/||g'  -e 's|cards_mu_LPW/||g' -e 's|cards_mu_LPZ/||g' -e 's|cards_el_HPW/||g' -e 's|cards_el_HPZ/||g' -e 's|cards_el_LPW/||g' -e 's|cards_el_LPZ/||g' < ${LVJ13DIR}/${LVJWVH13CARD} &> $OUTDIR/${COMBLVJWVH13CARD}
+    cp ${LVJ13DIR}/cards_*/*_M${MASS}_*.root ${OUTDIR}/
+fi
+
+### JJ VprimeWV 8 TeV only
 LABEL="jjwv8"
 JJWV8CARD="CMS_jj_WVfix_${MASS}_8TeV_CMS_jj_VV.txt"
 COMBJJWV8CARD="comb_${LABEL}.${MASS}.txt"
@@ -201,7 +237,7 @@ if [ $MASS -ge 1000 ] && [ $MASS -lt 3000 ]
     cp ${JJ8DIR}/workspaces/CMS_jj_bkg_8TeV.root ${OUTDIR}/CMS_jj_bkg_WZ_8TeV.root
 fi
 
-### JJ Zprime 8 TeV only
+### JJ ZprimeWW 8 TeV only
 LABEL="jjww8"
 JJWW8CARD="CMS_jj_WWfix_${MASS}_8TeV_CMS_jj_VV.txt"
 COMBJJWW8CARD="comb_${LABEL}.${MASS}.txt"
@@ -214,7 +250,7 @@ if [ $MASS -ge 1000 ] && [ $MASS -lt 3000 ]
     cp ${JJ8DIR}/workspaces/CMS_jj_bkg_8TeV.root ${OUTDIR}/CMS_jj_bkg_WZ_8TeV.root
 fi
 
-### JJ Wprime 8 TeV only
+### JJ WprimeWZ 8 TeV only
 LABEL="jjwz8"
 JJWZ8CARD="CMS_jj_WZfix_${MASS}_8TeV_CMS_jj_VV.txt"
 COMBJJWZ8CARD="comb_${LABEL}.${MASS}.txt"
@@ -227,7 +263,46 @@ if [ $MASS -ge 1000 ] && [ $MASS -lt 3000 ]
     cp ${JJ8DIR}/workspaces/CMS_jj_bkg_8TeV.root ${OUTDIR}/CMS_jj_bkg_WZ_8TeV.root
 fi
 
-### JJ Wprime 13 TeV only
+### JJ VprimeWV/VH 8 TeV only
+LABEL="jjwvvh8"
+JJWVVH8CARD="CMS_jj_Vprimefix_WV_VH_${MASS}_8TeV_CMS_jj_VV.txt"
+COMBJJWVVH8CARD="comb_${LABEL}.${MASS}.txt"
+
+if [ $MASS -ge 1000 ] && [ $MASS -lt 3000 ]
+    then
+    python adapt_xsec_jjWV_VH_8TeV.py ${MASS}
+    sed -e 's|datacards/../workspaces/||g' -e 's|CMS_jj_bkg_8TeV|CMS_jj_bkg_WZ_8TeV|g' < ${JJ8DIR}/datacards/${JJWVVH8CARD} &> $OUTDIR/${COMBJJWVVH8CARD}
+    cp ${JJ8DIR}/workspaces/CMS_jj_WZ*${MASS}*.root ${OUTDIR}/
+    cp ${JJ8DIR}/workspaces/CMS_jj_bkg_8TeV.root ${OUTDIR}/CMS_jj_bkg_WZ_8TeV.root
+fi
+
+### JJ ZprimeWW/ZH 8 TeV only
+LABEL="jjwwzh8"
+JJWWZH8CARD="CMS_jj_Zprimefix_WW_ZH_${MASS}_8TeV_CMS_jj_VV.txt"
+COMBJJWWZH8CARD="comb_${LABEL}.${MASS}.txt"
+
+if [ $MASS -ge 1000 ] && [ $MASS -lt 3000 ]
+    then
+    python adapt_xsec_jjWW_ZH_8TeV.py ${MASS}
+    sed -e 's|datacards/../workspaces/||g' -e 's|CMS_jj_bkg_8TeV|CMS_jj_bkg_WZ_8TeV|g' < ${JJ8DIR}/datacards/${JJWWZH8CARD} &> $OUTDIR/${COMBJJWWZH8CARD}
+    cp ${JJ8DIR}/workspaces/CMS_jj_WZ*${MASS}*.root ${OUTDIR}/
+    cp ${JJ8DIR}/workspaces/CMS_jj_bkg_8TeV.root ${OUTDIR}/CMS_jj_bkg_WZ_8TeV.root
+fi
+
+### JJ WprimeWZ/WH 8 TeV only
+LABEL="jjwzwh8"
+JJWZWH8CARD="CMS_jj_Wprimefix_WZ_WH_${MASS}_8TeV_CMS_jj_VV.txt"
+COMBJJWZWH8CARD="comb_${LABEL}.${MASS}.txt"
+
+if [ $MASS -ge 1000 ] && [ $MASS -lt 3000 ]
+    then
+    python adapt_xsec_jjWZ_WH_8TeV.py ${MASS}
+    sed -e 's|datacards/../workspaces/||g' -e 's|CMS_jj_bkg_8TeV|CMS_jj_bkg_WZ_8TeV|g' < ${JJ8DIR}/datacards/${JJWZWH8CARD} &> $OUTDIR/${COMBJJWZWH8CARD}
+    cp ${JJ8DIR}/workspaces/CMS_jj_WZ*${MASS}*.root ${OUTDIR}/
+    cp ${JJ8DIR}/workspaces/CMS_jj_bkg_8TeV.root ${OUTDIR}/CMS_jj_bkg_WZ_8TeV.root
+fi
+
+### JJ WprimeWZ 13 TeV only
 LABEL="jjwz13"
 JJWZ13CARD="CMS_jj_WZfix_${MASS}_13TeV_CMS_jj_VVnew.txt"
 COMBJJWZ13CARD="comb_${LABEL}.${MASS}.txt"
@@ -240,7 +315,7 @@ then
     cp ${JJ13DIR}/CMS_jj_bkg_13TeV.root ${OUTDIR}/.
 fi
 
-### JJ Zprime 13 TeV only
+### JJ ZprimeWW 13 TeV only
 LABEL="jjww13"
 JJWW13CARD="CMS_jj_ZprimeWWfix_${MASS}_13TeV_CMS_jj_VVnew.txt"
 COMBJJWW13CARD="comb_${LABEL}.${MASS}.txt"
@@ -253,7 +328,7 @@ then
     cp ${JJ13DIR}/CMS_jj_bkg_13TeV.root ${OUTDIR}/.
 fi
 
-### JJ Vprime 13 TeV only
+### JJ VprimeWV 13 TeV only
 LABEL="jjwv13"
 JJWV13CARD="CMS_jj_VprimeWVfix_${MASS}_13TeV.txt"
 COMBJJWV13CARD="comb_${LABEL}.${MASS}.txt"
@@ -262,6 +337,46 @@ if [ $MASS -ge 1200 ]
 then
     python adapt_xsec_jjWV_13TeV.py ${MASS}
     sed -e 's|datacards_withPDFuncertainties/../workspaces/||g' -e 's|datacards_backup/../workspaces/||g' -e 's|datacards/../workspaces/||g' -e 's|../workspaces/||g' < ${JJ13DIR}/${JJWV13CARD} &> $OUTDIR/${COMBJJWV13CARD}
+    cp ${JJ13DIR}/CMS_jj_ZprimeWW_*${MASS}*.root ${OUTDIR}/.
+    cp ${JJ13DIR}/CMS_jj_WZ_*${MASS}*.root ${OUTDIR}/.
+    cp ${JJ13DIR}/CMS_jj_bkg_13TeV.root ${OUTDIR}/.
+fi
+
+### JJ WprimeWZ/WH 13 TeV only
+LABEL="jjwzwh13"
+JJWZWH13CARD="CMS_jj_Wprimefix_WZ_WH_${MASS}_13TeV_CMS_jj_VVnew.txt"
+COMBJJWZWH13CARD="comb_${LABEL}.${MASS}.txt"
+ 
+if [ $MASS -ge 1200 ]
+then
+    python adapt_xsec_jjWZ_WH_13TeV.py ${MASS}
+    sed -e 's|datacards_withPDFuncertainties/../workspaces/||g' -e 's|datacards_backup/../workspaces/||g' -e 's|datacards/../workspaces/||g' -e 's|../workspaces/||g' < ${JJ13DIR}/${JJWZWH13CARD} &> $OUTDIR/${COMBJJWZWH13CARD}
+    cp ${JJ13DIR}/CMS_jj_WZ_*${MASS}*.root ${OUTDIR}/.
+    cp ${JJ13DIR}/CMS_jj_bkg_13TeV.root ${OUTDIR}/.
+fi
+
+### JJ ZprimeWW/ZH 13 TeV only
+LABEL="jjwwzh13"
+JJWWZH13CARD="CMS_jj_Zprimefix_WW_ZH_${MASS}_13TeV_CMS_jj_VVnew.txt"
+COMBJJWWZH13CARD="comb_${LABEL}.${MASS}.txt"
+ 
+if [ $MASS -ge 1200 ]
+then
+    python adapt_xsec_jjWW_ZH_13TeV.py ${MASS}
+    sed -e 's|datacards_withPDFuncertainties/../workspaces/||g' -e 's|datacards_backup/../workspaces/||g' -e 's|datacards/../workspaces/||g' -e 's|../workspaces/||g' < ${JJ13DIR}/${JJWWZH13CARD} &> $OUTDIR/${COMBJJWWZH13CARD}
+    cp ${JJ13DIR}/CMS_jj_ZprimeWW_*${MASS}*.root ${OUTDIR}/.
+    cp ${JJ13DIR}/CMS_jj_bkg_13TeV.root ${OUTDIR}/.
+fi
+
+### JJ VprimeWV/VH 13 TeV only
+LABEL="jjwvvh13"
+JJWVVH13CARD="CMS_jj_Vprimefix_WV_VH_${MASS}_13TeV.txt"
+COMBJJWVVH13CARD="comb_${LABEL}.${MASS}.txt"
+ 
+if [ $MASS -ge 1200 ]
+then
+    python adapt_xsec_jjWV_VH_13TeV.py ${MASS}
+    sed -e 's|datacards_withPDFuncertainties/../workspaces/||g' -e 's|datacards_backup/../workspaces/||g' -e 's|datacards/../workspaces/||g' -e 's|../workspaces/||g' < ${JJ13DIR}/${JJWVVH13CARD} &> $OUTDIR/${COMBJJWVVH13CARD}
     cp ${JJ13DIR}/CMS_jj_ZprimeWW_*${MASS}*.root ${OUTDIR}/.
     cp ${JJ13DIR}/CMS_jj_WZ_*${MASS}*.root ${OUTDIR}/.
     cp ${JJ13DIR}/CMS_jj_bkg_13TeV.root ${OUTDIR}/.
@@ -306,18 +421,18 @@ fi
 ###put things together
 cd $OUTDIR/
 
-# 13 TeV LVJ+JJ only
+# 13 TeV LVJ+JJ
 COMBJJLVJHVT13="comb_JJLVJHVT13.${MASS}.txt" #triplet
 COMBJJLVJWPRIME13="comb_JJLVJWPRIME13.${MASS}.txt" #charged singlet
 COMBJJLVJZPRIME13="comb_JJLVJZPRIME13.${MASS}.txt" #neutral singlet
-# 8 TeV LLJ+LVJ+JJ (WV) only
+# 8 TeV LLLV+LLJ+LVJ+JJ (WV)
 COMBALLWVHVT8="comb_ALLWVHVT8.${MASS}.txt" #triplet
 COMBALLWVWPRIME8="comb_ALLWVWPRIME8.${MASS}.txt" #charged singlet
 COMBALLWVZPRIME8="comb_ALLWVZPRIME8.${MASS}.txt" #neutral singlet
-#8 + 13 TeV LLJ+LVJ+JJ (WV)
+#8 + 13 TeV LLLV+LLJ+LVJ+JJ (WV)
 COMBALLWVHVT138="comb_ALLWVHVT138.${MASS}.txt" #triplet
-COMBALLWVWPRIME138=="comb_ALLWVWPRIME138.${MASS}.txt" #charged singlet
-COMBALLWVZPRIME138=="comb_ALLWVZPRIME138.${MASS}.txt" #neutral singlet
+COMBALLWVWPRIME138="comb_ALLWVWPRIME138.${MASS}.txt" #charged singlet
+COMBALLWVZPRIME138="comb_ALLWVZPRIME138.${MASS}.txt" #neutral singlet
 #8 TeV VH only
 COMBALLHVHVT8="comb_ALLHVHVT8.${MASS}.txt" #triplet
 COMBALLHVWPRIME8="comb_ALLHVWPRIME8.${MASS}.txt" #charged singlet
@@ -331,27 +446,46 @@ COMBALLHVT138="comb_ALLHVT138.${MASS}.txt" #triplet
 COMBALLWPRIME138="comb_ALLWPRIME138.${MASS}.txt" #charged singlet
 COMBALLZPRIME138="comb_ALLZPRIME138.${MASS}.txt" #neutral singlet
 
-#if [ $MASS -lt 800 ]
-#    then
-#    combineCards.py $COMBLLJWZ8CARD &> $COMBALLHVT138
-#    combineCards.py $COMBLLJWZ8CARD &> $COMBALLHVT8
-if [ $MASS -lt 1000 ] #800-900
+if [ $MASS -lt 800 ] #600-700
     then
     
-    # 13 TeV LVJ+JJ only
-    combineCards.py $COMBLVJWV13CARD &> $COMBJJLVJHVT13
-    combineCards.py $COMBLVJWZ13CARD &> $COMBJJLVJWPRIME13
+    # 8 TeV LLLV+LLJ+LVJ+JJ (WV)
+    combineCards.py $COMBLLJWZH8CARD $COMBLLLV8CARD &> $COMBALLWVHVT8
+    combineCards.py $COMBLLJWZ8CARD $COMBLLLV8CARD &> $COMBALLWVWPRIME8
+    combineCards.py $COMBLLJZH8CARD &> $COMBALLWVZPRIME8
+
+    #8 + 13 TeV LLLV+LLJ+LVJ+JJ (WV)
+    combineCards.py $COMBLLJWZH8CARD $COMBLLLV8CARD &> $COMBALLWVHVT138
+    combineCards.py $COMBLLJWZ8CARD $COMBLLLV8CARD &> $COMBALLWVWPRIME138
+    combineCards.py $COMBLLJZH8CARD &> $COMBALLWVZPRIME138
+
+    #8 TeV VH+WV
+    combineCards.py $COMBLLJWZH8CARD $COMBLLLV8CARD &> $COMBALLHVT8
+    combineCards.py $COMBLLJWZ8CARD $COMBLLLV8CARD &> $COMBALLWPRIME8
+    combineCards.py $COMBLLJZH8CARD &> $COMBALLZPRIME8
+
+    #8 + 13 TeV VH+WV
+    combineCards.py $COMBLLJWZH8CARD $COMBLLLV8CARD &> $COMBALLHVT138
+    combineCards.py $COMBLLJWZ8CARD $COMBLLLV8CARD &> $COMBALLWPRIME138
+    combineCards.py $COMBLLJZH8CARD &> $COMBALLZPRIME138
+                
+elif [ $MASS -lt 1000 ] #800-900
+    then
+    
+    # 13 TeV LVJ+JJ
+    combineCards.py $COMBLVJWVH13CARD &> $COMBJJLVJHVT13
+    combineCards.py $COMBLVJWZH13CARD &> $COMBJJLVJWPRIME13
     combineCards.py $COMBLVJWW13CARD &> $COMBJJLVJZPRIME13
     
-    # 8 TeV LLJ+LVJ+JJ (WV) only
-    combineCards.py $COMBLVJWV8CARD $COMBLLJWZ8CARD &> $COMBALLWVHVT8
-    combineCards.py $COMBLVJWZ8CARD $COMBLLJWZ8CARD &> $COMBALLWVWPRIME8
-    combineCards.py $COMBLVJWW8CARD &> $COMBALLWVZPRIME8
+    # 8 TeV LLLV+LLJ+LVJ+JJ (WV)
+    combineCards.py $COMBLVJWV8CARD $COMBLLJWZH8CARD $COMBLLLV8CARD &> $COMBALLWVHVT8
+    combineCards.py $COMBLVJWZ8CARD $COMBLLJWZ8CARD $COMBLLLV8CARD &> $COMBALLWVWPRIME8
+    combineCards.py $COMBLVJWW8CARD $COMBLLJZH8CARD &> $COMBALLWVZPRIME8
     
-    #8 + 13 TeV LLJ+LVJ+JJ (WV)
-    combineCards.py $COMBLVJWV8CARD $COMBLLJWZ8CARD $COMBLVJWV13CARD &> $COMBALLWVHVT138
-    combineCards.py $COMBLVJWZ8CARD $COMBLLJWZ8CARD $COMBLVJWZ13CARD &> $COMBALLWVWPRIME138
-    combineCards.py $COMBLVJWW8CARD $COMBLVJWW13CARD &> $COMBALLWVZPRIME138
+    #8 + 13 TeV LLLV+LLJ+LVJ+JJ (WV)
+    combineCards.py $COMBLVJWV8CARD $COMBLLJWZH8CARD $COMBLLLV8CARD $COMBLVJWVH13CARD &> $COMBALLWVHVT138
+    combineCards.py $COMBLVJWZ8CARD $COMBLLJWZ8CARD $COMBLLLV8CARD $COMBLVJWZH13CARD &> $COMBALLWVWPRIME138
+    combineCards.py $COMBLVJWW8CARD $COMBLVJWW13CARD $COMBLLJZH8CARD &> $COMBALLWVZPRIME138
     
     #8 TeV VH only
     combineCards.py $COMBTTJVH8CARD $COMBLVJWH8CARD &> $COMBALLHVHVT8
@@ -359,65 +493,65 @@ if [ $MASS -lt 1000 ] #800-900
     combineCards.py $COMBTTJZH8CARD &> $COMBALLHVZPRIME8
     
     #8 TeV VH+WV
-    combineCards.py $COMBLVJWV8CARD $COMBLLJWZH8CARD $COMBTTJVH8CARD $COMBLVJWH8CARD &> $COMBALLHVT8
-    combineCards.py $COMBLVJWZ8CARD $COMBLLJWZ8CARD $COMBTTJWH8CARD $COMBLVJWH8CARD &> $COMBALLWPRIME8
+    combineCards.py $COMBLVJWV8CARD $COMBLLJWZH8CARD $COMBLLLV8CARD $COMBTTJVH8CARD $COMBLVJWH8CARD &> $COMBALLHVT8
+    combineCards.py $COMBLVJWZ8CARD $COMBLLJWZ8CARD $COMBLLLV8CARD $COMBTTJWH8CARD $COMBLVJWH8CARD &> $COMBALLWPRIME8
     combineCards.py $COMBLVJWW8CARD $COMBTTJZH8CARD $COMBLLJZH8CARD &> $COMBALLZPRIME8
       
     #8 + 13 TeV VH+WV
-    combineCards.py $COMBLVJWV8CARD $COMBLLJWZH8CARD $COMBLVJWV13CARD $COMBTTJVH8CARD $COMBLVJWH8CARD &> $COMBALLHVT138
-    combineCards.py $COMBLVJWZ8CARD $COMBLLJWZ8CARD $COMBLVJWZ13CARD $COMBTTJWH8CARD $COMBLVJWH8CARD &> $COMBALLWPRIME138
+    combineCards.py $COMBLVJWV8CARD $COMBLLJWZH8CARD $COMBLLLV8CARD $COMBLVJWVH13CARD $COMBTTJVH8CARD $COMBLVJWH8CARD &> $COMBALLHVT138
+    combineCards.py $COMBLVJWZ8CARD $COMBLLJWZ8CARD $COMBLLLV8CARD $COMBLVJWZH13CARD $COMBTTJWH8CARD $COMBLVJWH8CARD &> $COMBALLWPRIME138
     combineCards.py $COMBLVJWW8CARD $COMBLVJWW13CARD $COMBLLJZH8CARD $COMBTTJZH8CARD &> $COMBALLZPRIME138
       
 elif [ $MASS -lt 1200 ] #1000-1100
     then
     
-    # 13 TeV LVJ+JJ only
-    combineCards.py $COMBLVJWV13CARD &> $COMBJJLVJHVT13
-    combineCards.py $COMBLVJWZ13CARD &> $COMBJJLVJWPRIME13
+    # 13 TeV LVJ+JJ
+    combineCards.py $COMBLVJWVH13CARD &> $COMBJJLVJHVT13
+    combineCards.py $COMBLVJWZH13CARD &> $COMBJJLVJWPRIME13
     combineCards.py $COMBLVJWW13CARD &> $COMBJJLVJZPRIME13
 
-    # 8 TeV LLJ+LVJ+JJ (WV) only
-    combineCards.py $COMBLVJWV8CARD $COMBLLJWZ8CARD $COMBJJWV8CARD &> $COMBALLWVHVT8
-    combineCards.py $COMBLVJWZ8CARD $COMBLLJWZ8CARD $COMBJJWZ8CARD &> $COMBALLWVWPRIME8
-    combineCards.py $COMBLVJWW8CARD $COMBJJWW8CARD &> $COMBALLWVZPRIME8
- 
-    #8 + 13 TeV LLJ+LVJ+JJ (WV)
-    combineCards.py $COMBLVJWV8CARD $COMBLLJWZ8CARD $COMBJJWV8CARD $COMBLVJWV13CARD &> $COMBALLWVHVT138
-    combineCards.py $COMBLVJWZ8CARD $COMBLLJWZ8CARD $COMBJJWZ8CARD $COMBLVJWZ13CARD &> $COMBALLWVWPRIME138
-    combineCards.py $COMBLVJWW8CARD $COMBJJWW8CARD $COMBLVJWW13CARD &> $COMBALLWVZPRIME138
-
+    # 8 TeV LLLV+LLJ+LVJ+JJ (WV)
+    combineCards.py $COMBLLLV8CARD $COMBLVJWV8CARD $COMBLLJWZ8CARD $COMBJJWVVH8CARD &> $COMBALLWVHVT8
+    combineCards.py $COMBLLLV8CARD $COMBLVJWZ8CARD $COMBLLJWZ8CARD $COMBJJWZWH8CARD &> $COMBALLWVWPRIME8
+    combineCards.py $COMBLVJWW8CARD $COMBJJWWZH8CARD &> $COMBALLWVZPRIME8
+    
+    #8 + 13 TeV LLLV+LLJ+LVJ+JJ (WV)
+    combineCards.py $COMBLLLV8CARD $COMBLVJWV8CARD $COMBLLJWZ8CARD $COMBJJWVVH8CARD $COMBLVJWVH13CARD &> $COMBALLWVHVT138
+    combineCards.py $COMBLLLV8CARD $COMBLVJWZ8CARD $COMBLLJWZ8CARD $COMBJJWZWH8CARD $COMBLVJWZH13CARD &> $COMBALLWVWPRIME138
+    combineCards.py $COMBLVJWW8CARD $COMBJJWWZH8CARD $COMBLVJWW13CARD &> $COMBALLWVZPRIME138
+    
     #8 TeV VH only
     combineCards.py $COMBTTJVH8CARD $COMBLVJWH8CARD $COMBJJVH8CARD &> $COMBALLHVHVT8
     combineCards.py $COMBTTJWH8CARD $COMBLVJWH8CARD $COMBJJWH8CARD &> $COMBALLHVWPRIME8
     combineCards.py $COMBTTJZH8CARD $COMBJJZH8CARD &> $COMBALLHVZPRIME8
 
     #8 TeV VH+WV
-    combineCards.py $COMBLVJWV8CARD $COMBLLJWZH8CARD $COMBJJWV8CARD $COMBTTJVH8CARD $COMBLVJWH8CARD $COMBJJVH8CARD &> $COMBALLHVT8
-    combineCards.py $COMBLVJWZ8CARD $COMBLLJWZ8CARD $COMBJJWZ8CARD $COMBTTJWH8CARD $COMBLVJWH8CARD $COMBJJWH8CARD &> $COMBALLWPRIME8
-    combineCards.py $COMBLVJWW8CARD $COMBJJWW8CARD $COMBTTJZH8CARD $COMBJJZH8CARD $COMBLLJZH8CARD &> $COMBALLZPRIME8
+    combineCards.py $COMBLLLV8CARD $COMBLVJWV8CARD $COMBLLJWZH8CARD $COMBJJWVVH8CARD $COMBTTJVH8CARD $COMBLVJWH8CARD $COMBJJVH8CARD &> $COMBALLHVT8
+    combineCards.py $COMBLLLV8CARD $COMBLVJWZ8CARD $COMBLLJWZ8CARD $COMBJJWZWH8CARD $COMBTTJWH8CARD $COMBLVJWH8CARD $COMBJJWH8CARD &> $COMBALLWPRIME8
+    combineCards.py $COMBLVJWW8CARD $COMBJJWWZH8CARD $COMBTTJZH8CARD $COMBJJZH8CARD $COMBLLJZH8CARD &> $COMBALLZPRIME8
 
-    #8 + 13 TeV VH+WV
-    combineCards.py $COMBLVJWV8CARD $COMBLLJWZH8CARD $COMBJJWV8CARD $COMBLVJWV13CARD $COMBTTJVH8CARD $COMBLVJWH8CARD $COMBJJVH8CARD &> $COMBALLHVT138
-    combineCards.py $COMBLVJWZ8CARD $COMBLLJWZ8CARD $COMBJJWZ8CARD $COMBLVJWZ13CARD $COMBTTJWH8CARD $COMBLVJWH8CARD $COMBJJWH8CARD &> $COMBALLWPRIME138
-    combineCards.py $COMBLVJWW8CARD $COMBJJWW8CARD $COMBLVJWW13CARD $COMBTTJZH8CARD $COMBJJZH8CARD $COMBLLJZH8CARD &> $COMBALLZPRIME138     
-             
-elif [ $MASS -le 2500 ] #1200-2500
+    #8 + 13 TeV VH+WV  
+    combineCards.py $COMBLLLV8CARD $COMBLVJWV8CARD $COMBLLJWZH8CARD $COMBJJWVVH8CARD $COMBLVJWVH13CARD $COMBTTJVH8CARD $COMBLVJWH8CARD $COMBJJVH8CARD &> $COMBALLHVT138
+    combineCards.py $COMBLLLV8CARD $COMBLVJWZ8CARD $COMBLLJWZ8CARD $COMBJJWZWH8CARD $COMBLVJWZH13CARD $COMBTTJWH8CARD $COMBLVJWH8CARD $COMBJJWH8CARD &> $COMBALLWPRIME138
+    combineCards.py $COMBLVJWW8CARD $COMBJJWWZH8CARD $COMBLVJWW13CARD $COMBTTJZH8CARD $COMBJJZH8CARD $COMBLLJZH8CARD &> $COMBALLZPRIME138     
+
+elif [ $MASS -le 2000 ] #1200-2000
     then
 
-    # 13 TeV LVJ+JJ only
-    combineCards.py $COMBLVJWV13CARD $COMBJJWV13CARD &> $COMBJJLVJHVT13
-    combineCards.py $COMBLVJWZ13CARD $COMBJJWZ13CARD &> $COMBJJLVJWPRIME13
-    combineCards.py $COMBLVJWW13CARD $COMBJJWW13CARD &> $COMBJJLVJZPRIME13
+    # 13 TeV LVJ+JJ
+    combineCards.py $COMBLVJWVH13CARD $COMBJJWVVH13CARD &> $COMBJJLVJHVT13
+    combineCards.py $COMBLVJWZH13CARD $COMBJJWZWH13CARD &> $COMBJJLVJWPRIME13
+    combineCards.py $COMBLVJWW13CARD $COMBJJWWZH13CARD &> $COMBJJLVJZPRIME13
 
-    # 8 TeV LLJ+LVJ+JJ (WV) only
-    combineCards.py $COMBLVJWV8CARD $COMBLLJWZ8CARD $COMBJJWV8CARD &> $COMBALLWVHVT8
-    combineCards.py $COMBLVJWZ8CARD $COMBLLJWZ8CARD $COMBJJWZ8CARD &> $COMBALLWVWPRIME8
-    combineCards.py $COMBLVJWW8CARD $COMBJJWW8CARD &> $COMBALLWVZPRIME8
-
-    #8 + 13 TeV LLJ+LVJ+JJ (WV)
-    combineCards.py $COMBLVJWV8CARD $COMBLLJWZ8CARD $COMBJJWV8CARD $COMBLVJWV13CARD $COMBJJWV13CARD &> $COMBALLWVHVT138
-    combineCards.py $COMBLVJWZ8CARD $COMBLLJWZ8CARD $COMBJJWZ8CARD $COMBLVJWZ13CARD $COMBJJWZ13CARD &> $COMBALLWVWPRIME138
-    combineCards.py $COMBLVJWW8CARD $COMBJJWW8CARD $COMBLVJWW13CARD $COMBJJWW13CARD &> $COMBALLWVZPRIME138
+    # 8 TeV LLLV+LLJ+LVJ+JJ (WV)
+    combineCards.py $COMBLLLV8CARD $COMBLVJWV8CARD $COMBLLJWZ8CARD $COMBJJWVVH8CARD &> $COMBALLWVHVT8
+    combineCards.py $COMBLLLV8CARD $COMBLVJWZ8CARD $COMBLLJWZ8CARD $COMBJJWZWH8CARD &> $COMBALLWVWPRIME8
+    combineCards.py $COMBLVJWW8CARD $COMBJJWWZH8CARD &> $COMBALLWVZPRIME8
+    
+    #8 + 13 TeV LLLV+LLJ+LVJ+JJ (WV)
+    combineCards.py $COMBLLLV8CARD $COMBLVJWV8CARD $COMBLLJWZ8CARD $COMBJJWVVH8CARD $COMBLVJWVH13CARD $COMBJJWVVH13CARD &> $COMBALLWVHVT138
+    combineCards.py $COMBLLLV8CARD $COMBLVJWZ8CARD $COMBLLJWZ8CARD $COMBJJWZWH8CARD $COMBLVJWZH13CARD $COMBJJWZWH13CARD &> $COMBALLWVWPRIME138
+    combineCards.py $COMBLVJWW8CARD $COMBJJWWZH8CARD $COMBLVJWW13CARD $COMBJJWWZH13CARD &> $COMBALLWVZPRIME138
 
     #8 TeV VH only
     combineCards.py $COMBTTJVH8CARD $COMBLVJWH8CARD $COMBJJVH8CARD &> $COMBALLHVHVT8
@@ -425,32 +559,65 @@ elif [ $MASS -le 2500 ] #1200-2500
     combineCards.py $COMBTTJZH8CARD $COMBJJZH8CARD &> $COMBALLHVZPRIME8
 
     #8 TeV VH+WV
-    combineCards.py $COMBLVJWV8CARD $COMBLLJWZH8CARD $COMBJJWV8CARD $COMBTTJVH8CARD $COMBLVJWH8CARD $COMBJJVH8CARD &> $COMBALLHVT8
-    combineCards.py $COMBLVJWZ8CARD $COMBLLJWZ8CARD $COMBJJWZ8CARD $COMBTTJWH8CARD $COMBLVJWH8CARD $COMBJJWH8CARD &> $COMBALLWPRIME8
-    combineCards.py $COMBLVJWW8CARD $COMBJJWW8CARD $COMBTTJZH8CARD $COMBJJZH8CARD $COMBLLJZH8CARD &> $COMBALLZPRIME8
-
+    combineCards.py $COMBLLLV8CARD $COMBLVJWV8CARD $COMBLLJWZH8CARD $COMBJJWVVH8CARD $COMBTTJVH8CARD $COMBLVJWH8CARD $COMBJJVH8CARD &> $COMBALLHVT8
+    combineCards.py $COMBLLLV8CARD $COMBLVJWZ8CARD $COMBLLJWZ8CARD $COMBJJWZWH8CARD $COMBTTJWH8CARD $COMBLVJWH8CARD $COMBJJWH8CARD &> $COMBALLWPRIME8
+    combineCards.py $COMBLVJWW8CARD $COMBJJWWZH8CARD $COMBTTJZH8CARD $COMBJJZH8CARD $COMBLLJZH8CARD &> $COMBALLZPRIME8
+    
     #8 + 13 TeV VH+WV
-    combineCards.py $COMBLVJWV8CARD $COMBLLJWZH8CARD $COMBJJWV8CARD $COMBLVJWV13CARD $COMBJJWV13CARD $COMBTTJVH8CARD $COMBLVJWH8CARD $COMBJJVH8CARD &> $COMBALLHVT138
-    combineCards.py $COMBLVJWZ8CARD $COMBLLJWZ8CARD $COMBJJWZ8CARD $COMBLVJWZ13CARD $COMBJJWZ13CARD $COMBTTJWH8CARD $COMBLVJWH8CARD $COMBJJWH8CARD &> $COMBALLWPRIME138
-    combineCards.py $COMBLVJWW8CARD $COMBJJWW8CARD $COMBLVJWW13CARD $COMBJJWW13CARD $COMBTTJZH8CARD $COMBJJZH8CARD $COMBLLJZH8CARD &> $COMBALLZPRIME138
+    combineCards.py $COMBLLLV8CARD $COMBLVJWV8CARD $COMBLLJWZH8CARD $COMBJJWVVH8CARD $COMBLVJWVH13CARD $COMBJJWVVH13CARD $COMBTTJVH8CARD $COMBLVJWH8CARD $COMBJJVH8CARD &> $COMBALLHVT138 
+    combineCards.py $COMBLLLV8CARD $COMBLVJWZ8CARD $COMBLLJWZ8CARD $COMBJJWZWH8CARD $COMBLVJWZH13CARD $COMBJJWZWH13CARD $COMBTTJWH8CARD $COMBLVJWH8CARD $COMBJJWH8CARD &> $COMBALLWPRIME138 
+    combineCards.py $COMBLVJWW8CARD $COMBJJWWZH8CARD $COMBLVJWW13CARD $COMBJJWWZH13CARD $COMBTTJZH8CARD $COMBJJZH8CARD $COMBLLJZH8CARD &> $COMBALLZPRIME138
+                 
+elif [ $MASS -le 2500 ] #2100-2500
+    then
+
+    # 13 TeV LVJ+JJ
+    combineCards.py $COMBLVJWVH13CARD $COMBJJWVVH13CARD &> $COMBJJLVJHVT13
+    combineCards.py $COMBLVJWZH13CARD $COMBJJWZWH13CARD &> $COMBJJLVJWPRIME13
+    combineCards.py $COMBLVJWW13CARD $COMBJJWWZH13CARD &> $COMBJJLVJZPRIME13
+
+    # 8 TeV LLLV+LLJ+LVJ+JJ (WV)
+    combineCards.py $COMBLVJWV8CARD $COMBLLJWZ8CARD $COMBJJWVVH8CARD &> $COMBALLWVHVT8
+    combineCards.py $COMBLVJWZ8CARD $COMBLLJWZ8CARD $COMBJJWZWH8CARD &> $COMBALLWVWPRIME8
+    combineCards.py $COMBLVJWW8CARD $COMBJJWWZH8CARD &> $COMBALLWVZPRIME8
+    
+    #8 + 13 TeV LLLV+LLJ+LVJ+JJ (WV)
+    combineCards.py $COMBLVJWV8CARD $COMBLLJWZ8CARD $COMBJJWVVH8CARD $COMBLVJWVH13CARD $COMBJJWVVH13CARD &> $COMBALLWVHVT138
+    combineCards.py $COMBLVJWZ8CARD $COMBLLJWZ8CARD $COMBJJWZWH8CARD $COMBLVJWZH13CARD $COMBJJWZWH13CARD &> $COMBALLWVWPRIME138
+    combineCards.py $COMBLVJWW8CARD $COMBJJWWZH8CARD $COMBLVJWW13CARD $COMBJJWWZH13CARD &> $COMBALLWVZPRIME138
+
+    #8 TeV VH only
+    combineCards.py $COMBTTJVH8CARD $COMBLVJWH8CARD $COMBJJVH8CARD &> $COMBALLHVHVT8
+    combineCards.py $COMBTTJWH8CARD $COMBLVJWH8CARD $COMBJJWH8CARD &> $COMBALLHVWPRIME8
+    combineCards.py $COMBTTJZH8CARD $COMBJJZH8CARD &> $COMBALLHVZPRIME8
+
+    #8 TeV VH+WV
+    combineCards.py $COMBLVJWV8CARD $COMBLLJWZH8CARD $COMBJJWVVH8CARD $COMBTTJVH8CARD $COMBLVJWH8CARD $COMBJJVH8CARD &> $COMBALLHVT8
+    combineCards.py $COMBLVJWZ8CARD $COMBLLJWZ8CARD $COMBJJWZWH8CARD $COMBTTJWH8CARD $COMBLVJWH8CARD $COMBJJWH8CARD &> $COMBALLWPRIME8
+    combineCards.py $COMBLVJWW8CARD $COMBJJWWZH8CARD $COMBTTJZH8CARD $COMBJJZH8CARD $COMBLLJZH8CARD &> $COMBALLZPRIME8
+    
+    #8 + 13 TeV VH+WV
+    combineCards.py $COMBLVJWV8CARD $COMBLLJWZH8CARD $COMBJJWVVH8CARD $COMBLVJWVH13CARD $COMBJJWVVH13CARD $COMBTTJVH8CARD $COMBLVJWH8CARD $COMBJJVH8CARD &> $COMBALLHVT138 
+    combineCards.py $COMBLVJWZ8CARD $COMBLLJWZ8CARD $COMBJJWZWH8CARD $COMBLVJWZH13CARD $COMBJJWZWH13CARD $COMBTTJWH8CARD $COMBLVJWH8CARD $COMBJJWH8CARD &> $COMBALLWPRIME138 
+    combineCards.py $COMBLVJWW8CARD $COMBJJWWZH8CARD $COMBLVJWW13CARD $COMBJJWWZH13CARD $COMBTTJZH8CARD $COMBJJZH8CARD $COMBLLJZH8CARD &> $COMBALLZPRIME138
                  
 elif [ $MASS -le 2600 ] #2600
     then
     
-    # 13 TeV LVJ+JJ only
-    combineCards.py $COMBLVJWV13CARD $COMBJJWV13CARD &> $COMBJJLVJHVT13
-    combineCards.py $COMBLVJWZ13CARD $COMBJJWZ13CARD &> $COMBJJLVJWPRIME13
-    combineCards.py $COMBLVJWW13CARD $COMBJJWW13CARD &> $COMBJJLVJZPRIME13
+    # 13 TeV LVJ+JJ
+    combineCards.py $COMBLVJWVH13CARD $COMBJJWVVH13CARD &> $COMBJJLVJHVT13
+    combineCards.py $COMBLVJWZH13CARD $COMBJJWZWH13CARD &> $COMBJJLVJWPRIME13
+    combineCards.py $COMBLVJWW13CARD $COMBJJWWZH13CARD &> $COMBJJLVJZPRIME13
 
-    # 8 TeV LLJ+LVJ+JJ (WV) only
-    combineCards.py $COMBJJWV8CARD &> $COMBALLWVHVT8
-    combineCards.py $COMBJJWZ8CARD &> $COMBALLWVWPRIME8
-    combineCards.py $COMBJJWW8CARD &> $COMBALLWVZPRIME8
-
-    #8 + 13 TeV LLJ+LVJ+JJ (WV)
-    combineCards.py $COMBJJWV8CARD $COMBLVJWV13CARD $COMBJJWV13CARD &> $COMBALLWVHVT138
-    combineCards.py $COMBJJWZ8CARD $COMBLVJWZ13CARD $COMBJJWZ13CARD &> $COMBALLWVWPRIME138
-    combineCards.py $COMBJJWW8CARD $COMBLVJWW13CARD $COMBJJWW13CARD &> $COMBALLWVZPRIME138
+    # 8 TeV LLLV+LLJ+LVJ+JJ (WV)
+    combineCards.py $COMBJJWVVH8CARD &> $COMBALLWVHVT8
+    combineCards.py $COMBJJWZWH8CARD &> $COMBALLWVWPRIME8
+    combineCards.py $COMBJJWWZH8CARD &> $COMBALLWVZPRIME8
+    
+    #8 + 13 TeV LLLV+LLJ+LVJ+JJ (WV)
+    combineCards.py $COMBJJWVVH8CARD $COMBLVJWVH13CARD $COMBJJWVVH13CARD &> $COMBALLWVHVT138
+    combineCards.py $COMBJJWZWH8CARD $COMBLVJWZH13CARD $COMBJJWZWH13CARD &> $COMBALLWVWPRIME138
+    combineCards.py $COMBJJWWZH8CARD $COMBLVJWW13CARD $COMBJJWWZH13CARD &> $COMBALLWVZPRIME138
 
     #8 TeV VH only
     combineCards.py $COMBJJVH8CARD &> $COMBALLHVHVT8
@@ -458,59 +625,59 @@ elif [ $MASS -le 2600 ] #2600
     combineCards.py $COMBJJZH8CARD &> $COMBALLHVZPRIME8
 
     #8 TeV VH+WV
-    combineCards.py $COMBJJWV8CARD $COMBJJVH8CARD &> $COMBALLHVT8
-    combineCards.py $COMBJJWZ8CARD $COMBJJWH8CARD &> $COMBALLWPRIME8
-    combineCards.py $COMBJJWW8CARD $COMBJJZH8CARD &> $COMBALLZPRIME8
-
+    combineCards.py $COMBJJWVVH8CARD $COMBJJVH8CARD &> $COMBALLHVT8
+    combineCards.py $COMBJJWZWH8CARD $COMBJJWH8CARD &> $COMBALLWPRIME8
+    combineCards.py $COMBJJWWZH8CARD $COMBJJZH8CARD &> $COMBALLZPRIME8
+    
     #8 + 13 TeV VH+WV
-    combineCards.py $COMBJJWV8CARD $COMBLVJWV13CARD $COMBJJWV13CARD $COMBJJVH8CARD &> $COMBALLHVT138
-    combineCards.py $COMBJJWZ8CARD $COMBLVJWZ13CARD $COMBJJWZ13CARD $COMBJJWH8CARD &> $COMBALLWPRIME138
-    combineCards.py $COMBJJWW8CARD $COMBLVJWW13CARD $COMBJJWW13CARD $COMBJJZH8CARD &> $COMBALLZPRIME138
+    combineCards.py $COMBJJWVVH8CARD $COMBLVJWVH13CARD $COMBJJWVVH13CARD $COMBJJVH8CARD &> $COMBALLHVT138
+    combineCards.py $COMBJJWZWH8CARD $COMBLVJWZH13CARD $COMBJJWZWH13CARD $COMBJJWH8CARD &> $COMBALLWPRIME138
+    combineCards.py $COMBJJWWZH8CARD $COMBLVJWW13CARD $COMBJJWWZH13CARD $COMBJJZH8CARD &> $COMBALLZPRIME138
                          
 elif [ $MASS -lt 3000 ] #2500-2900
     then
     
-    # 13 TeV LVJ+JJ only
-    combineCards.py $COMBLVJWV13CARD $COMBJJWV13CARD &> $COMBJJLVJHVT13
-    combineCards.py $COMBLVJWZ13CARD $COMBJJWZ13CARD &> $COMBJJLVJWPRIME13
-    combineCards.py $COMBLVJWW13CARD $COMBJJWW13CARD &> $COMBJJLVJZPRIME13
+    # 13 TeV LVJ+JJ
+    combineCards.py $COMBLVJWVH13CARD $COMBJJWVVH13CARD &> $COMBJJLVJHVT13
+    combineCards.py $COMBLVJWZH13CARD $COMBJJWZWH13CARD &> $COMBJJLVJWPRIME13
+    combineCards.py $COMBLVJWW13CARD $COMBJJWWZH13CARD &> $COMBJJLVJZPRIME13
 
-    # 8 TeV LLJ+LVJ+JJ (WV) only
-    combineCards.py $COMBJJWV8CARD &> $COMBALLWVHVT8
-    combineCards.py $COMBJJWZ8CARD &> $COMBALLWVWPRIME8
-    combineCards.py $COMBJJWW8CARD &> $COMBALLWVZPRIME8
-
-    #8 + 13 TeV LLJ+LVJ+JJ (WV)
-    combineCards.py $COMBJJWV8CARD $COMBLVJWV13CARD $COMBJJWV13CARD &> $COMBALLWVHVT138
-    combineCards.py $COMBJJWZ8CARD $COMBLVJWZ13CARD $COMBJJWZ13CARD &> $COMBALLWVWPRIME138
-    combineCards.py $COMBJJWW8CARD $COMBLVJWW13CARD $COMBJJWW13CARD &> $COMBALLWVZPRIME138
+    # 8 TeV LLLV+LLJ+LVJ+JJ (WV)
+    combineCards.py $COMBJJWVVH8CARD &> $COMBALLWVHVT8
+    combineCards.py $COMBJJWZWH8CARD &> $COMBALLWVWPRIME8
+    combineCards.py $COMBJJWWZH8CARD &> $COMBALLWVZPRIME8
+    
+    #8 + 13 TeV LLLV+LLJ+LVJ+JJ (WV)
+    combineCards.py $COMBJJWVVH8CARD $COMBLVJWVH13CARD $COMBJJWVVH13CARD &> $COMBALLWVHVT138
+    combineCards.py $COMBJJWZWH8CARD $COMBLVJWZH13CARD $COMBJJWZWH13CARD &> $COMBALLWVWPRIME138
+    combineCards.py $COMBJJWWZH8CARD $COMBLVJWW13CARD $COMBJJWWZH13CARD &> $COMBALLWVZPRIME138
 
     #8 TeV VH+WV
-    combineCards.py $COMBJJWV8CARD &> $COMBALLHVT8
-    combineCards.py $COMBJJWZ8CARD &> $COMBALLWPRIME8
-    combineCards.py $COMBJJWW8CARD &> $COMBALLZPRIME8
+    combineCards.py $COMBJJWVVH8CARD &> $COMBALLHVT8
+    combineCards.py $COMBJJWZWH8CARD &> $COMBALLWPRIME8
+    combineCards.py $COMBJJWWZH8CARD &> $COMBALLZPRIME8
     
     #8 + 13 TeV VH+WV
-    combineCards.py $COMBJJWV8CARD $COMBLVJWV13CARD $COMBJJWV13CARD &> $COMBALLHVT138
-    combineCards.py $COMBJJWZ8CARD $COMBLVJWZ13CARD $COMBJJWZ13CARD &> $COMBALLWPRIME138
-    combineCards.py $COMBJJWW8CARD $COMBLVJWW13CARD $COMBJJWW13CARD &> $COMBALLZPRIME138
+    combineCards.py $COMBJJWVVH8CARD $COMBLVJWVH13CARD $COMBJJWVVH13CARD &> $COMBALLHVT138
+    combineCards.py $COMBJJWZWH8CARD $COMBLVJWZH13CARD $COMBJJWZWH13CARD &> $COMBALLWPRIME138
+    combineCards.py $COMBJJWWZH8CARD $COMBLVJWW13CARD $COMBJJWWZH13CARD &> $COMBALLZPRIME138
      
 elif [ $MASS -le 4000 ] #3000-4000
     then
     
-    # 13 TeV LVJ+JJ only
-    combineCards.py $COMBLVJWV13CARD $COMBJJWV13CARD &> $COMBJJLVJHVT13
-    combineCards.py $COMBLVJWZ13CARD $COMBJJWZ13CARD &> $COMBJJLVJWPRIME13
-    combineCards.py $COMBLVJWW13CARD $COMBJJWW13CARD &> $COMBJJLVJZPRIME13
+    # 13 TeV LVJ+JJ
+    combineCards.py $COMBLVJWVH13CARD $COMBJJWVVH13CARD &> $COMBJJLVJHVT13
+    combineCards.py $COMBLVJWZH13CARD $COMBJJWZWH13CARD &> $COMBJJLVJWPRIME13
+    combineCards.py $COMBLVJWW13CARD $COMBJJWWZH13CARD &> $COMBJJLVJZPRIME13
     
-    #8 + 13 TeV LLJ+LVJ+JJ (WV)
-    combineCards.py $COMBLVJWV13CARD $COMBJJWV13CARD &> $COMBALLWVHVT138
-    combineCards.py $COMBLVJWZ13CARD $COMBJJWZ13CARD &> $COMBALLWVWPRIME138
-    combineCards.py $COMBLVJWW13CARD $COMBJJWW13CARD &> $COMBALLWVZPRIME138
+    #8 + 13 TeV LLLV+LLJ+LVJ+JJ (WV)
+    combineCards.py $COMBLVJWVH13CARD $COMBJJWVVH13CARD &> $COMBALLWVHVT138
+    combineCards.py $COMBLVJWZH13CARD $COMBJJWZWH13CARD &> $COMBALLWVWPRIME138
+    combineCards.py $COMBLVJWW13CARD $COMBJJWWZH13CARD &> $COMBALLWVZPRIME138
 
     #8 + 13 TeV VH+WV
-    combineCards.py $COMBLVJWV13CARD $COMBJJWV13CARD &> $COMBALLHVT138
-    combineCards.py $COMBLVJWZ13CARD $COMBJJWZ13CARD &> $COMBALLWPRIME138
-    combineCards.py $COMBLVJWW13CARD $COMBJJWW13CARD &> $COMBALLZPRIME138
+    combineCards.py $COMBLVJWVH13CARD $COMBJJWVVH13CARD &> $COMBALLHVT138
+    combineCards.py $COMBLVJWZH13CARD $COMBJJWZWH13CARD &> $COMBALLWPRIME138
+    combineCards.py $COMBLVJWW13CARD $COMBJJWWZH13CARD &> $COMBALLZPRIME138
      
 fi  

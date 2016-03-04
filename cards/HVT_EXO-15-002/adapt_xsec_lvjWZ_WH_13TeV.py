@@ -2,6 +2,19 @@ from array import array
 import sys
 from ROOT import *
 
+def get_xsec_unc(mass):
+
+   uncs = {}
+   
+   fin = TFile.Open('XsecUnc/xsec-unc-13TeV.root','READ')   
+   cin = fin.Get('c')
+   for p in cin.GetListOfPrimitives():
+    if p.InheritsFrom("TMultiGraph"):
+     for g in p.GetListOfGraphs(): uncs[g.GetName()] = g.Eval(mass) 
+   fin.Close() 
+   
+   return uncs
+   
 def get_efficiency(mass):
 
    dEff = {}
@@ -118,24 +131,45 @@ for mass in masses:
  WprimeWH[mass]=(xsecMap['CX-(pb)'][m]+xsecMap['CX+(pb)'][m])*xsecMap['BRWh'][m]*0.322*0.577
  WHeff = get_efficiency(mass)
 
+ xsecUnc =  get_xsec_unc(mass)
+ pdf_Wprime = 1+xsecUnc['qq_PDF_Wprime']
+ pdf_Zprime = 1+xsecUnc['qq_PDF_Zprime']
+ scale_Wprime = 1+xsecUnc['qq_scale_Wprime']
+ scale_Zprime = 1+xsecUnc['qq_scale_Zprime']
+ 
+ newline1 = 'CMS_XS_qq_PDF lnN				    '
+ newline2 = 'CMS_XS_qq_scale lnN				    '
+ 
  for l in range(len(fWZ)):
-   if "rate" in fWZ[l]:
-     line="rate 				    "
-     fWZsplit=fWZ[l].replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").split(" ")
-     i=0
-     for s in range(len(fWZsplit)):
-       try:
- 	 float(fWZsplit[s])
-       except: continue
-       signal=(s in [1,6,11,16,21,26,31,36]) # only change signal
-       numberWZ=float(fWZsplit[s])
-       if signal:
-	 #print "ch",i+1," wz ",numberWZ*WprimeWZ[mass]*100.," wh ",WHeff[i]*WprimeWH[mass]*2197.956," effwh ",WHeff[i]," effwz ",numberWZ/0.01/2197.956
- 	 numberWZ=numberWZ*WprimeWZ[mass]*100.+WHeff[i]*WprimeWH[mass]*2197.956 # cards from Jennnifer are in units of 0.01 pb
-         i+=1
-       line+="%.5e  " % numberWZ
-     line+="\n"
-     f.write(line)
-   else:
-     f.write(fWZ[l])
+  if "kmax" in fWZ[l]:
+   fWZsplit = fWZ[l].split(' ') 
+   fWZ[l] = fWZ[l].replace(fWZsplit[1],str(int(fWZsplit[1])+1))
+  if "CMS_xww_XS_Wprime_WZ_13TeV" in fWZ[l]: continue
+  if "rate" in fWZ[l]:
+   line="rate 				    "
+   fWZsplit=fWZ[l].replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").split(" ")
+   i=0
+   for s in range(len(fWZsplit)):
+    try: float(fWZsplit[s])
+    except: continue
+    signal=(s in [1,6,11,16,21,26,31,36]) # only change signal
+    numberWZ=float(fWZsplit[s])
+    if signal:
+     #print "ch",i+1," wz ",numberWZ*WprimeWZ[mass]*100.," wh ",WHeff[i]*WprimeWH[mass]*2197.956," effwh ",WHeff[i]," effwz ",numberWZ/0.01/2197.956
+     numberWZ=numberWZ*WprimeWZ[mass]*100.+WHeff[i]*WprimeWH[mass]*2197.956 # cards from Jennnifer are in units of 0.01 pb
+     i+=1
+     newline1+="%.3f  "%pdf_Wprime
+     newline2+="%.3f  "%scale_Wprime
+    else:
+     newline1+="-  "
+     newline2+="-  "
+    line+="%.5e  " % numberWZ
+   line+="\n"
+   f.write(line)
+  else:
+   f.write(fWZ[l])
 
+ f.write(newline1)
+ f.write('\n')
+ f.write(newline2)
+ f.close()

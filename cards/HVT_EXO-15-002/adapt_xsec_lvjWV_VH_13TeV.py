@@ -2,6 +2,19 @@ from array import array
 import sys
 from ROOT import *
 
+def get_xsec_unc(mass):
+
+   uncs = {}
+   
+   fin = TFile.Open('XsecUnc/xsec-unc-13TeV.root','READ')   
+   cin = fin.Get('c')
+   for p in cin.GetListOfPrimitives():
+    if p.InheritsFrom("TMultiGraph"):
+     for g in p.GetListOfGraphs(): uncs[g.GetName()] = g.Eval(mass) 
+   fin.Close() 
+   
+   return uncs
+   
 def get_efficiency(mass):
 
    dEff = {}
@@ -121,7 +134,13 @@ for mass in masses:
  WprimeWZ[mass]=(xsecMap['CX-(pb)'][m]+xsecMap['CX+(pb)'][m])*xsecMap['BRZW'][m]*0.322*0.6991
  WprimeWH[mass]=(xsecMap['CX-(pb)'][m]+xsecMap['CX+(pb)'][m])*xsecMap['BRWh'][m]*0.322*0.577
  WHeff = get_efficiency(mass)
- 
+
+ xsecUnc =  get_xsec_unc(mass)
+ pdf_Wprime = 1+xsecUnc['qq_PDF_Wprime']
+ pdf_Zprime = 1+xsecUnc['qq_PDF_Zprime']
+ scale_Wprime = 1+xsecUnc['qq_scale_Wprime']
+ scale_Zprime = 1+xsecUnc['qq_scale_Zprime']
+  
  yieldsWprime = []
  sysWprime = {}
  sysZprime = {}
@@ -129,7 +148,14 @@ for mass in masses:
  sysTTbar = {}
  sysVV = {}
  sysSTop = {}
+ sysWprime['CMS_XS_qq_PDF'] = []
+ sysWprime['CMS_XS_qq_scale'] = []
+ 
  for l in range(len(fWZ)):
+  if "kmax" in fWZ[l]:
+   fWZsplit = fWZ[l].split(' ') 
+   fWZ[l] = fWZ[l].replace(fWZsplit[1],str(int(fWZsplit[1])+1))
+  if "CMS_xww_XS_Wprime_WZ_13TeV" in fWZ[l]: continue
   if "rate" in fWZ[l]:
    fWZsplit=fWZ[l].replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").split(" ")
    i=0
@@ -166,7 +192,14 @@ for mass in masses:
     if ttbar:
      sysTTbar[fWZsplit[0]].append(fWZsplit[s]) 
 
+ for s in range(len(sysWprime['CMS_scale_m_13TeV'])):
+  sysWprime['CMS_XS_qq_PDF'].append(pdf_Wprime)     
+  sysWprime['CMS_XS_qq_scale'].append(scale_Wprime)
+  
+ sysZprime['CMS_XS_qq_PDF'] = []
+ sysZprime['CMS_XS_qq_scale'] = []
  for l in range(len(fWW)):
+  if "CMS_xww_XS_Zprime_WW_13TeV" in fWW[l]: continue
   if (("CMS_" in fWW[l]) and ("lnN" in fWW[l])) or ("lumi_13TeV" in fWW[l]):
    fWWsplit=fWW[l].replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").split(" ")
    sysZprime[fWWsplit[0]] = []
@@ -174,8 +207,13 @@ for mass in masses:
     signal=(s in [2,7,12,17,22,27,32,37])
     if signal:
      sysZprime[fWWsplit[0]].append(fWWsplit[s]) 
-            
+
+ for s in range(len(sysZprime['CMS_scale_m_13TeV'])):
+  sysZprime['CMS_XS_qq_PDF'].append(pdf_Zprime)     
+  sysZprime['CMS_XS_qq_scale'].append(scale_Zprime)
+              
  for l in range(len(fWW)):
+  if "CMS_xww_XS_Zprime_WW_13TeV" in fWW[l]: continue
   line=fWW[l]
   if ("jmax" in line) and ("processes" in line): line="jmax 5 number of processes minus 1\n"
   if "kmax" in line: line="kmax 94 number of nuisance parameters\n"
@@ -204,14 +242,18 @@ for mass in masses:
    fWWsplit=fWW[l].replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").split(" ")
    line=fWWsplit[0]+" lnN "
    for v in range(len(sysZprime[fWWsplit[0]])):
-    if "XS_Zprime" in fWWsplit[0]: line+=("-"+" "+sysZprime[fWWsplit[0]][v]+" "+"-"+" "+"-"+" "+"-"+" "+"-"+" ")
-    else: line+=(sysWprime[fWWsplit[0]][v]+" "+sysZprime[fWWsplit[0]][v]+" "+sysWJets[fWWsplit[0]][v]+" "+sysSTop[fWWsplit[0]][v]+" "+sysVV[fWWsplit[0]][v]+" "+sysTTbar[fWWsplit[0]][v]+" ")
-   line+="\n"
-  if "XS_Zprime" in fWW[l]:
-   line+="CMS_xww_XS_Wprime_WZ_13TeV lnN "
-   for v in range(len(sysWprime["CMS_xww_XS_Wprime_WZ_13TeV"])): line+=(sysWprime["CMS_xww_XS_Wprime_WZ_13TeV"][v]+" "+"-"+" "+"-"+" "+"-"+" "+"-"+" "+"-"+" ")
+    line+=(sysWprime[fWWsplit[0]][v]+" "+sysZprime[fWWsplit[0]][v]+" "+sysWJets[fWWsplit[0]][v]+" "+sysSTop[fWWsplit[0]][v]+" "+sysVV[fWWsplit[0]][v]+" "+sysTTbar[fWWsplit[0]][v]+" ")
    line+="\n"
   f.write(line)
     
-  
+ newline1 = 'CMS_XS_qq_PDF lnN '
+ newline2 = 'CMS_XS_qq_scale lnN '    
+ for v in range(len(sysZprime['CMS_XS_qq_PDF'])):
+  newline1+=("%.3f"%sysWprime['CMS_XS_qq_PDF'][v]+" "+"%.3f"%sysZprime['CMS_XS_qq_PDF'][v]+" "+"-"+" "+"-"+" "+"-"+" "+"-"+" ")  
+  newline2+=("%.3f"%sysWprime['CMS_XS_qq_scale'][v]+" "+"%.3f"%sysZprime['CMS_XS_qq_scale'][v]+" "+"-"+" "+"-"+" "+"-"+" "+"-"+" ")  
+   
+ f.write(newline1)
+ f.write('\n')
+ f.write(newline2)
+ f.close()  
    

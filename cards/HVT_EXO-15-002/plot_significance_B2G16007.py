@@ -10,6 +10,18 @@ from ROOT import *
 import CMS_lumi, tdrstyle
 from optparse import OptionParser
 
+def get_palette(mode):
+
+ palette = {}
+ palette['gv'] = [] 
+ 
+ colors = ['#40004b','#762a83','#9970ab','#de77ae','#a6dba0','#5aae61','#1b7837','#00441b','#92c5de','#4393c3','#2166ac','#053061']
+
+ for c in colors:
+  palette['gv'].append(c)
+ 
+ return palette[mode]
+
 def get_theo_map(sqrts):
 
    V_mass = array('d',[])
@@ -151,9 +163,13 @@ def plot_significance(label):
  signal['ALLHVT138'] = "V'"
  signal['ALLWPRIME138'] = "W'"
  signal['ALLZPRIME138'] = "Z'"
+ signal['lllv8'] = "W'"
  signal['jjwv8'] = "V'"
  signal['jjwz8'] = "W'"
  signal['jjww8'] = "Z'"
+ signal['jjwvvh8'] = "V'"
+ signal['jjwzwh8'] = "W'"
+ signal['jjwwzh8'] = "Z'" 
  signal['lvjwv8'] = "V'"
  signal['lvjwz8'] = "W'"
  signal['lvjww8'] = "Z'"
@@ -163,9 +179,14 @@ def plot_significance(label):
  signal['lvjwv13'] = "V'" 
  signal['lvjwz13'] = "W'"    
  signal['lvjww13'] = "Z'" 
+ signal['lvjwvh13'] = "V'" 
+ signal['lvjwzh13'] = "W'" 
  signal['jjwv13'] = "V'"
+ signal['jjwvvh13'] = "V'"
  signal['jjwz13'] = "W'"
+ signal['jjwzwh13'] = "W'"
  signal['jjww13'] = "Z'"
+ signal['jjwwzh13'] = "Z'"
  signal['ttjvh8'] = "V'"
  signal['ttjwh8'] = "W'"
  signal['ttjzh8'] = "Z'" 
@@ -178,21 +199,22 @@ def plot_significance(label):
  names["JJLVJHVT13"]="lvJ, JJ (13 TeV)"
  names["JJLVJWPRIME13"]="lvJ, JJ (13 TeV)"
  names["JJLVJZPRIME13"]="lvJ, JJ (13 TeV)"
- names["ALLWVHVT8"]="lvJ, llJ, JJ (8 TeV)"
- names["ALLWVWPRIME8"]="lvJ, llJ, JJ (8 TeV)"
+ names["ALLWVHVT8"]="lllv, lvJ, llJ, JJ (8 TeV)"
+ names["ALLWVWPRIME8"]="lllv, lvJ, llJ, JJ (8 TeV)"
  names["ALLWVZPRIME8"]="lvJ, JJ (8 TeV)"
- names["ALLWVHVT138"]="lvJ, llJ, JJ (8 TeV)"
- names["ALLWVWPRIME138"]="lvJ, llJ, JJ (8+13 TeV)"
+ names["ALLWVHVT138"]="lllv, lvJ, llJ, JJ (8 TeV)"
+ names["ALLWVWPRIME138"]="lllv, lvJ, llJ, JJ (8+13 TeV)"
  names["ALLWVZPRIME138"]="lvJ, JJ (8+13 TeV)"
  names['ALLHVHVT8'] = "J#tau#tau, lvJ, JJ (8 TeV)"
  names['ALLHVWPRIME8'] = "J#tau#tau, lvJ, JJ (8 TeV)"
  names['ALLHVZPRIME8'] = "J#tau#tau, JJ (8 TeV)"
- names['ALLHVT8'] = "J#tau#tau, lvJ, JJ (8 TeV)"
- names['ALLWPRIME8'] = "J#tau#tau, lvJ, llJ, JJ (8 TeV)"
+ names['ALLHVT8'] = "lllv, J#tau#tau, lvJ, JJ (8 TeV)"
+ names['ALLWPRIME8'] = "lllv, J#tau#tau, lvJ, llJ, JJ (8 TeV)"
  names['ALLZPRIME8'] = "J#tau#tau, lvJ, JJ (8 TeV)"
- names['ALLHVT138'] = "J#tau#tau, lvJ, JJ (8+13 TeV)"
- names['ALLWPRIME138'] = "J#tau#tau, lvJ, llJ, JJ (8+13 TeV)"
- names['ALLZPRIME138'] = "J#tau#tau, lvJ, JJ (8+13 TeV)"
+ names['ALLHVT138'] = "lllv, J#tau#tau, lvJ, JJ (8+13 TeV)"
+ names['ALLWPRIME138'] = "lllv, J#tau#tau, lvJ, llJ, JJ (8+13 TeV)"
+ names['ALLZPRIME138'] = "lllv, J#tau#tau, lvJ, JJ (8+13 TeV)"
+ names['lllv8']="lllv (8 TeV)"
  names["lvjwv8"]="lvqq (8 TeV)"
  names["lvjwz8"]="lvqq (8 TeV)"
  names["lvjww8"]="lvqq (8 TeV)"
@@ -202,13 +224,21 @@ def plot_significance(label):
  names["jjwv8"]="qqqq (8 TeV)"
  names["jjwz8"]="qqqq (8 TeV)"
  names["jjww8"]="qqqq (8 TeV)"
+ names["jjwvvh8"]="qqqq (8 TeV)"
+ names["jjwzwh8"]="qqqq (8 TeV)"
+ names["jjwwzh8"]="qqqq (8 TeV)" 
  names["jjwv13"]="qqqq (13 TeV)"
  names["jjww13"]="qqqq (13 TeV)"
  names["jjwz13"]="qqqq (13 TeV)"
+ names["jjwvvh13"]="qqqq (13 TeV)"
+ names["jjwzwh13"]="qqqq (13 TeV)"
+ names["jjwwzh13"]="qqqq (13 TeV)"
  names["lvjwv13"]="lvqq (13 TeV)"
  names["lvjwv13"]="lvqq (13 TeV)"
  names["lvjww13"]="lvqq (13 TeV)"
  names["lvjwz13"]="lvqq (13 TeV)"
+ names["lvjwzh13"]="lvqq (13 TeV)"
+ names["lvjwvh13"]="lvqq (13 TeV)" 
  names['ttjvh8'] = "qq#tau#tau (8 TeV)"
  names['ttjwh8'] = "qq#tau#tau (8 TeV)"
  names['ttjzh8'] = "qq#tau#tau (8 TeV)"
@@ -217,8 +247,8 @@ def plot_significance(label):
  names['jjzh8'] = "qqbb(4q) (8 TeV)" 
  names['lvjwh8'] = "lvbb (8 TeV)"
   
- infileObs = "HVTdefault/higgsCombine%sObsSignif.ProfileLikelihood.TOTAL.root"%label
- infileExp = "HVTdefault/higgsCombine%sExpSignif.ProfileLikelihood.TOTAL.root"%label
+ infileObs = "higgsCombine%sObsSignif.ProfileLikelihood.TOTAL.root"%label
+ infileExp = "higgsCombine%sExpSignif.ProfileLikelihood.TOTAL.root"%label
  mass = [700,800,900,1000,1100,1200,1300,1400,1500,1600,1700,1800,1900,2000,
        2100,2200,2300,2400,2500,2600,2700,2800,2900,3000,3100,3200,3300,3400,3500,
        3600,3700,3800,3900,4000]
@@ -235,7 +265,7 @@ def plot_significance(label):
   pvalue_exp = getPValueFromCard(infileExp,m)  
   if pvalue_obs == -1: continue
   lastMass = m/1000.
-  #print m,pvalue_obs,RooStats.PValueToSignificance(pvalue_obs)
+  print m,pvalue_obs,RooStats.PValueToSignificance(pvalue_obs)
   ybins_obs.append(pvalue_obs)        
   ybins_exp.append(pvalue_exp)      
   xbins.append(m/1000.)       
@@ -356,6 +386,9 @@ def plot_significance(label):
  canv.SaveAs("plots/EXOVVhvt_"+label+"_Significance.eps")
      
 def compare_significance(labels):
+
+ palette = get_palette('gv')
+ col = TColor()
  
  #line color
  lcol = {}
@@ -377,28 +410,46 @@ def compare_significance(labels):
  lcol['ALLHVT138'] = kBlack
  lcol['ALLWPRIME138'] = kBlack
  lcol['ALLZPRIME138'] = kBlack
- lcol["lvjwv13"] = 4
- lcol["lvjwz13"] = 4
- lcol["lvjww13"] = 4
- lcol["jjwv13"] = 6
- lcol["jjwz13"] = 6
- lcol["jjww13"] = 6
- lcol["lvjwv8"] = 11
- lcol["lvjwz8"] = 11
- lcol["lvjww8"] = 11
- lcol["jjwv8"] = 28
- lcol["jjwz8"] = 28
- lcol["jjww8"] = 28
- lcol["lljwz8"] = 8
- lcol['lljwzh8'] = 8
- lcol['lljzh8'] = 8
- lcol['ttjvh8'] = 9
- lcol['ttjwh8'] = 9
- lcol['ttjzh8'] = 9
- lcol['jjvh8'] = 7
- lcol['jjwh8'] = 7
- lcol['jjzh8'] = 7
- lcol['lvjwh8'] = kRed
+ #lvj13
+ lcol["lvjwv13"] = col.GetColor(palette[10])
+ lcol["lvjwz13"] = col.GetColor(palette[10])
+ lcol["lvjww13"] = col.GetColor(palette[10])
+ lcol["lvjwzh13"] = col.GetColor(palette[10])
+ lcol["lvjwvh13"] = col.GetColor(palette[10])
+ #jj13
+ lcol["jjwv13"] = col.GetColor(palette[9])
+ lcol["jjwz13"] = col.GetColor(palette[9])
+ lcol["jjww13"] = col.GetColor(palette[9])
+ lcol["jjwvvh13"] = col.GetColor(palette[9])
+ lcol["jjwzwh13"] = col.GetColor(palette[9])
+ lcol["jjwwzh13"] = col.GetColor(palette[9]) 
+ #lllv8
+ lcol['lllv8'] = col.GetColor(palette[0])
+ #llj8
+ lcol["lljwz8"] = col.GetColor(palette[1])
+ lcol['lljwzh8'] = col.GetColor(palette[1])
+ lcol['lljzh8'] = col.GetColor(palette[1])
+ #lvj8
+ lcol["lvjwv8"] = col.GetColor(palette[2])
+ lcol["lvjwz8"] = col.GetColor(palette[2])
+ lcol["lvjww8"] = col.GetColor(palette[2])
+ #lvbb8
+ lcol['lvjwh8'] = col.GetColor(palette[3])
+ #jj8
+ lcol["jjwv8"] = col.GetColor(palette[6])
+ lcol["jjwz8"] = col.GetColor(palette[6])
+ lcol["jjww8"] = col.GetColor(palette[6])
+ lcol["jjwvvh8"] = col.GetColor(palette[6])
+ lcol["jjwzwh8"] = col.GetColor(palette[6])
+ lcol["jjwwzh8"] = col.GetColor(palette[6])
+ #jjvh8
+ lcol['jjvh8'] = col.GetColor(palette[5])
+ lcol['jjwh8'] = col.GetColor(palette[5])
+ lcol['jjzh8'] = col.GetColor(palette[5])
+ #ttj8
+ lcol['ttjvh8'] = col.GetColor(palette[4])
+ lcol['ttjwh8'] = col.GetColor(palette[4])
+ lcol['ttjzh8'] = col.GetColor(palette[4])
  #marker color
  mcol = {}
  mcol["JJLVJHVT13"] = kBlack
@@ -419,28 +470,46 @@ def compare_significance(labels):
  mcol['ALLHVT138'] = kBlack
  mcol['ALLWPRIME138'] = kBlack
  mcol['ALLZPRIME138'] = kBlack
- mcol["lvjwv13"] = 4
- mcol["lvjwz13"] = 4
- mcol["lvjww13"] = 4
- mcol["jjwv13"] = 6
- mcol["jjwz13"] = 6
- mcol["jjww13"] = 6
- mcol["lvjwv8"] = 11
- mcol["lvjwz8"] = 11
- mcol["lvjww8"] = 11
- mcol["jjwv8"] = 28
- mcol["jjwz8"] = 28
- mcol["jjww8"] = 28
- mcol["lljwz8"] = 8
- mcol['lljwzh8'] = 8
- mcol['lljzh8'] = 8
- mcol['ttjvh8'] = 9
- mcol['ttjwh8'] = 9
- mcol['ttjzh8'] = 9
- mcol['jjvh8'] = 7
- mcol['jjwh8'] = 7
- mcol['jjzh8'] = 7
- mcol['lvjwh8'] = kRed
+ #lvj13
+ mcol["lvjwv13"] = col.GetColor(palette[10])
+ mcol["lvjwz13"] = col.GetColor(palette[10])
+ mcol["lvjww13"] = col.GetColor(palette[10])
+ mcol["lvjwzh13"] = col.GetColor(palette[10])
+ mcol["lvjwvh13"] = col.GetColor(palette[10])
+ #jj13
+ mcol["jjwv13"] = col.GetColor(palette[9])
+ mcol["jjwz13"] = col.GetColor(palette[9])
+ mcol["jjww13"] = col.GetColor(palette[9])
+ mcol["jjwvvh13"] = col.GetColor(palette[9])
+ mcol["jjwzwh13"] = col.GetColor(palette[9])
+ mcol["jjwwzh13"] = col.GetColor(palette[9])
+ #lllv8
+ mcol['lllv8'] = col.GetColor(palette[0])
+ #llj8
+ mcol["lljwz8"] = col.GetColor(palette[1])
+ mcol['lljwzh8'] = col.GetColor(palette[1])
+ mcol['lljzh8'] = col.GetColor(palette[1])
+ #lvj8 
+ mcol["lvjwv8"] = col.GetColor(palette[2]) 
+ mcol["lvjwz8"] = col.GetColor(palette[2])
+ mcol["lvjww8"] = col.GetColor(palette[2])
+ #lvjwh8
+ mcol['lvjwh8'] = col.GetColor(palette[3])
+ #jj8
+ mcol["jjwv8"] = col.GetColor(palette[6])
+ mcol["jjwz8"] = col.GetColor(palette[6])
+ mcol["jjww8"] = col.GetColor(palette[6])
+ mcol["jjwvvh8"] = col.GetColor(palette[6])
+ mcol["jjwzwh8"] = col.GetColor(palette[6])
+ mcol["jjwwzh8"] = col.GetColor(palette[6])
+ #ttj8
+ mcol['ttjvh8'] =  col.GetColor(palette[4])
+ mcol['ttjwh8'] =  col.GetColor(palette[4])
+ mcol['ttjzh8'] =  col.GetColor(palette[4])
+ #jjvh8
+ mcol['jjvh8'] = col.GetColor(palette[5])
+ mcol['jjwh8'] = col.GetColor(palette[5])
+ mcol['jjzh8'] = col.GetColor(palette[5])
  #marker style
  msty = {}
  msty["JJLVJHVT13"] = 20
@@ -461,28 +530,46 @@ def compare_significance(labels):
  msty['ALLHVT138'] = 20
  msty['ALLWPRIME138'] = 20
  msty['ALLZPRIME138'] = 20
- msty["lvjwv13"] = 21
- msty["lvjwz13"] = 21
- msty["lvjww13"] = 21
+ #lvj13
+ msty["lvjwv13"] = 26
+ msty["lvjwz13"] = 26
+ msty["lvjww13"] = 26
+ msty["lvjwzh13"] = 26
+ msty["lvjwvh13"] = 26 
+ #jj13
  msty["jjwv13"] = 22
  msty["jjwz13"] = 22
  msty["jjww13"] = 22
- msty["lvjwv8"] = 24
- msty["lvjwz8"] = 24
- msty["lvjww8"] = 24
- msty["jjwv8"] = 25
- msty["jjwz8"] = 25
- msty["jjww8"] = 25
- msty["lljwz8"] = 26
- msty['lljwzh8'] = 26
- msty['lljzh8'] = 26
- msty['ttjvh8'] = 27
- msty['ttjwh8'] = 27
- msty['ttjzh8'] = 27
- msty['jjvh8'] = 28
- msty['jjwh8'] = 28
- msty['jjzh8'] = 28
- msty['lvjwh8'] = 29
+ msty["jjwvvh13"] = 22
+ msty["jjwzwh13"] = 22
+ msty["jjwwzh13"] = 22  
+ #lllv8
+ msty['lllv8'] = 22
+ #llj8
+ msty["lljwz8"] = 25
+ msty['lljwzh8'] = 25
+ msty['lljzh8'] = 25
+ #lvj8
+ msty["lvjwv8"] = 26
+ msty["lvjwz8"] = 26
+ msty["lvjww8"] = 26
+ #lvbb8
+ msty['lvjwh8'] = 31
+ #jj8
+ msty["jjwv8"] = 22
+ msty["jjwz8"] = 22
+ msty["jjww8"] = 22
+ msty["jjwvvh8"] = 22
+ msty["jjwzwh8"] = 22
+ msty["jjwwzh8"] = 22 
+ #ttj8
+ msty['ttjvh8'] = 25
+ msty['ttjwh8'] = 25
+ msty['ttjzh8'] = 25
+ #jjvh8
+ msty['jjvh8'] = 31
+ msty['jjwh8'] = 31
+ msty['jjzh8'] = 31
    
  signal = {}
  signal['JJLVJHVT13'] = "V'"
@@ -508,21 +595,22 @@ def compare_significance(labels):
  names["JJLVJHVT13"]="lvJ, JJ (13 TeV)"
  names["JJLVJWPRIME13"]="lvJ, JJ (13 TeV)"
  names["JJLVJZPRIME13"]="lvJ, JJ (13 TeV)"
- names["ALLWVHVT8"]="lvJ, llJ, JJ (8 TeV)"
- names["ALLWVWPRIME8"]="lvJ, llJ, JJ (8 TeV)"
+ names["ALLWVHVT8"]="lllv, lvJ, llJ, JJ (8 TeV)"
+ names["ALLWVWPRIME8"]="lllv, lvJ, llJ, JJ (8 TeV)"
  names["ALLWVZPRIME8"]="lvJ, JJ (8 TeV)"
- names["ALLWVHVT138"]="lvJ, llJ, JJ (8 TeV)"
- names["ALLWVWPRIME138"]="lvJ, llJ, JJ (8+13 TeV)"
+ names["ALLWVHVT138"]="lllv, lvJ, llJ, JJ (8 TeV)"
+ names["ALLWVWPRIME138"]="lllv, lvJ, llJ, JJ (8+13 TeV)"
  names["ALLWVZPRIME138"]="lvJ, JJ (8+13 TeV)"
  names['ALLHVHVT8'] = "J#tau#tau, lvJ, JJ (8 TeV)"
  names['ALLHVWPRIME8'] = "J#tau#tau, lvJ, JJ (8 TeV)"
  names['ALLHVZPRIME8'] = "J#tau#tau, JJ (8 TeV)"
- names['ALLHVT8'] = "J#tau#tau, lvJ, JJ (8 TeV)"
- names['ALLWPRIME8'] = "J#tau#tau, lvJ, llJ, JJ (8 TeV)"
+ names['ALLHVT8'] = "lllv, J#tau#tau, lvJ, JJ (8 TeV)"
+ names['ALLWPRIME8'] = "lllv, J#tau#tau, lvJ, llJ, JJ (8 TeV)"
  names['ALLZPRIME8'] = "J#tau#tau, lvJ, JJ (8 TeV)"
- names['ALLHVT138'] = "J#tau#tau, lvJ, JJ (8+13 TeV)"
- names['ALLWPRIME138'] = "J#tau#tau, lvJ, llJ, JJ (8+13 TeV)"
- names['ALLZPRIME138'] = "J#tau#tau, lvJ, JJ (8+13 TeV)"
+ names['ALLHVT138'] = "lllv, J#tau#tau, lvJ, JJ (8+13 TeV)"
+ names['ALLWPRIME138'] = "lllv, J#tau#tau, lvJ, llJ, JJ (8+13 TeV)"
+ names['ALLZPRIME138'] = "lllv, J#tau#tau, lvJ, JJ (8+13 TeV)"
+ names['lllv8']="lllv (8 TeV)"
  names["lvjwv8"]="lvqq (8 TeV)"
  names["lvjwz8"]="lvqq (8 TeV)"
  names["lvjww8"]="lvqq (8 TeV)"
@@ -532,13 +620,21 @@ def compare_significance(labels):
  names["jjwv8"]="qqqq (8 TeV)"
  names["jjwz8"]="qqqq (8 TeV)"
  names["jjww8"]="qqqq (8 TeV)"
+ names["jjwvvh8"]="qqqq (8 TeV)"
+ names["jjwzwh8"]="qqqq (8 TeV)"
+ names["jjwwzh8"]="qqqq (8 TeV)" 
  names["jjwv13"]="qqqq (13 TeV)"
  names["jjww13"]="qqqq (13 TeV)"
  names["jjwz13"]="qqqq (13 TeV)"
+ names["jjwvvh13"]="qqqq (13 TeV)"
+ names["jjwzwh13"]="qqqq (13 TeV)"
+ names["jjwwzh13"]="qqqq (13 TeV)"
  names["lvjwv13"]="lvqq (13 TeV)"
  names["lvjwv13"]="lvqq (13 TeV)"
  names["lvjww13"]="lvqq (13 TeV)"
  names["lvjwz13"]="lvqq (13 TeV)"
+ names["lvjwzh13"]="lvqq (13 TeV)"
+ names["lvjwvh13"]="lvqq (13 TeV)" 
  names['ttjvh8'] = "qq#tau#tau (8 TeV)"
  names['ttjwh8'] = "qq#tau#tau (8 TeV)"
  names['ttjzh8'] = "qq#tau#tau (8 TeV)"
@@ -744,34 +840,34 @@ if __name__ == '__main__':
  scenarios={}
  
  # 13 TeV LVJ+JJ only
- scenarios["JJLVJHVT13TeV"]=["JJLVJHVT13","jjwv13","lvjwv13"]
- scenarios["JJLVJWPRIME13TeV"]=["JJLVJWPRIME13","jjwz13","lvjwz13"]
- scenarios["JJLVJZPRIME13TeV"]=["JJLVJZPRIME13","jjww13","lvjww13"]
+ scenarios["JJLVJHVT13TeV"]=["JJLVJHVT13","jjwvvh13","lvjwvh13"]
+ scenarios["JJLVJWPRIME13TeV"]=["JJLVJWPRIME13","jjwzwh13","lvjwzh13"]
+ scenarios["JJLVJZPRIME13TeV"]=["JJLVJZPRIME13","jjwwzh13","lvjww13"]
  
  # 8 TeV LLJ+LVJ+JJ (WV) only
- scenarios["ALLWVHVT8TeV"]=["ALLWVHVT8","lvjwv8","lljwz8","jjwv8"]
- scenarios["ALLWVWPRIME8TeV"]=["ALLWVWPRIME8","lvjwz8","lljwz8","jjwz8"]
- scenarios["ALLWVZPRIME8TeV"]=["ALLWVZPRIME8","lvjww8","jjww8"]
- 
- # 8 + 13 TeV LLJ+LVJ+JJ (WV)
- scenarios["ALLWVHVT138TeV"]=["ALLWVHVT138","lvjwv8","lljwz8","jjwv8","jjwv13","lvjwv13"]
- scenarios["ALLWVWPRIME138TeV"]=["ALLWVWPRIME138","lvjwz8","lljwz8","jjwz8","jjwz13","lvjwz13"]
- scenarios["ALLWVZPRIME138TeV"]=["ALLWVZPRIME138","lvjww8","jjww8","jjww13","lvjww13"]
+ scenarios["ALLWVHVT8TeV"]=["ALLWVHVT8","lllv8","lvjwv8","lljwzh8","jjwvvh8"]
+ scenarios["ALLWVWPRIME8TeV"]=["ALLWVWPRIME8","lllv8","lvjwz8","lljwz8","jjwzwh8"]
+ scenarios["ALLWVZPRIME8TeV"]=["ALLWVZPRIME8","lljzh8","lvjww8","jjwwzh8"]
 
  #8 TeV VH only
- scenarios["ALLHVHVT8TeV"]=["ALLHVHVT8","ttjvh8","jjvh8","lvjwh8"]
- scenarios["ALLHVWPRIME8TeV"]=["ALLHVWPRIME8","ttjwh8","jjwh8","lvjwh8"]
- scenarios["ALLHVZPRIME8TeV"]=["ALLHVZPRIME8","ttjzh8","jjzh8"]
-
+ scenarios["ALLHVHVT8TeV"]=["ALLHVHVT8","lvjwh8","jjvh8","ttjvh8"]
+ scenarios["ALLHVWPRIME8TeV"]=["ALLHVWPRIME8","lvjwh8","jjwh8","ttjwh8"]
+ scenarios["ALLHVZPRIME8TeV"]=["ALLHVZPRIME8","jjzh8","ttjzh8"]
+ 
  #8 TeV VH+WV
- scenarios["ALLHVT8TeV"]=["ALLHVT8","ttjvh8","jjvh8","lvjwh8","lvjwv8","lljwz8","jjwv8"]
- scenarios["ALLWPRIME8TeV"]=["ALLWPRIME8","ttjwh8","jjwh8","lvjwh8","lvjwz8","lljwz8","jjwz8"]
- scenarios["ALLZPRIME8TeV"]=["ALLZPRIME8","ttjzh8","jjzh8","lvjww8","jjww8"]
+ scenarios["ALLHVT8TeV"]=["ALLHVT8","lllv8","jjwvvh8","lljwzh8","jjvh8","lvjwv8","ttjvh8","lvjwh8"]
+ scenarios["ALLWPRIME8TeV"]=["ALLWPRIME8","lllv8","jjwzwh8","lljwz8","jjwh8","lvjwz8","ttjwh8","lvjwh8"]
+ scenarios["ALLZPRIME8TeV"]=["ALLZPRIME8","jjwwzh8","lljzh8","jjzh8","lvjww8","ttjzh8"]
+ 
+ # 8 + 13 TeV LLJ+LVJ+JJ (WV)
+ scenarios["ALLWVHVT138TeV"]=["ALLWVHVT138","lllv8","lljwzh8","lvjwv8","jjwvvh8","lvjwvh13","jjwvvh13"]
+ scenarios["ALLWVWPRIME138TeV"]=["ALLWVWPRIME138","lllv8","lljwz8","lvjwz8","jjwzwh8","lvjwzh13","jjwzwh13"]
+ scenarios["ALLWVZPRIME138TeV"]=["ALLWVZPRIME138","lvjww8","jjwwzh8","lvjww13","jjwwzh13"]
 
  #8+13 TeV VH+WV
- scenarios["ALLHVT138TeV"]=["ALLHVT138","ttjvh8","jjvh8","lvjwh8","lvjwv8","lljwzh8","jjwv8","jjwv13","lvjwv13"]
- scenarios["ALLWPRIME138TeV"]=["ALLWPRIME138","ttjwh8","jjwh8","lvjwh8","lvjwz8","lljwz8","jjwz8","jjwz13","lvjwz13"]
- scenarios["ALLZPRIME138TeV"]=["ALLZPRIME138","ttjzh8","jjzh8","lvjww8","jjww8","lljzh8","jjww13","lvjww13"]
+ scenarios["ALLHVT138TeV"]=["ALLHVT138","lllv8","lljwzh8","lvjwv8","lvjwh8","jjwvvh8","jjvh8","ttjvh8","lvjwvh13","jjwvvh13"]
+ scenarios["ALLWPRIME138TeV"]=["ALLWPRIME138","lllv8","lljwz8","lvjwz8","lvjwh8","jjwzwh8","jjwh8","ttjwh8","lvjwzh13","jjwzwh13"]
+ scenarios["ALLZPRIME138TeV"]=["ALLZPRIME138","lljzh8","lvjww8","jjwwzh8","jjzh8","ttjzh8","lvjww13","jjwwzh13"]
     
  if len(sys.argv)>1:
     scenarios_arg={}

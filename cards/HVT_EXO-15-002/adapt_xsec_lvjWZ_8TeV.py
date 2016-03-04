@@ -5,6 +5,19 @@ import os
 import sys
 from array import array
 
+def get_xsec_unc(mass):
+
+   uncs = {}
+   
+   fin = TFile.Open('XsecUnc/xsec-unc-8TeV.root','READ')   
+   cin = fin.Get('c')
+   for p in cin.GetListOfPrimitives():
+    if p.InheritsFrom("TMultiGraph"):
+     for g in p.GetListOfGraphs(): uncs[g.GetName()] = g.Eval(mass) 
+   fin.Close() 
+   
+   return uncs
+   
 def get_theo_map():
 
    V_mass = array('d',[])
@@ -96,24 +109,45 @@ for mass in masses:
  HVTWZ={}
  HVTWZ[mass]=(xsecMap['CX-(pb)'][m]+xsecMap['CX+(pb)'][m])*xsecMap['BRZW'][m]
 
+ xsecUnc =  get_xsec_unc(mass)
+ pdf_Wprime = 1+xsecUnc['qq_PDF_Wprime']
+ pdf_Zprime = 1+xsecUnc['qq_PDF_Zprime']
+ scale_Wprime = 1+xsecUnc['qq_scale_Wprime']
+ scale_Zprime = 1+xsecUnc['qq_scale_Zprime']
+ 
+ newline1 = 'CMS_XS_qq_PDF lnN				    '
+ newline2 = 'CMS_XS_qq_scale lnN				    '
+ 
  for l in range(len(fWW)):
-   if "rate" in fWW[l]:
-     line="rate 				    "
-     fWWsplit=fWW[l].replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").split(" ")
-     for s in range(len(fWWsplit)):
-       try:
- 	 float(fWWsplit[s])
-       except: continue
-       signal=(s in [1,6,11,16]) # only change signal
-       numberWW=float(fWWsplit[s])
-       if signal:
- 	 #print numberWW,efficienciesBulk[mass][0]*19700.*bulkWW[mass]*0.2882464, efficienciesBulk[mass][0],19700.,bulkWW[mass],0.2882464
- 	 #efficienciesBulk[mass]=numberWW/19700./bulkWW[mass]/0.2882464
- 	 #print efficienciesBulk[mass]
- 	 #print "eff corr", (0.73+0.08*mass/1000.), "xsec fac", 1./bulkWW[mass]*(HVTWW[mass]+HVTWZ[mass]*69.91/67.60/2.)
- 	 numberWW=numberWW/bulkWW[mass]*(0.73+0.08*mass/1000.)*HVTWZ[mass]*69.91/67.60/2. #factor /2 from combinatorics of lnuqq into WW or WZ #+0.19*0.30*HVTWH[mass]*57.7/67.60/2.
-       line+="%.5e  " % numberWW
-     line+="\n"
-     f.write(line)
-   else:
-     f.write(fWW[l])
+  if "kmax" in fWW[l]:
+   fWWsplit = fWW[l].split(' ') 
+   fWW[l] = fWW[l].replace(fWWsplit[1],str(int(fWWsplit[1])+2))
+  if "rate" in fWW[l]:
+   line="rate 				    "
+   fWWsplit=fWW[l].replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").split(" ")
+   for s in range(len(fWWsplit)):
+    try: float(fWWsplit[s])
+    except: continue
+    signal=(s in [1,6,11,16]) # only change signal
+    numberWW=float(fWWsplit[s])
+    if signal:
+     #print numberWW,efficienciesBulk[mass][0]*19700.*bulkWW[mass]*0.2882464, efficienciesBulk[mass][0],19700.,bulkWW[mass],0.2882464
+     #efficienciesBulk[mass]=numberWW/19700./bulkWW[mass]/0.2882464
+     #print efficienciesBulk[mass]
+     #print "eff corr", (0.73+0.08*mass/1000.), "xsec fac", 1./bulkWW[mass]*(HVTWW[mass]+HVTWZ[mass]*69.91/67.60/2.)
+     numberWW=numberWW/bulkWW[mass]*(0.73+0.08*mass/1000.)*HVTWZ[mass]*69.91/67.60/2. #factor /2 from combinatorics of lnuqq into WW or WZ #+0.19*0.30*HVTWH[mass]*57.7/67.60/2.
+     newline1+="%.3f  "%pdf_Wprime
+     newline2+="%.3f  "%scale_Wprime
+    else:
+     newline1+="-  "
+     newline2+="-  "
+    line+="%.5e  " % numberWW
+   line+="\n"
+   f.write(line)
+  else:
+   f.write(fWW[l])
+
+ f.write(newline1)
+ f.write('\n')
+ f.write(newline2)
+ f.close()

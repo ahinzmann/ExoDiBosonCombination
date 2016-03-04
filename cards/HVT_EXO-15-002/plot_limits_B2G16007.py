@@ -10,6 +10,18 @@ from ROOT import *
 import CMS_lumi, tdrstyle
 from optparse import OptionParser
 
+def get_palette(mode):
+
+ palette = {}
+ palette['gv'] = [] 
+ 
+ colors = ['#40004b','#762a83','#9970ab','#de77ae','#a6dba0','#5aae61','#1b7837','#00441b','#92c5de','#4393c3','#2166ac','#053061']
+
+ for c in colors:
+  palette['gv'].append(c)
+ 
+ return palette[mode]
+
 def get_theo_map(sqrts):
 
    V_mass = array('d',[])
@@ -114,9 +126,9 @@ def getAsymLimits(file,mass):
     
     return lims
 
-def plot_Asympt_limits(label,signalstrenght):
+def plot_Asympt_limits(label,mainLabel,signalstrenght):
 
- infile = "HVTdefault/higgsCombine%s.Asymptotic.TOTAL.root"%label
+ infile = "higgsCombine%s.Asymptotic.TOTAL.root"%label
  mass = [700,800,900,1000,1100,1200,1300,1400,1500,1600,1700,1800,1900,2000,
          2100,2200,2300,2400,2500,2600,2700,2800,2900,3000,3100,3200,3300,3400,3500,
 	 3600,3700,3800,3900,4000]
@@ -128,21 +140,19 @@ def plot_Asympt_limits(label,signalstrenght):
  signal['ALLWVHVT8'] = "V'"
  signal['ALLWVWPRIME8'] = "W'"
  signal['ALLWVZPRIME8'] = "Z'"
- signal['ALLWVHVT138'] = "V'"
- signal['ALLWVWPRIME138'] = "W'"
- signal['ALLWVZPRIME138'] = "Z'"
  signal['ALLHVHVT8'] = "V'"
  signal['ALLHVWPRIME8'] = "W'"
  signal['ALLHVZPRIME8'] = "Z'"
  signal['ALLHVT8'] = "V'"
  signal['ALLWPRIME8'] = "W'"
  signal['ALLZPRIME8'] = "Z'"
- signal['ALLHVT138'] = "V'"
- signal['ALLWPRIME138'] = "W'"
- signal['ALLZPRIME138'] = "Z'"
+ signal['lllv8'] = "W'"
  signal['jjwv8'] = "V'"
  signal['jjwz8'] = "W'"
  signal['jjww8'] = "Z'"
+ signal['jjwvvh8'] = "V'"
+ signal['jjwzwh8'] = "W'"
+ signal['jjwwzh8'] = "Z'" 
  signal['lvjwv8'] = "V'"
  signal['lvjwz8'] = "W'"
  signal['lvjww8'] = "Z'"
@@ -152,9 +162,14 @@ def plot_Asympt_limits(label,signalstrenght):
  signal['lvjwv13'] = "V'" 
  signal['lvjwz13'] = "W'"    
  signal['lvjww13'] = "Z'" 
+ signal['lvjwvh13'] = "V'" 
+ signal['lvjwzh13'] = "W'" 
  signal['jjwv13'] = "V'"
+ signal['jjwvvh13'] = "V'"
  signal['jjwz13'] = "W'"
+ signal['jjwzwh13'] = "W'"
  signal['jjww13'] = "Z'"
+ signal['jjwwzh13'] = "Z'"
  signal['ttjvh8'] = "V'"
  signal['ttjwh8'] = "W'"
  signal['ttjzh8'] = "Z'" 
@@ -164,27 +179,25 @@ def plot_Asympt_limits(label,signalstrenght):
  signal['lvjwh8'] = "W'"
  
  decay = {}
- decay['JJLVJHVT13'] = "WV"
- decay['JJLVJWPRIME13'] = "WZ" 
- decay['JJLVJZPRIME13'] = "WW" 
- decay['ALLWVHVT8'] = "WV"
- decay['ALLWVWPRIME8'] = "WZ"
- decay['ALLWVZPRIME8'] = "WW"
- decay['ALLWVHVT138'] = "WV"
- decay['ALLWVWPRIME138'] = "WZ"
- decay['ALLWVZPRIME138'] = "WW"
+ decay['JJLVJHVT13'] = "WV/VH"
+ decay['JJLVJWPRIME13'] = "WZ/WH" 
+ decay['JJLVJZPRIME13'] = "WW/ZH" 
+ decay['ALLWVHVT8'] = "WV/VH"
+ decay['ALLWVWPRIME8'] = "WZ/WH"
+ decay['ALLWVZPRIME8'] = "WW/ZH"
  decay['ALLHVHVT8'] = "VH"
  decay['ALLHVWPRIME8'] = "WH"
  decay['ALLHVZPRIME8'] = "ZH"
- decay['ALLHVT8'] = "VH"
- decay['ALLWPRIME8'] = "WH"
- decay['ALLZPRIME8'] = "ZH"
- decay['ALLHVT138'] = "VH"
- decay['ALLWPRIME138'] = "WH"
- decay['ALLZPRIME138'] = "ZH"
+ decay['ALLHVT8'] = "WZ/VH"
+ decay['ALLWPRIME8'] = "WZ/WH"
+ decay['ALLZPRIME8'] = "WW/ZH"
+ decay['lllv8'] = "WZ"
  decay['jjwv8'] = "WV"
  decay['jjwz8'] = "WZ"
  decay['jjww8'] = "WW"
+ decay['jjwvvh8'] = "WV/VH"
+ decay['jjwzwh8'] = "WZ/WH"
+ decay['jjwwzh8'] = "WW/ZH" 
  decay['lvjwv8'] = "WV"
  decay['lvjwz8'] = "WZ"
  decay['lvjww8'] = "WW"
@@ -194,9 +207,14 @@ def plot_Asympt_limits(label,signalstrenght):
  decay['lvjwv13'] = "WV"
  decay['lvjwz13'] = "WZ"
  decay['lvjww13'] = "WW"
+ decay['lvjwzh13'] = "WZ/WH"
+ decay['lvjwvh13'] = "WV/WH"
  decay['jjwv13'] = "WV"
  decay['jjwz13'] = "WZ"
  decay['jjww13'] = "WW"
+ decay['jjwvvh13'] = "WV/VH"
+ decay['jjwzwh13'] = "WZ/WH"
+ decay['jjwwzh13'] = "WW/ZH"
  decay['ttjvh8'] = "VH"
  decay['ttjwh8'] = "WH"
  decay['ttjzh8'] = "ZH" 
@@ -209,44 +227,47 @@ def plot_Asympt_limits(label,signalstrenght):
  names["JJLVJHVT13"]="lvJ, JJ (13 TeV)"
  names["JJLVJWPRIME13"]="lvJ, JJ (13 TeV)"
  names["JJLVJZPRIME13"]="lvJ, JJ (13 TeV)"
- names["ALLWVHVT8"]="lvJ, llJ, JJ (8 TeV)"
- names["ALLWVWPRIME8"]="lvJ, llJ, JJ (8 TeV)"
- names["ALLWVZPRIME8"]="lvJ, JJ (8 TeV)"
- names["ALLWVHVT138"]="lvJ, llJ, JJ (8 TeV)"
- names["ALLWVWPRIME138"]="lvJ, llJ, JJ (8+13 TeV)"
- names["ALLWVZPRIME138"]="lvJ, JJ (8+13 TeV)"
+ names["ALLWVHVT8"]="lllv, lvJ, llJ, JJ (8 TeV)"
+ names["ALLWVWPRIME8"]="lllv, lvJ, llJ, JJ (8 TeV)"
+ names["ALLWVZPRIME8"]="lvJ, llJ, JJ (8 TeV)"
  names['ALLHVHVT8'] = "J#tau#tau, lvJ, JJ (8 TeV)"
  names['ALLHVWPRIME8'] = "J#tau#tau, lvJ, JJ (8 TeV)"
  names['ALLHVZPRIME8'] = "J#tau#tau, JJ (8 TeV)"
- names['ALLHVT8'] = "J#tau#tau, lvJ, JJ (8 TeV)"
- names['ALLWPRIME8'] = "J#tau#tau, lvJ, llJ, JJ (8 TeV)"
+ names['ALLHVT8'] = "lllv, J#tau#tau, lvJ, JJ (8 TeV)"
+ names['ALLWPRIME8'] = "lllv, J#tau#tau, lvJ, llJ, JJ (8 TeV)"
  names['ALLZPRIME8'] = "J#tau#tau, lvJ, JJ (8 TeV)"
- names['ALLHVT138'] = "J#tau#tau, lvJ, JJ (8+13 TeV)"
- names['ALLWPRIME138'] = "J#tau#tau, lvJ, llJ, JJ (8+13 TeV)"
- names['ALLZPRIME138'] = "J#tau#tau, lvJ, JJ (8+13 TeV)"
- names["lvjwv8"]="lvqq (8 TeV)"
- names["lvjwz8"]="lvqq (8 TeV)"
- names["lvjww8"]="lvqq (8 TeV)"
- names["lljwz8"]="llqq (8 TeV)"
- names['lljwzh8']="llqq (8 TeV)"
- names['lljzh8']="llqq (8 TeV)"
- names["jjwv8"]="qqqq (8 TeV)"
- names["jjwz8"]="qqqq (8 TeV)"
- names["jjww8"]="qqqq (8 TeV)"
- names["jjwv13"]="qqqq (13 TeV)"
- names["jjww13"]="qqqq (13 TeV)"
- names["jjwz13"]="qqqq (13 TeV)"
- names["lvjwv13"]="lvqq (13 TeV)"
- names["lvjwv13"]="lvqq (13 TeV)"
- names["lvjww13"]="lvqq (13 TeV)"
- names["lvjwz13"]="lvqq (13 TeV)"
- names['ttjvh8'] = "qq#tau#tau (8 TeV)"
- names['ttjwh8'] = "qq#tau#tau (8 TeV)"
- names['ttjzh8'] = "qq#tau#tau (8 TeV)"
- names['jjvh8'] = "qqbb(4q) (8 TeV)"
- names['jjwh8'] = "qqbb(4q) (8 TeV)"
- names['jjzh8'] = "qqbb(4q) (8 TeV)" 
- names['lvjwh8'] = "lvbb (8 TeV)"
+ names['lllv8']="lllv"
+ names["lvjwv8"]="lvqq"
+ names["lvjwz8"]="lvqq"
+ names["lvjww8"]="lvqq"
+ names["lljwz8"]="llqq"
+ names['lljwzh8']="llqq"
+ names['lljzh8']="llqq"
+ names["jjwv8"]="qqqq"
+ names["jjwz8"]="qqqq"
+ names["jjww8"]="qqqq"
+ names["jjwvvh8"]="qqqq"
+ names["jjwzwh8"]="qqqq"
+ names["jjwwzh8"]="qqqq" 
+ names["jjwv13"]="qqqq"
+ names["jjww13"]="qqqq"
+ names["jjwz13"]="qqqq"
+ names["jjwvvh13"]="qqqq"
+ names["jjwzwh13"]="qqqq"
+ names["jjwwzh13"]="qqqq"
+ names["lvjwv13"]="lvqq"
+ names["lvjwv13"]="lvqq"
+ names["lvjww13"]="lvqq"
+ names["lvjwz13"]="lvqq"
+ names["lvjwzh13"]="lvqq"
+ names["lvjwvh13"]="lvqq" 
+ names['ttjvh8'] = "qq#tau#tau"
+ names['ttjwh8'] = "qq#tau#tau"
+ names['ttjzh8'] = "qq#tau#tau"
+ names['jjvh8'] = "qqbb(4q)"
+ names['jjwh8'] = "qqbb(4q)"
+ names['jjzh8'] = "qqbb(4q)" 
+ names['lvjwh8'] = "lvbb"
    
  thMap13 = get_theo_map("13")
  xsecMap13 = thMap13[0]
@@ -262,21 +283,19 @@ def plot_Asympt_limits(label,signalstrenght):
  scale['ALLWVHVT8'] = {}
  scale['ALLWVWPRIME8'] = {}
  scale['ALLWVZPRIME8'] = {}
- scale['ALLWVHVT138'] = {}
- scale['ALLWVWPRIME138'] = {}
- scale['ALLWVZPRIME138'] = {}
  scale['ALLHVHVT8'] = {}
  scale['ALLHVWPRIME8'] = {}
  scale['ALLHVZPRIME8'] = {}
  scale['ALLHVT8'] = {}
  scale['ALLWPRIME8'] = {}
  scale['ALLZPRIME8'] = {}
- scale['ALLHVT138'] = {}
- scale['ALLWPRIME138'] = {}
- scale['ALLZPRIME138'] = {}
+ scale['lllv8'] = {}
  scale['jjwv8'] = {}
  scale['jjwz8'] = {}
  scale['jjww8'] = {}
+ scale['jjwvvh8'] = {}
+ scale['jjwzwh8'] = {}
+ scale['jjwwzh8'] = {} 
  scale['lvjwv8'] = {}
  scale['lvjwz8'] = {}
  scale['lvjww8'] = {}
@@ -286,9 +305,14 @@ def plot_Asympt_limits(label,signalstrenght):
  scale['lvjwv13'] = {}
  scale['lvjwz13'] = {}
  scale['lvjww13'] = {}	     
+ scale['lvjwzh13'] = {}	     
+ scale['lvjwvh13'] = {}	     
  scale['jjwv13'] = {}
  scale['jjwz13'] = {}
  scale['jjww13'] = {}
+ scale['jjwvvh13'] = {}
+ scale['jjwzwh13'] = {}
+ scale['jjwwzh13'] = {} 
  scale['ttjvh8'] = {}
  scale['ttjwh8'] = {}
  scale['ttjzh8'] = {}
@@ -306,79 +330,26 @@ def plot_Asympt_limits(label,signalstrenght):
     scale['ALLWVHVT8'][m] = 1
     scale['ALLWVWPRIME8'][m] = 1
     scale['ALLWVZPRIME8'][m] = 1
-    scale['ALLWVHVT138'][m] = 1
-    scale['ALLWVWPRIME138'][m] = 1
-    scale['ALLWVZPRIME138'][m] = 1
     scale['ALLHVHVT8'][m] = 1
     scale['ALLHVWPRIME8'][m] = 1
     scale['ALLHVZPRIME8'][m] = 1
     scale['ALLHVT8'][m] = 1
     scale['ALLWPRIME8'][m] = 1
     scale['ALLZPRIME8'][m] = 1
-    scale['ALLHVT138'][m] = 1
-    scale['ALLWPRIME138'][m] = 1
-    scale['ALLZPRIME138'][m] = 1
-    scale['lvjwv8'][m] = 1
-    scale['lvjwz8'][m] = 1
-    scale['lvjww8'][m] = 1 
-    scale['lljwz8'][m] = 1
-    scale['lljwzh8'][m]=1
-    scale['lljzh8'][m]=1
-    scale['jjwv8'][m] = 1
-    scale['jjwz8'][m] = 1
-    scale['jjww8'][m] = 1
-    scale['lvjwv13'][m] = 1
-    scale['lvjwz13'][m] = 1
-    scale['lvjww13'][m] = 1
-    scale['jjwv13'][m] = 1
-    scale['jjwz13'][m] = 1
-    scale['jjww13'][m] = 1
-    scale['ttjvh8'][m] = 1
-    scale['ttjwh8'][m] = 1
-    scale['ttjzh8'][m] = 1
-    scale['jjvh8'][m] = 1
-    scale['jjwh8'][m] = 1
-    scale['jjzh8'][m] = 1
-    scale['lvjwh8'][m] = 1
    else: 
-    scale['JJLVJHVT13'][m] = (xsecMap13['CX-(pb)'][idx]+xsecMap13['CX+(pb)'][idx])*xsecMap13['BRZW'][idx] + xsecMap13['CX0(pb)'][idx]*xsecMap13['BRWW'][idx]
-    scale['JJLVJWPRIME13'][m] = (xsecMap13['CX-(pb)'][idx]+xsecMap13['CX+(pb)'][idx])*xsecMap13['BRZW'][idx]
-    scale['JJLVJZPRIME13'][m] = xsecMap13['CX0(pb)'][idx]*xsecMap13['BRWW'][idx]
-    scale['lvjwv13'][m] = (xsecMap13['CX-(pb)'][idx]+xsecMap13['CX+(pb)'][idx])*xsecMap13['BRZW'][idx] + xsecMap13['CX0(pb)'][idx]*xsecMap13['BRWW'][idx]
-    scale['lvjwz13'][m] = (xsecMap13['CX-(pb)'][idx]+xsecMap13['CX+(pb)'][idx])*xsecMap13['BRZW'][idx]
-    scale['lvjww13'][m] = xsecMap13['CX0(pb)'][idx]*xsecMap13['BRWW'][idx]
-    scale['jjwv13'][m] = (xsecMap13['CX-(pb)'][idx]+xsecMap13['CX+(pb)'][idx])*xsecMap13['BRZW'][idx] + xsecMap13['CX0(pb)'][idx]*xsecMap13['BRWW'][idx]
-    scale['jjwz13'][m] = (xsecMap13['CX-(pb)'][idx]+xsecMap13['CX+(pb)'][idx])*xsecMap13['BRZW'][idx]
-    scale['jjww13'][m] = xsecMap13['CX0(pb)'][idx]*xsecMap13['BRWW'][idx]        
+    scale['JJLVJHVT13'][m] = (xsecMap13['CX-(pb)'][idx]+xsecMap13['CX+(pb)'][idx])*(xsecMap13['BRZW'][idx]+xsecMap13['BRWh'][idx]) + xsecMap13['CX0(pb)'][idx]*(xsecMap13['BRWW'][idx]+xsecMap13['BRhZ'][idx])
+    scale['JJLVJWPRIME13'][m] = (xsecMap13['CX-(pb)'][idx]+xsecMap13['CX+(pb)'][idx])*(xsecMap13['BRZW'][idx]+xsecMap13['BRWh'][idx])
+    scale['JJLVJZPRIME13'][m] = xsecMap13['CX0(pb)'][idx]*(xsecMap13['BRWW'][idx]+xsecMap13['BRhZ'][idx])
     if m < 3000:
-     scale['ALLWVHVT8'][m] = (xsecMap8['CX-(pb)'][idx2]+xsecMap8['CX+(pb)'][idx2])*xsecMap8['BRZW'][idx2] + xsecMap8['CX0(pb)'][idx2]*xsecMap8['BRWW'][idx2]
-     scale['ALLWVWPRIME8'][m] = (xsecMap8['CX-(pb)'][idx2]+xsecMap8['CX+(pb)'][idx2])*xsecMap8['BRZW'][idx2]
-     scale['ALLWVZPRIME8'][m] = xsecMap8['CX0(pb)'][idx2]*xsecMap8['BRWW'][idx2]
+     scale['ALLWVHVT8'][m] = (xsecMap8['CX-(pb)'][idx2]+xsecMap8['CX+(pb)'][idx2])*(xsecMap8['BRZW'][idx2]+xsecMap8['BRWh'][idx2]) + xsecMap8['CX0(pb)'][idx2]*(xsecMap8['BRWW'][idx2]+xsecMap8['BRhZ'][idx2])
+     scale['ALLWVWPRIME8'][m] = (xsecMap8['CX-(pb)'][idx2]+xsecMap8['CX+(pb)'][idx2])*(xsecMap8['BRZW'][idx2]+xsecMap8['BRWh'][idx2])
+     scale['ALLWVZPRIME8'][m] = xsecMap8['CX0(pb)'][idx2]*(xsecMap8['BRWW'][idx2]+xsecMap8['BRhZ'][idx2])
      scale['ALLHVHVT8'][m] = (xsecMap8['CX-(pb)'][idx2]+xsecMap8['CX+(pb)'][idx2])*xsecMap8['BRWh'][idx2] + xsecMap8['CX0(pb)'][idx2]*xsecMap8['BRhZ'][idx2]
      scale['ALLHVWPRIME8'][m] = (xsecMap8['CX-(pb)'][idx2]+xsecMap8['CX+(pb)'][idx2])*xsecMap8['BRWh'][idx2]
      scale['ALLHVZPRIME8'][m] = xsecMap8['CX0(pb)'][idx2]*xsecMap8['BRhZ'][idx2]
-     scale['ALLHVT8'][m] = (xsecMap8['CX-(pb)'][idx2]+xsecMap8['CX+(pb)'][idx2])*xsecMap8['BRWh'][idx2] + xsecMap8['CX0(pb)'][idx2]*xsecMap8['BRhZ'][idx2]
-     scale['ALLWPRIME8'][m] = (xsecMap8['CX-(pb)'][idx2]+xsecMap8['CX+(pb)'][idx2])*xsecMap8['BRWh'][idx2]
-     scale['ALLZPRIME8'][m] = xsecMap8['CX0(pb)'][idx2]*xsecMap8['BRhZ'][idx2]
-     scale['lljwz8'][m] = (xsecMap8['CX-(pb)'][idx2]+xsecMap8['CX+(pb)'][idx2])*xsecMap8['BRZW'][idx2]
-     scale['lljwzh8'][m]=(xsecMap8['CX-(pb)'][idx2]+xsecMap8['CX+(pb)'][idx2])*xsecMap8['BRZW'][idx2] + xsecMap8['CX0(pb)'][idx2]*xsecMap8['BRhZ'][idx2]
-     scale['lljzh8'][m]=xsecMap8['CX0(pb)'][idx2]*xsecMap8['BRhZ'][idx2]
-     scale['lvjwv8'][m] = (xsecMap8['CX-(pb)'][idx2]+xsecMap8['CX+(pb)'][idx2])*xsecMap8['BRZW'][idx2] + xsecMap8['CX0(pb)'][idx2]*xsecMap8['BRWW'][idx2]
-     scale['lvjwz8'][m] = (xsecMap8['CX-(pb)'][idx2]+xsecMap8['CX+(pb)'][idx2])*xsecMap8['BRZW'][idx2]
-     scale['lvjww8'][m] = xsecMap8['CX0(pb)'][idx2]*xsecMap8['BRWW'][idx2]
-     scale['jjwv8'][m] = (xsecMap8['CX-(pb)'][idx2]+xsecMap8['CX+(pb)'][idx2])*xsecMap8['BRZW'][idx2] + xsecMap8['CX0(pb)'][idx2]*xsecMap8['BRWW'][idx2]
-     scale['jjwz8'][m] = (xsecMap8['CX-(pb)'][idx2]+xsecMap8['CX+(pb)'][idx2])*xsecMap8['BRZW'][idx2]
-     scale['jjww8'][m] = xsecMap8['CX0(pb)'][idx2]*xsecMap8['BRWW'][idx2]
-     scale['ttjvh8'][m] = (xsecMap8['CX-(pb)'][idx2]+xsecMap8['CX+(pb)'][idx2])*xsecMap8['BRWh'][idx2] + xsecMap8['CX0(pb)'][idx2]*xsecMap8['BRhZ'][idx2]
-     scale['ttjwh8'][m] = (xsecMap8['CX-(pb)'][idx2]+xsecMap8['CX+(pb)'][idx2])*xsecMap8['BRWh'][idx2]
-     scale['ttjzh8'][m] = xsecMap8['CX0(pb)'][idx2]*xsecMap8['BRhZ'][idx2]
-     scale['jjvh8'][m] = (xsecMap8['CX-(pb)'][idx2]+xsecMap8['CX+(pb)'][idx2])*xsecMap8['BRWh'][idx2] + xsecMap8['CX0(pb)'][idx2]*xsecMap8['BRhZ'][idx2]
-     scale['jjwh8'][m] = (xsecMap8['CX-(pb)'][idx2]+xsecMap8['CX+(pb)'][idx2])*xsecMap8['BRWh'][idx2]
-     scale['jjzh8'][m] = xsecMap8['CX0(pb)'][idx2]*xsecMap8['BRhZ'][idx2]
-     scale['lvjwh8'][m] = (xsecMap8['CX-(pb)'][idx2]+xsecMap8['CX+(pb)'][idx2])*xsecMap8['BRWh'][idx2]
-     #scale['ALLHVT138'][m] = ((xsecMap13['CX-(pb)'][idx]+xsecMap13['CX+(pb)'][idx])*xsecMap13['BRZW'][idx]*2.2 + xsecMap13['CX0(pb)'][idx]*xsecMap13['BRWW'][idx]*2.2)+((xsecMap8['CX-(pb)'][idx2]+xsecMap8['CX+(pb)'][idx2])*xsecMap8['BRZW'][idx2]*19.7 + xsecMap8['CX0(pb)'][idx2]*xsecMap8['BRWW'][idx2]*19.7)
-     #scale['ALLHVT138'][m] = ((xsecMap13['CX-(pb)'][idx]+xsecMap13['CX+(pb)'][idx])*xsecMap13['BRZW'][idx] + xsecMap13['CX0(pb)'][idx]*xsecMap13['BRWW'][idx])+((xsecMap8['CX-(pb)'][idx2]+xsecMap8['CX+(pb)'][idx2])*xsecMap8['BRZW'][idx2] + xsecMap8['CX0(pb)'][idx2]*xsecMap8['BRWW'][idx2])
-     #scale['ALLHVT8'][m] = (xsecMap8['CX-(pb)'][idx2]+xsecMap8['CX+(pb)'][idx2])*xsecMap8['BRZW'][idx2] + xsecMap8['CX0(pb)'][idx2]*xsecMap8['BRWW'][idx2]
+     scale['ALLHVT8'][m] = (xsecMap8['CX-(pb)'][idx2]+xsecMap8['CX+(pb)'][idx2])*(xsecMap8['BRZW'][idx2]+xsecMap8['BRWh'][idx2]) + xsecMap8['CX0(pb)'][idx2]*(xsecMap8['BRWW'][idx2]+xsecMap8['BRhZ'][idx2])
+     scale['ALLWPRIME8'][m] = (xsecMap8['CX-(pb)'][idx2]+xsecMap8['CX+(pb)'][idx2])*(xsecMap8['BRZW'][idx2]+xsecMap8['BRWh'][idx2])
+     scale['ALLZPRIME8'][m] = xsecMap8['CX0(pb)'][idx2]*(xsecMap8['BRWW'][idx2]+xsecMap8['BRhZ'][idx2])
     else:
      scale['ALLWVHVT8'][m] = 1
      scale['ALLWVWPRIME8'][m] = 1
@@ -389,24 +360,39 @@ def plot_Asympt_limits(label,signalstrenght):
      scale['ALLHVT8'][m] = 1
      scale['ALLWPRIME8'][m] = 1
      scale['ALLZPRIME8'][m] = 1
-     scale['lljwz8'][m] = 1
-     scale['lljwzh8'][m]=1
-     scale['lljzh8'][m]=1
-     scale['lvjwv8'][m] = 1
-     scale['lvjwz8'][m] = 1
-     scale['lvjww8'][m] = 1
-     scale['jjwv8'][m] = 1
-     scale['jjwz8'][m] = 1
-     scale['jjww8'][m] = 1
-     scale['ttjvh8'][m] = 1
-     scale['ttjwh8'][m] = 1
-     scale['ttjzh8'][m] = 1
-     scale['jjvh8'][m] = 1
-     scale['jjwh8'][m] = 1
-     scale['jjzh8'][m] = 1
-     scale['lvjwh8'][m] = 1
-     #scale['ALLHVT138'][m] = (xsecMap13['CX-(pb)'][idx]+xsecMap13['CX+(pb)'][idx])*xsecMap13['BRZW'][idx] + xsecMap13['CX0(pb)'][idx]*xsecMap13['BRWW'][idx]
-     #scale['ALLHVT138'][m] = (xsecMap13['CX-(pb)'][idx]+xsecMap13['CX+(pb)'][idx])*xsecMap13['BRZW'][idx]*2.2 + xsecMap13['CX0(pb)'][idx]*xsecMap13['BRWW'][idx]*2.2
+ 
+ for m in mass:
+  scale['lllv8'][m] = scale[mainLabel][m]
+  scale['lvjwv8'][m] = scale[mainLabel][m]
+  scale['lvjwz8'][m] = scale[mainLabel][m]
+  scale['lvjww8'][m] = scale[mainLabel][m]
+  scale['lljwz8'][m] = scale[mainLabel][m]
+  scale['lljwzh8'][m] = scale[mainLabel][m]
+  scale['lljzh8'][m] = scale[mainLabel][m]
+  scale['jjwv8'][m] = scale[mainLabel][m]
+  scale['jjwz8'][m] = scale[mainLabel][m]
+  scale['jjww8'][m] = scale[mainLabel][m]
+  scale['jjwvvh8'][m] = scale[mainLabel][m]
+  scale['jjwzwh8'][m] = scale[mainLabel][m]
+  scale['jjwwzh8'][m] = scale[mainLabel][m]  
+  scale['lvjwv13'][m] = scale[mainLabel][m]
+  scale['lvjwz13'][m] = scale[mainLabel][m]
+  scale['lvjww13'][m] = scale[mainLabel][m]
+  scale['lvjwvh13'][m] = scale[mainLabel][m]
+  scale['lvjwzh13'][m] = scale[mainLabel][m]    
+  scale['jjwv13'][m] = scale[mainLabel][m]
+  scale['jjwz13'][m] = scale[mainLabel][m]
+  scale['jjww13'][m] = scale[mainLabel][m]
+  scale['jjwvvh13'][m] = scale[mainLabel][m]
+  scale['jjwzwh13'][m] = scale[mainLabel][m]
+  scale['jjwwzh13'][m] = scale[mainLabel][m]  
+  scale['ttjvh8'][m] = scale[mainLabel][m]
+  scale['ttjwh8'][m] = scale[mainLabel][m]
+  scale['ttjzh8'][m] = scale[mainLabel][m]
+  scale['jjvh8'][m] = scale[mainLabel][m]
+  scale['jjwh8'][m] = scale[mainLabel][m]
+  scale['jjzh8'][m] = scale[mainLabel][m]
+  scale['lvjwh8'][m] = scale[mainLabel][m]       
     
  nPoints = 0
 
@@ -423,7 +409,7 @@ def plot_Asympt_limits(label,signalstrenght):
 
   curAsymLimits = getAsymLimits(infile,m);
   if curAsymLimits[0] == -1: continue
-  #print m,curAsymLimits[3]
+  #print m,curAsymLimits[3],scale[label][m],curAsymLimits[3]*scale[label][m]
   lastMass = m/1000.
   xbins.append( m/1000. );
   xbins_env.append( m/1000. );
@@ -487,12 +473,16 @@ def plot_Asympt_limits(label,signalstrenght):
  curGraph_xs.SetMarkerSize(2)
  curGraph_xs.SetLineColor(ROOT.kRed)
 
- curGraph_1s.SetFillColor(ROOT.kGreen)
+ transGreen = gROOT.GetColor(3)
+ transGreen.SetAlpha(0.35)
+ curGraph_1s.SetFillColor(3)
  curGraph_1s.SetFillStyle(1001)
  curGraph_1s.SetLineStyle(ROOT.kDashed)
  curGraph_1s.SetLineWidth(3)
 
- curGraph_2s.SetFillColor(ROOT.kYellow)
+ transYellow = gROOT.GetColor(5)
+ transYellow.SetAlpha(0.5)
+ curGraph_2s.SetFillColor(5)
  curGraph_2s.SetFillStyle(1001)
  curGraph_2s.SetLineStyle(ROOT.kDashed)
  curGraph_2s.SetLineWidth(3)
@@ -564,11 +554,14 @@ def plot_Asympt_limits(label,signalstrenght):
  canv.Update() 
   
  canv.SaveAs("plots/EXOVVhvt_"+label+"_UL_Asymptotic_log.root")
- canv.SaveAs("plots/EXOVVhvt_"+label+"_UL_Asymptotic_log.png")
- canv.SaveAs("plots/EXOVVhvt_"+label+"_UL_Asymptotic_log.pdf")
- canv.SaveAs("plots/EXOVVhvt_"+label+"_UL_Asymptotic_log.eps")
+ #canv.SaveAs("plots/EXOVVhvt_"+label+"_UL_Asymptotic_log.png")
+ #canv.SaveAs("plots/EXOVVhvt_"+label+"_UL_Asymptotic_log.pdf")
+ #canv.SaveAs("plots/EXOVVhvt_"+label+"_UL_Asymptotic_log.eps")
 
 def compare_Asympt_limits(labels,unblind,bands):
+ 
+ palette = get_palette('gv')
+ col = TColor()
  
  #line color
  lcol = {}
@@ -578,40 +571,54 @@ def compare_Asympt_limits(labels,unblind,bands):
  lcol["ALLWVHVT8"] = kBlack
  lcol["ALLWVWPRIME8"] = kBlack
  lcol["ALLWVZPRIME8"] = kBlack
- lcol["ALLWVHVT138"] = kBlack
- lcol["ALLWVWPRIME138"] = kBlack
- lcol["ALLWVZPRIME138"] = kBlack
  lcol['ALLHVHVT8'] = kBlack
  lcol['ALLHVWPRIME8'] = kBlack
  lcol['ALLHVZPRIME8'] = kBlack
  lcol['ALLHVT8'] = kBlack
  lcol['ALLWPRIME8'] = kBlack
  lcol['ALLZPRIME8'] = kBlack
- lcol['ALLHVT138'] = kBlack
- lcol['ALLWPRIME138'] = kBlack
- lcol['ALLZPRIME138'] = kBlack
- lcol["lvjwv13"] = 4
- lcol["lvjwz13"] = 4
- lcol["lvjww13"] = 4
- lcol["jjwv13"] = 6
- lcol["jjwz13"] = 6
- lcol["jjww13"] = 6
- lcol["lvjwv8"] = 11
- lcol["lvjwz8"] = 11
- lcol["lvjww8"] = 11
- lcol["jjwv8"] = 28
- lcol["jjwz8"] = 28
- lcol["jjww8"] = 28
- lcol["lljwz8"] = 8
- lcol['lljwzh8'] = 8
- lcol['lljzh8'] = 8
- lcol['ttjvh8'] = 9
- lcol['ttjwh8'] = 9
- lcol['ttjzh8'] = 9
- lcol['jjvh8'] = 7
- lcol['jjwh8'] = 7
- lcol['jjzh8'] = 7
- lcol['lvjwh8'] = kRed
+ 
+ #lvj13
+ lcol["lvjwv13"] = col.GetColor(palette[10])
+ lcol["lvjwz13"] = col.GetColor(palette[10])
+ lcol["lvjww13"] = col.GetColor(palette[10])
+ lcol["lvjwzh13"] = col.GetColor(palette[10])
+ lcol["lvjwvh13"] = col.GetColor(palette[10])
+ #jj13
+ lcol["jjwv13"] = col.GetColor(palette[9])
+ lcol["jjwz13"] = col.GetColor(palette[9])
+ lcol["jjww13"] = col.GetColor(palette[9])
+ lcol["jjwvvh13"] = col.GetColor(palette[9])
+ lcol["jjwzwh13"] = col.GetColor(palette[9])
+ lcol["jjwwzh13"] = col.GetColor(palette[9]) 
+ #lllv8
+ lcol['lllv8'] = col.GetColor(palette[0])
+ #llj8
+ lcol["lljwz8"] = col.GetColor(palette[1])
+ lcol['lljwzh8'] = col.GetColor(palette[1])
+ lcol['lljzh8'] = col.GetColor(palette[1])
+ #lvj8
+ lcol["lvjwv8"] = col.GetColor(palette[2])
+ lcol["lvjwz8"] = col.GetColor(palette[2])
+ lcol["lvjww8"] = col.GetColor(palette[2])
+ #lvbb8
+ lcol['lvjwh8'] = col.GetColor(palette[3])
+ #jj8
+ lcol["jjwv8"] = col.GetColor(palette[6])
+ lcol["jjwz8"] = col.GetColor(palette[6])
+ lcol["jjww8"] = col.GetColor(palette[6])
+ lcol["jjwvvh8"] = col.GetColor(palette[6])
+ lcol["jjwzwh8"] = col.GetColor(palette[6])
+ lcol["jjwwzh8"] = col.GetColor(palette[6])
+ #jjvh8
+ lcol['jjvh8'] = col.GetColor(palette[5])
+ lcol['jjwh8'] = col.GetColor(palette[5])
+ lcol['jjzh8'] = col.GetColor(palette[5])
+ #ttj8
+ lcol['ttjvh8'] = col.GetColor(palette[4])
+ lcol['ttjwh8'] = col.GetColor(palette[4])
+ lcol['ttjzh8'] = col.GetColor(palette[4])
+ 
  #marker color
  mcol = {}
  mcol["JJLVJHVT13"] = kBlack
@@ -620,40 +627,54 @@ def compare_Asympt_limits(labels,unblind,bands):
  mcol["ALLWVHVT8"] = kBlack
  mcol["ALLWVWPRIME8"] = kBlack
  mcol["ALLWVZPRIME8"] = kBlack
- mcol["ALLWVHVT138"] = kBlack
- mcol["ALLWVWPRIME138"] = kBlack
- mcol["ALLWVZPRIME138"] = kBlack
  mcol['ALLHVHVT8'] = kBlack
  mcol['ALLHVWPRIME8'] = kBlack
  mcol['ALLHVZPRIME8'] = kBlack
  mcol['ALLHVT8'] = kBlack
  mcol['ALLWPRIME8'] = kBlack
  mcol['ALLZPRIME8'] = kBlack
- mcol['ALLHVT138'] = kBlack
- mcol['ALLWPRIME138'] = kBlack
- mcol['ALLZPRIME138'] = kBlack
- mcol["lvjwv13"] = 4
- mcol["lvjwz13"] = 4
- mcol["lvjww13"] = 4
- mcol["jjwv13"] = 6
- mcol["jjwz13"] = 6
- mcol["jjww13"] = 6
- mcol["lvjwv8"] = 11
- mcol["lvjwz8"] = 11
- mcol["lvjww8"] = 11
- mcol["jjwv8"] = 28
- mcol["jjwz8"] = 28
- mcol["jjww8"] = 28
- mcol["lljwz8"] = 8
- mcol['lljwzh8'] = 8
- mcol['lljzh8'] = 8
- mcol['ttjvh8'] = 9
- mcol['ttjwh8'] = 9
- mcol['ttjzh8'] = 9
- mcol['jjvh8'] = 7
- mcol['jjwh8'] = 7
- mcol['jjzh8'] = 7
- mcol['lvjwh8'] = kRed
+ 
+ #lvj13
+ mcol["lvjwv13"] = col.GetColor(palette[10])
+ mcol["lvjwz13"] = col.GetColor(palette[10])
+ mcol["lvjww13"] = col.GetColor(palette[10])
+ mcol["lvjwzh13"] = col.GetColor(palette[10])
+ mcol["lvjwvh13"] = col.GetColor(palette[10])
+ #jj13
+ mcol["jjwv13"] = col.GetColor(palette[9])
+ mcol["jjwz13"] = col.GetColor(palette[9])
+ mcol["jjww13"] = col.GetColor(palette[9])
+ mcol["jjwvvh13"] = col.GetColor(palette[9])
+ mcol["jjwzwh13"] = col.GetColor(palette[9])
+ mcol["jjwwzh13"] = col.GetColor(palette[9])
+ #lllv8
+ mcol['lllv8'] = col.GetColor(palette[0])
+ #llj8
+ mcol["lljwz8"] = col.GetColor(palette[1])
+ mcol['lljwzh8'] = col.GetColor(palette[1])
+ mcol['lljzh8'] = col.GetColor(palette[1])
+ #lvj8 
+ mcol["lvjwv8"] = col.GetColor(palette[2]) 
+ mcol["lvjwz8"] = col.GetColor(palette[2])
+ mcol["lvjww8"] = col.GetColor(palette[2])
+ #lvjwh8
+ mcol['lvjwh8'] = col.GetColor(palette[3])
+ #jj8
+ mcol["jjwv8"] = col.GetColor(palette[6])
+ mcol["jjwz8"] = col.GetColor(palette[6])
+ mcol["jjww8"] = col.GetColor(palette[6])
+ mcol["jjwvvh8"] = col.GetColor(palette[6])
+ mcol["jjwzwh8"] = col.GetColor(palette[6])
+ mcol["jjwwzh8"] = col.GetColor(palette[6])
+ #ttj8
+ mcol['ttjvh8'] =  col.GetColor(palette[4])
+ mcol['ttjwh8'] =  col.GetColor(palette[4])
+ mcol['ttjzh8'] =  col.GetColor(palette[4])
+ #jjvh8
+ mcol['jjvh8'] = col.GetColor(palette[5])
+ mcol['jjwh8'] = col.GetColor(palette[5])
+ mcol['jjzh8'] = col.GetColor(palette[5])
+ 
  #marker style
  msty = {}
  msty["JJLVJHVT13"] = 20
@@ -662,40 +683,52 @@ def compare_Asympt_limits(labels,unblind,bands):
  msty["ALLWVHVT8"] = 20
  msty["ALLWVWPRIME8"] = 20
  msty["ALLWVZPRIME8"] = 20
- msty["ALLWVHVT138"] = 20
- msty["ALLWVWPRIME138"] = 20
- msty["ALLWVZPRIME138"] = 20
  msty['ALLHVHVT8'] = 20
  msty['ALLHVWPRIME8'] = 20
  msty['ALLHVZPRIME8'] = 20
  msty['ALLHVT8'] = 20
  msty['ALLWPRIME8'] = 20
  msty['ALLZPRIME8'] = 20
- msty['ALLHVT138'] = 20
- msty['ALLWPRIME138'] = 20
- msty['ALLZPRIME138'] = 20
- msty["lvjwv13"] = 21
- msty["lvjwz13"] = 21
- msty["lvjww13"] = 21
+ #lvj13
+ msty["lvjwv13"] = 26
+ msty["lvjwz13"] = 26
+ msty["lvjww13"] = 26
+ msty["lvjwzh13"] = 26
+ msty["lvjwvh13"] = 26 
+ #jj13
  msty["jjwv13"] = 22
  msty["jjwz13"] = 22
  msty["jjww13"] = 22
- msty["lvjwv8"] = 24
- msty["lvjwz8"] = 24
- msty["lvjww8"] = 24
- msty["jjwv8"] = 25
- msty["jjwz8"] = 25
- msty["jjww8"] = 25
- msty["lljwz8"] = 26
- msty['lljwzh8'] = 26
- msty['lljzh8'] = 26
- msty['ttjvh8'] = 27
- msty['ttjwh8'] = 27
- msty['ttjzh8'] = 27
- msty['jjvh8'] = 28
- msty['jjwh8'] = 28
- msty['jjzh8'] = 28
- msty['lvjwh8'] = 29
+ msty["jjwvvh13"] = 22
+ msty["jjwzwh13"] = 22
+ msty["jjwwzh13"] = 22  
+ #lllv8
+ msty['lllv8'] = 22
+ #llj8
+ msty["lljwz8"] = 25
+ msty['lljwzh8'] = 25
+ msty['lljzh8'] = 25
+ #lvj8
+ msty["lvjwv8"] = 26
+ msty["lvjwz8"] = 26
+ msty["lvjww8"] = 26
+ #lvbb8
+ msty['lvjwh8'] = 31
+ #jj8
+ msty["jjwv8"] = 22
+ msty["jjwz8"] = 22
+ msty["jjww8"] = 22
+ msty["jjwvvh8"] = 22
+ msty["jjwzwh8"] = 22
+ msty["jjwwzh8"] = 22 
+ #ttj8
+ msty['ttjvh8'] = 25
+ msty['ttjwh8'] = 25
+ msty['ttjzh8'] = 25
+ #jjvh8
+ msty['jjvh8'] = 31
+ msty['jjwh8'] = 31
+ msty['jjzh8'] = 31
     
  signal = {}
  signal['JJLVJHVT13'] = "V'"
@@ -704,80 +737,71 @@ def compare_Asympt_limits(labels,unblind,bands):
  signal["ALLWVHVT8"] = "V'"
  signal["ALLWVWPRIME8"] = "W'"
  signal["ALLWVZPRIME8"] = "Z'"
- signal["ALLWVHVT138"] = "V'"
- signal["ALLWVWPRIME138"] = "W'"
- signal["ALLWVZPRIME138"] = "Z'"
  signal['ALLHVHVT8'] = "V'"
  signal['ALLHVWPRIME8'] = "W'"
  signal['ALLHVZPRIME8'] = "Z'"
  signal['ALLHVT8'] = "V'"
  signal['ALLWPRIME8'] = "W'"
  signal['ALLZPRIME8'] = "Z'"
- signal['ALLHVT138'] = "V'"
- signal['ALLWPRIME138'] = "W'"
- signal['ALLZPRIME138'] = "Z'"
  decay = {}
- decay['JJLVJHVT13'] = "WV"
- decay['JJLVJWPRIME13'] = "WZ" 
- decay['JJLVJZPRIME13'] = "WW" 
- decay['ALLWVHVT8'] = "WV"
- decay['ALLWVWPRIME8'] = "WZ"
- decay['ALLWVZPRIME8'] = "WW"
- decay['ALLWVHVT138'] = "WV"
- decay['ALLWVWPRIME138'] = "WZ"
- decay['ALLWVZPRIME138'] = "WW"
+ decay['JJLVJHVT13'] = "WV/VH"
+ decay['JJLVJWPRIME13'] = "WZ/WH" 
+ decay['JJLVJZPRIME13'] = "WW/ZH" 
+ decay['ALLWVHVT8'] = "WV/VH"
+ decay['ALLWVWPRIME8'] = "WZ/WH"
+ decay['ALLWVZPRIME8'] = "WW/ZH"
  decay['ALLHVHVT8'] = "VH"
  decay['ALLHVWPRIME8'] = "WH"
  decay['ALLHVZPRIME8'] = "ZH"
  decay['ALLHVT8'] = "WV/VH"
  decay['ALLWPRIME8'] = "WZ/WH"
  decay['ALLZPRIME8'] = "WW/ZH"
- decay['ALLHVT138'] = "VH"
- decay['ALLWPRIME138'] = "WH"
- decay['ALLZPRIME138'] = "ZH"
      
  names = {}
  names["JJLVJHVT13"]="lvJ, JJ (13 TeV)"
  names["JJLVJWPRIME13"]="lvJ, JJ (13 TeV)"
  names["JJLVJZPRIME13"]="lvJ, JJ (13 TeV)"
- names["ALLWVHVT8"]="lvJ, llJ, JJ (8 TeV)"
- names["ALLWVWPRIME8"]="lvJ, llJ, JJ (8 TeV)"
- names["ALLWVZPRIME8"]="lvJ, JJ (8 TeV)"
- names["ALLWVHVT138"]="lvJ, llJ, JJ (8 TeV)"
- names["ALLWVWPRIME138"]="lvJ, llJ, JJ (8+13 TeV)"
- names["ALLWVZPRIME138"]="lvJ, JJ (8+13 TeV)"
+ names["ALLWVHVT8"]="lllv, lvJ, llJ, JJ (8 TeV)"
+ names["ALLWVWPRIME8"]="lllv, lvJ, llJ, JJ (8 TeV)"
+ names["ALLWVZPRIME8"]="lvJ, llJ, JJ (8 TeV)"
  names['ALLHVHVT8'] = "J#tau#tau, lvJ, JJ (8 TeV)"
  names['ALLHVWPRIME8'] = "J#tau#tau, lvJ, JJ (8 TeV)"
  names['ALLHVZPRIME8'] = "J#tau#tau, JJ (8 TeV)"
- names['ALLHVT8'] = "J#tau#tau, lvJ, JJ (8 TeV)"
- names['ALLWPRIME8'] = "J#tau#tau, lvJ, llJ, JJ (8 TeV)"
- names['ALLZPRIME8'] = "J#tau#tau, lvJ, JJ (8 TeV)"
- names['ALLHVT138'] = "J#tau#tau, lvJ, JJ (8+13 TeV)"
- names['ALLWPRIME138'] = "J#tau#tau, lvJ, llJ, JJ (8+13 TeV)"
- names['ALLZPRIME138'] = "J#tau#tau, lvJ, JJ (8+13 TeV)"
- names["lvjwv8"]="lvqq (8 TeV)"
- names["lvjwz8"]="lvqq (8 TeV)"
- names["lvjww8"]="lvqq (8 TeV)"
- names["lljwz8"]="llqq (8 TeV)"
- names['lljwzh8']="llqq (8 TeV)"
- names['lljzh8']="llqq (8 TeV)"
- names["jjwv8"]="qqqq (8 TeV)"
- names["jjwz8"]="qqqq (8 TeV)"
- names["jjww8"]="qqqq (8 TeV)"
- names["jjwv13"]="qqqq (13 TeV)"
- names["jjww13"]="qqqq (13 TeV)"
- names["jjwz13"]="qqqq (13 TeV)"
- names["lvjwv13"]="lvqq (13 TeV)"
- names["lvjwv13"]="lvqq (13 TeV)"
- names["lvjww13"]="lvqq (13 TeV)"
- names["lvjwz13"]="lvqq (13 TeV)"
- names['ttjvh8'] = "qq#tau#tau (8 TeV)"
- names['ttjwh8'] = "qq#tau#tau (8 TeV)"
- names['ttjzh8'] = "qq#tau#tau (8 TeV)"
- names['jjvh8'] = "qqbb(4q) (8 TeV)"
- names['jjwh8'] = "qqbb(4q) (8 TeV)"
- names['jjzh8'] = "qqbb(4q) (8 TeV)" 
- names['lvjwh8'] = "lvbb (8 TeV)"
+ names['ALLHVT8'] = "lllv, J#tau#tau, lvJ, JJ (8 TeV)"
+ names['ALLWPRIME8'] = "lllv, J#tau#tau, lvJ, llJ, JJ (8 TeV)"
+ names['ALLZPRIME8'] = "J#tau#tau, lvJ, llJ, JJ (8 TeV)"
+ names['lllv8'] = "lllv"
+ names["lvjwv8"]="lvqq"
+ names["lvjwz8"]="lvqq"
+ names["lvjww8"]="lvqq"
+ names["lljwz8"]="llqq"
+ names['lljwzh8']="llqq"
+ names['lljzh8']="llqq"
+ names["jjwv8"]="qqqq"
+ names["jjwz8"]="qqqq"
+ names["jjww8"]="qqqq"
+ names["jjwvvh8"]="qqqq"
+ names["jjwzwh8"]="qqqq"
+ names["jjwwzh8"]="qqqq" 
+ names["jjwv13"]="qqqq"
+ names["jjww13"]="qqqq"
+ names["jjwz13"]="qqqq"
+ names["jjwvvh13"]="qqqq"
+ names["jjwwzh13"]="qqqq"
+ names["jjwzwh13"]="qqqq" 
+ names["lvjwv13"]="lvqq"
+ names["lvjwv13"]="lvqq"
+ names["lvjww13"]="lvqq"
+ names["lvjwz13"]="lvqq"
+ names["lvjwzh13"]="lvqq"
+ names["lvjwvh13"]="lvqq"
+ names['ttjvh8'] = "qq#tau#tau"
+ names['ttjwh8'] = "qq#tau#tau"
+ names['ttjzh8'] = "qq#tau#tau"
+ names['jjvh8'] = "qqbb(4q)"
+ names['jjwh8'] = "qqbb(4q)"
+ names['jjzh8'] = "qqbb(4q)" 
+ names['lvjwh8'] = "lvbb"
  
  legs1={}
  legs1["JJLVJHVT13"]=[0.38,0.68,0.90,0.84]
@@ -786,18 +810,12 @@ def compare_Asympt_limits(labels,unblind,bands):
  legs1["ALLWVHVT8"]=[0.38,0.68,0.90,0.84]
  legs1["ALLWVWPRIME8"]=[0.38,0.68,0.90,0.84]
  legs1["ALLWVZPRIME8"]=[0.38,0.68,0.90,0.84]
- legs1["ALLWVHVT138"]=[0.38,0.68,0.90,0.84]
- legs1["ALLWVWPRIME138"]=[0.38,0.68,0.90,0.84]
- legs1["ALLWVZPRIME138"]=[0.38,0.68,0.90,0.84]
  legs1["ALLHVHVT8"]=[0.38,0.68,0.90,0.84]
  legs1["ALLHVWPRIME8"]=[0.38,0.68,0.90,0.84]
  legs1["ALLHVZPRIME8"]=[0.38,0.68,0.90,0.84]
  legs1["ALLHVT8"]=[0.38,0.68,0.90,0.84]
  legs1["ALLWPRIME8"]=[0.38,0.68,0.90,0.84]
  legs1["ALLZPRIME8"]=[0.38,0.68,0.90,0.84]
- legs1["ALLHVT138"]=[0.38,0.68,0.90,0.84]
- legs1["ALLWPRIME138"]=[0.38,0.68,0.90,0.84]
- legs1["ALLZPRIME138"]=[0.38,0.68,0.90,0.84]
     
  legs2={}
  legs2["JJLVJHVT13"]=[0.38,0.61,0.90,0.65]
@@ -806,39 +824,71 @@ def compare_Asympt_limits(labels,unblind,bands):
  legs2["ALLWVHVT8"]=[0.38,0.57,0.90,0.65]
  legs2["ALLWVWPRIME8"]=[0.38,0.57,0.90,0.65]
  legs2["ALLWVZPRIME8"]=[0.38,0.57,0.90,0.65]
- legs2["ALLWVHVT138"]=[0.38,0.61,0.90,0.65]
- legs2["ALLWVWPRIME138"]=[0.38,0.61,0.90,0.65]
- legs2["ALLWVZPRIME138"]=[0.38,0.61,0.90,0.65]
  legs2["ALLHVHVT8"]=[0.38,0.57,0.90,0.65]
  legs2["ALLHVWPRIME8"]=[0.38,0.57,0.90,0.65]
  legs2["ALLHVZPRIME8"]=[0.38,0.57,0.90,0.65]
  legs2["ALLHVT8"]=[0.38,0.55,0.90,0.65]
  legs2["ALLWPRIME8"]=[0.38,0.55,0.90,0.65]
  legs2["ALLZPRIME8"]=[0.38,0.55,0.90,0.65]
- legs2["ALLHVT138"]=[0.38,0.61,0.90,0.65]
- legs2["ALLWPRIME138"]=[0.38,0.61,0.90,0.65]
- legs2["ALLZPRIME138"]=[0.38,0.61,0.90,0.65]
 
  legs3={}
- legs3["JJLVJHVT13"]=[0.38,0.61,0.90,0.65]
- legs3["JJLVJWPRIME13"]=[0.38,0.61,0.90,0.65]
- legs3["JJLVJZPRIME13"]=[0.38,0.61,0.90,0.65]
- legs3["ALLWVHVT8"]=[0.38,0.57,0.90,0.65]
- legs3["ALLWVWPRIME8"]=[0.38,0.57,0.90,0.65]
- legs3["ALLWVZPRIME8"]=[0.38,0.57,0.90,0.65]
- legs3["ALLWVHVT138"]=[0.38,0.61,0.90,0.65]
- legs3["ALLWVWPRIME138"]=[0.38,0.61,0.90,0.65]
- legs3["ALLWVZPRIME138"]=[0.38,0.61,0.90,0.65]
- legs3["ALLHVHVT8"]=[0.38,0.57,0.90,0.65]
- legs3["ALLHVWPRIME8"]=[0.38,0.57,0.90,0.65]
- legs3["ALLHVZPRIME8"]=[0.38,0.57,0.90,0.65]
- legs3["ALLHVT8"]=[0.38,0.56,0.90,0.65]
- legs3["ALLWPRIME8"]=[0.38,0.56,0.90,0.65]
- legs3["ALLZPRIME8"]=[0.38,0.56,0.90,0.65]
- legs3["ALLHVT138"]=[0.38,0.61,0.90,0.65]
- legs3["ALLWPRIME138"]=[0.38,0.61,0.90,0.65]
- legs3["ALLZPRIME138"]=[0.38,0.61,0.90,0.65]
-           
+ legs3["JJLVJHVT13"]=[0.19,0.20,0.42,0.29]#[0.38,0.61,0.90,0.65]
+ legs3["JJLVJWPRIME13"]=[0.19,0.20,0.42,0.29]#[0.38,0.61,0.90,0.65]
+ legs3["JJLVJZPRIME13"]=[0.19,0.20,0.33,0.29]#[0.38,0.61,0.90,0.65]
+ legs3["ALLWVHVT8"]=[0.18,0.18,0.45,0.31]#[0.38,0.57,0.90,0.65]
+ legs3["ALLWVWPRIME8"]=[0.18,0.18,0.45,0.31]#[0.38,0.57,0.90,0.65]
+ legs3["ALLWVZPRIME8"]=[0.18,0.18,0.45,0.31]#[0.38,0.57,0.90,0.65]
+ legs3["ALLHVHVT8"]=[0.19,0.18,0.47,0.31]#[0.38,0.57,0.90,0.65]
+ legs3["ALLHVWPRIME8"]=[0.19,0.18,0.47,0.31]#[0.38,0.57,0.90,0.65]
+ legs3["ALLHVZPRIME8"]=[0.19,0.18,0.47,0.31]#[0.38,0.57,0.90,0.65]
+ legs3["ALLHVT8"]= [0.17,0.15,0.48,0.28]#[0.38,0.56,0.90,0.65]
+ legs3["ALLWPRIME8"]=[0.17,0.15,0.48,0.28]#[0.38,0.56,0.90,0.65]
+ legs3["ALLZPRIME8"]=[0.17,0.15,0.45,0.28]#[0.38,0.56,0.90,0.65]
+  
+ ncols = {} 
+ ncols["JJLVJHVT13"] = 1
+ ncols["JJLVJHVT13"] = 1
+ ncols["JJLVJWPRIME13"] = 1
+ ncols["JJLVJWPRIME13"] = 1
+ ncols["JJLVJZPRIME13"] = 1
+ ncols["JJLVJZPRIME13"] = 1
+ ncols["ALLWVHVT8"] = 1
+ ncols["ALLWVWPRIME8"] = 1
+ ncols["ALLWVZPRIME8"] = 1
+ ncols["ALLHVHVT8"] = 1
+ ncols["ALLHVWPRIME8"] = 1
+ ncols["ALLHVZPRIME8"] = 1
+ ncols["ALLHVT8"] = 2
+ ncols["ALLWPRIME8"] = 2
+ ncols["ALLZPRIME8"] = 2
+    
+ ymin = {}
+ ymax = {}  
+ ymin["JJLVJHVT13"] = 0.002
+ ymax["JJLVJHVT13"] = 10
+ ymin["JJLVJWPRIME13"] = 0.002
+ ymax["JJLVJWPRIME13"] = 10
+ ymin["JJLVJZPRIME13"] = 0.002
+ ymax["JJLVJZPRIME13"] = 10
+ ymin["ALLWVHVT8"] = 0.002
+ ymax["ALLWVHVT8"] = 1.2
+ ymin["ALLWVWPRIME8"] = 0.002
+ ymax["ALLWVWPRIME8"] = 1.2
+ ymin["ALLWVZPRIME8"] = 0.001
+ ymax["ALLWVZPRIME8"] = 5
+ ymin["ALLHVHVT8"] = 0.001
+ ymax["ALLHVHVT8"] = 1.2
+ ymin["ALLHVWPRIME8"] = 0.001
+ ymax["ALLHVWPRIME8"] = 1.2
+ ymin["ALLHVZPRIME8"] = 0.001
+ ymax["ALLHVZPRIME8"] = 1.2
+ ymin["ALLHVT8"] = 0.002
+ ymax["ALLHVT8"] = 1.2
+ ymin["ALLWPRIME8"] = 0.002
+ ymax["ALLWPRIME8"] = 1.2
+ ymin["ALLZPRIME8"] = 0.001
+ ymax["ALLZPRIME8"] = 5
+                 
  files = []
  canvas = []
  graph_1s = []
@@ -848,7 +898,7 @@ def compare_Asympt_limits(labels,unblind,bands):
  graphth = []
    
  files=[TFile.Open("plots/EXOVVhvt_"+l+"_UL_Asymptotic_log.root") for l in labels]
- for f in files: print f.GetName()
+ #for f in files: print f.GetName()
  canvas=[f.Get("c_lim_Asymptotic") for f in files]
  
  for c in range(len(canvas)):
@@ -869,13 +919,14 @@ def compare_Asympt_limits(labels,unblind,bands):
   graphobs[g].SetMarkerStyle(msty[labels[g]])
   graphobs[g].SetMarkerSize(0.9)  
   if g != 0:
-   graphobs[g].SetLineWidth(2)
-   graphexp[g].SetLineWidth(2)
+   graphobs[g].SetLineWidth(1)
+   graphexp[g].SetLineWidth(1)
+   graphexp[g].SetLineStyle(1)
    
- leg = ROOT.TLegend(0.3775168,0.6677741,0.8875839,0.8405316)
+ leg = ROOT.TLegend(0.40,0.67,0.86,0.85)#(0.3775168,0.6677741,0.8875839,0.8405316)
  if not bands: leg = ROOT.TLegend(legs1[labels[0]][0],legs1[labels[0]][1],legs1[labels[0]][2],legs1[labels[0]][3])#ROOT.TLegend(0.4211409,0.3654485,0.8724832,0.4518272)
  leg.SetBorderSize(0)
- leg.SetTextSize(0.031)
+ leg.SetTextSize(0.032)#(0.031)
  leg.SetLineColor(1)
  leg.SetLineStyle(1)
  leg.SetShadowColor(0)
@@ -883,25 +934,22 @@ def compare_Asympt_limits(labels,unblind,bands):
  leg.SetFillColor(0)
  leg.SetTextFont(42)
 
- leg2 = ROOT.TLegend(legs2[labels[0]][0],legs2[labels[0]][1],legs2[labels[0]][2],legs2[labels[0]][3])#ROOT.TLegend(0.4345638,0.2059801,0.8758389,0.3239203)
- if bands: leg2 = ROOT.TLegend(legs3[labels[0]][0],legs3[labels[0]][1],legs3[labels[0]][2],legs3[labels[0]][3])
+ #leg2 = ROOT.TLegend(legs2[labels[0]][0],legs2[labels[0]][1],legs2[labels[0]][2],legs2[labels[0]][3])#ROOT.TLegend(0.4345638,0.2059801,0.8758389,0.3239203)
+ leg2 = ROOT.TLegend(legs3[labels[0]][0],legs3[labels[0]][1],legs3[labels[0]][2],legs3[labels[0]][3])
  leg2.SetBorderSize(0)
- leg2.SetTextSize(0.026)
- if bands: leg2.SetTextSize(0.031)
+ leg2.SetTextSize(0.032)#0.031
  leg2.SetLineColor(1)
  leg2.SetLineStyle(1)
  leg2.SetShadowColor(0)
  leg2.SetLineWidth(1)
  leg2.SetFillColor(0)
  leg2.SetTextFont(42)
- #if not bands:
- leg2.SetNColumns(2)
+ leg2.SetNColumns(ncols[labels[0]])
  leg2.SetTextSize(0.031)
- #leg2.SetColumnSeparation(0.1)
  
- pt = ROOT.TPaveText(0.3842282,0.8388704,0.7348993,0.8953488,"NDC")
+ pt = ROOT.TPaveText(0.40,0.85,0.75,0.91,"NDC")#(0.3842282,0.8388704,0.7348993,0.8953488,"NDC")
  pt.SetTextFont(42)
- pt.SetTextSize(0.031)
+ pt.SetTextSize(0.032)#(0.031)
  pt.SetTextAlign(12)
  pt.SetFillColor(0)
  pt.SetBorderSize(0)
@@ -934,17 +982,18 @@ def compare_Asympt_limits(labels,unblind,bands):
  y = ROOT.Double(0.)
  graphobs[0].GetPoint(npoints-1,x,y)
 
- hrl_SM = canv.DrawFrame(0.75,1e-03, x+0.050, 10)     
+ #hrl_SM = canv.DrawFrame(0.75,1e-03, x+0.050, 10)     
+ hrl_SM = canv.DrawFrame(0.75,ymin[labels[0]], x+0.050, ymax[labels[0]])     
  
  if not unblind:  
-  leg.AddEntry(graphobs[0],"Asympt. CL_{S} Observed","LP")
-  if not bands: leg.AddEntry(graphexp[0],"Asympt. CL_{S} Expected","L")
+  leg.AddEntry(graphobs[0],"Asympt. CL_{S} Obs.","LP")
+  if not bands: leg.AddEntry(graphexp[0],"Asympt. CL_{S} Exp.","L")
   for g in range(1,len(graphobs)): leg2.AddEntry(graphobs[g],names[labels[g]],"LP")   
   if bands:
    graph_2s[0].Draw("F")
    graph_1s[0].Draw("Fsame")
-   leg.AddEntry(graph_1s[0],"Asympt. CL_{S} Expected #pm 1#sigma","LF")
-   leg.AddEntry(graph_2s[0],"Asympt. CL_{S} Expected #pm 2#sigma","LF")
+   leg.AddEntry(graph_1s[0],"Asympt. CL_{S} Exp. #pm 1#sigma","LF")
+   leg.AddEntry(graph_2s[0],"Asympt. CL_{S} Exp. #pm 2#sigma","LF")
   graphexp[0].Draw("Lsame")
   graphobs[0].Draw("LPsame")
   for g in range(1,len(graphobs)): graphobs[g].Draw("LPsame")
@@ -952,19 +1001,20 @@ def compare_Asympt_limits(labels,unblind,bands):
   if bands:   
    graph_2s[0].Draw("F")
    graph_1s[0].Draw("Fsame")
-   leg.AddEntry(graphobs[0],"Asympt. CL_{S} Observed","LP")
-   leg.AddEntry(graph_1s[0],"Asympt. CL_{S} Expected #pm 1#sigma","LF")
-   leg.AddEntry(graph_2s[0],"Asympt. CL_{S} Expected #pm 2#sigma","LF")
+   leg.AddEntry(graphobs[0],"Asympt. CL_{S} Obs.","LP")
+   leg.AddEntry(graph_1s[0],"Asympt. CL_{S} Exp. #pm 1#sigma","LF")
+   leg.AddEntry(graph_2s[0],"Asympt. CL_{S} Exp. #pm 2#sigma","LF")
    graphobs[0].Draw("LPsame")
-  else: leg.AddEntry(graphexp[0],"Asympt. CL_{S} Expected","L") 
+  else: leg.AddEntry(graphexp[0],"Asympt. CL_{S} Exp.","L") 
   graphexp[0].Draw("Lsame")  
   for c in range(1,len(graphexp)):
-   leg2.AddEntry(graphexp[c],names[labels[c]],"L")
-   graphexp[c].Draw("Lsame")
+   leg2.AddEntry(graphexp[c],names[labels[c]],"LP")
+   graphexp[c].Draw("LPsame")
    
  graphth[0].SetLineStyle(3)
  graphth[0].Draw("Lsame")
- theoleg = "#sigma_{TH} #times BR_{"+signal[labels[0]]+"#rightarrow "+decay[labels[0]]+"} , HVT_{B}"
+ #theoleg = "#sigma_{TH} #times BR_{"+signal[labels[0]]+"#rightarrow "+decay[labels[0]]+"} , HVT_{B}"
+ theoleg = " HVT_{B} (g_{V}=3)"
  leg.AddEntry(graphth[0],theoleg,"L") 
 
  #ytitle = "#sigma_{95%}/#sigma_{theory}"
@@ -979,7 +1029,7 @@ def compare_Asympt_limits(labels,unblind,bands):
  hrl_SM.GetXaxis().SetTitle("M_{"+signal[labels[0]]+"} (TeV)")
  hrl_SM.GetXaxis().SetNdivisions(505)
 
- i=0.9
+ i=1.0
  exclMass = 0
  while i < 3.:
   i+=0.01 
@@ -990,7 +1040,7 @@ def compare_Asympt_limits(labels,unblind,bands):
    exclMass = i
    break
 
- line = TLine(exclMass,0.001,exclMass,0.1)
+ line = TLine(exclMass,ymin[labels[0]],exclMass,0.1)
  line.SetLineStyle(7)
  line.SetLineColor(kBlue) 
  line.Draw()
@@ -1024,28 +1074,27 @@ def compare_Asympt_limits(labels,unblind,bands):
 if __name__ == '__main__':
 
  gROOT.SetBatch(ROOT.kTRUE)
- 
  scenarios={} 
  
  # 13 TeV LVJ+JJ only
- scenarios["JJLVJHVT13TeV"]=["JJLVJHVT13","jjwv13","lvjwv13"]
- scenarios["JJLVJWPRIME13TeV"]=["JJLVJWPRIME13","jjwz13","lvjwz13"]
- scenarios["JJLVJZPRIME13TeV"]=["JJLVJZPRIME13","jjww13","lvjww13"]
+ scenarios["JJLVJHVT13TeV"]=["JJLVJHVT13","jjwvvh13","lvjwvh13"]
+ scenarios["JJLVJWPRIME13TeV"]=["JJLVJWPRIME13","jjwzwh13","lvjwzh13"]
+ scenarios["JJLVJZPRIME13TeV"]=["JJLVJZPRIME13","jjwwzh13","lvjww13"]
  
  # 8 TeV LLJ+LVJ+JJ (WV) only
- scenarios["ALLWVHVT8TeV"]=["ALLWVHVT8","lvjwv8","lljwz8","jjwv8"]
- scenarios["ALLWVWPRIME8TeV"]=["ALLWVWPRIME8","lvjwz8","lljwz8","jjwz8"]
- scenarios["ALLWVZPRIME8TeV"]=["ALLWVZPRIME8","lvjww8","jjww8"]
+ scenarios["ALLWVHVT8TeV"]=["ALLWVHVT8","lllv8","lvjwv8","lljwzh8","jjwvvh8"]
+ scenarios["ALLWVWPRIME8TeV"]=["ALLWVWPRIME8","lllv8","lvjwz8","lljwz8","jjwzwh8"]
+ scenarios["ALLWVZPRIME8TeV"]=["ALLWVZPRIME8","lljzh8","lvjww8","jjwwzh8"]
 
  #8 TeV VH only
- scenarios["ALLHVHVT8TeV"]=["ALLHVHVT8","ttjvh8","jjvh8","lvjwh8"]
- scenarios["ALLHVWPRIME8TeV"]=["ALLHVWPRIME8","ttjwh8","jjwh8","lvjwh8"]
- scenarios["ALLHVZPRIME8TeV"]=["ALLHVZPRIME8","ttjzh8","jjzh8"]
+ scenarios["ALLHVHVT8TeV"]=["ALLHVHVT8","lvjwh8","jjvh8","ttjvh8"]
+ scenarios["ALLHVWPRIME8TeV"]=["ALLHVWPRIME8","lvjwh8","jjwh8","ttjwh8"]
+ scenarios["ALLHVZPRIME8TeV"]=["ALLHVZPRIME8","jjzh8","ttjzh8"]
  
  #8 TeV VH+WV
- scenarios["ALLHVT8TeV"]=["ALLHVT8","ttjvh8","jjvh8","lvjwh8","lvjwv8","lljwzh8","jjwv8"]
- scenarios["ALLWPRIME8TeV"]=["ALLWPRIME8","ttjwh8","jjwh8","lvjwh8","lvjwz8","lljwz8","jjwz8"]
- scenarios["ALLZPRIME8TeV"]=["ALLZPRIME8","ttjzh8","jjzh8","lvjww8","jjww8","lljzh8"]
+ scenarios["ALLHVT8TeV"]=["ALLHVT8","lllv8","jjwvvh8","lljwzh8","jjvh8","lvjwv8","ttjvh8","lvjwh8"]
+ scenarios["ALLWPRIME8TeV"]=["ALLWPRIME8","lllv8","jjwzwh8","lljwz8","jjwh8","lvjwz8","ttjwh8","lvjwh8"]
+ scenarios["ALLZPRIME8TeV"]=["ALLZPRIME8","jjwwzh8","lljzh8","jjzh8","lvjww8","ttjzh8"]
      
  if len(sys.argv)>1:
     scenarios_arg={}
@@ -1055,9 +1104,10 @@ if __name__ == '__main__':
     print "Need input: <scenario>"
     sys.exit()
 
+ mainName = scenarios[sys.argv[1]][0]
  for name in scenarios[sys.argv[1]]:
   print name
-  plot_Asympt_limits(name,False)
+  plot_Asympt_limits(name,mainName,False)
 
  compare_Asympt_limits(scenarios[sys.argv[1]],False,False) #only observed
  compare_Asympt_limits(scenarios[sys.argv[1]],False,True) #observed + bands

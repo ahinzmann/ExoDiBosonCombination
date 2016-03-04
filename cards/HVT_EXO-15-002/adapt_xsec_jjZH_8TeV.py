@@ -5,6 +5,19 @@ import os
 import sys
 from array import array
 
+def get_xsec_unc(mass):
+
+   uncs = {}
+   
+   fin = TFile.Open('XsecUnc/xsec-unc-8TeV.root','READ')   
+   cin = fin.Get('c')
+   for p in cin.GetListOfPrimitives():
+    if p.InheritsFrom("TMultiGraph"):
+     for g in p.GetListOfGraphs(): uncs[g.GetName()] = g.Eval(mass) 
+   fin.Close() 
+   
+   return uncs
+   
 def get_theo_map():
 
    V_mass = array('d',[])
@@ -77,7 +90,6 @@ for mass in masses:
  m = int((mass-745)/5) #for jen's 8 TeV theo map 
  #m = int((mass-800)/100) #for jen'2 13 TeV theo map or 8 TeV alternative model B
  
- #fVH=open("cards_VH_8TeV/CMS_jj_HZqq_"+str(mass)+"_8TeV_CMS_jj_HZOnly.txt").readlines()
  fVH=open("cards_VH_8TeV/CMS_jj_HVqq_"+str(mass)+"_8TeV_CMS_jj_HVCombined.txt").readlines()
  outfile="cards_VH_8TeV/CMS_jj_HZqq_"+str(mass)+"_8TeV_CMS_jj_HZOnly_adapt.txt"
  print outfile
@@ -85,8 +97,21 @@ for mass in masses:
 
  xsecZH={}
  xsecZH[mass] = xsecMap['CX0(pb)'][m]*xsecMap['BRhZ'][m]
+
+ xsecUnc =  get_xsec_unc(mass)
+ pdf_Wprime = 1+xsecUnc['qq_PDF_Wprime']
+ pdf_Zprime = 1+xsecUnc['qq_PDF_Zprime']
+ scale_Wprime = 1+xsecUnc['qq_scale_Wprime']
+ scale_Zprime = 1+xsecUnc['qq_scale_Zprime']
  
+ newline1 = 'CMS_XS_qq_PDF lnN				    '
+ newline2 = 'CMS_XS_qq_scale lnN				    '
+  
  for l in range(len(fVH)):
+   if "kmax" in fVH[l]:
+    fVHsplit = fVH[l].split(' ') 
+    fVH[l] = fVH[l].replace(fVHsplit[1],str(int(fVHsplit[1])+1))
+   if "CMS_PDF" in fVH[l]: continue
    if "rate" in fVH[l]:
      line="rate 				    "
      fVHsplit=fVH[l].replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").replace("  "," ").replace("	"," ").split(" ")
@@ -98,10 +123,24 @@ for mass in masses:
        signalAlt=(s in [1,4,7,10,12,15,17,20])
        signal=(s in [2,5,8,9,13,14,18,19])
        numberVH=float(fVHsplit[s])
-       if signal: numberVH=numberVH*xsecZH[mass]/0.03
-       if signalAlt: numberVH=0
+       if signal:
+        numberVH=numberVH*xsecZH[mass]/0.03
+	newline1+="%.3f  "%pdf_Zprime
+	newline2+="%.3f  "%scale_Zprime
+       elif signalAlt:
+        numberVH=0
+	newline1+="%.3f  "%pdf_Wprime
+	newline2+="%.3f  "%scale_Wprime
+       else:
+        newline1+="-  "
+	newline2+="-  "
        line+="%.5e  " % numberVH
      line+="\n"
      f.write(line)
    else:
      f.write(fVH[l])
+
+ f.write(newline1)
+ f.write('\n')
+ f.write(newline2)
+ f.close()

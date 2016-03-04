@@ -57,7 +57,6 @@ def get_theo_map():
    f.close()
 
    return [brs,V_mass]
-
 # This script changes multiplies the rate in the data cards
 # from Bulk graviton cross section to W'/Z' cross sections
 # and also account for the efficiency difference for Bulk and W'/Z' selection
@@ -79,7 +78,7 @@ gStyle.SetLabelSize(0.05, "XYZ")
 gStyle.SetNdivisions(510, "XYZ")
 gStyle.SetLegendBorderSize(0)
 
-masses =[m*100 for m in range(8,25+1)]
+masses =[m*100 for m in range(10,29+1)]
 
 if len(sys.argv)>1:
   masses=[int(sys.argv[1])]
@@ -89,25 +88,20 @@ xsecMap = thMap[0]
 #massMap = thMap[1]
 
 for mass in masses:
+
  #print "mass = ",mass
  m = int((mass-745)/5) #for jen's 8 TeV theo map 
  #m = int((mass-800)/100) #for jen'2 13 TeV theo map or 8 TeV alternative model B
-
- fWW=open("LVJ_cards_8TeV/comb_xww."+str(mass)+".txt").readlines()
- outfile="LVJ_cards_8TeV/comb_lvjwv8."+str(mass)+".txt"
+ 
+ fWW=open("JJ_cards_8TeV/datacards/CMS_jj_WZ_"+str(mass)+"_8TeV_CMS_jj_VV.txt").readlines()
+ outfile="JJ_cards_8TeV/datacards/CMS_jj_Wprimefix_WZ_WH_"+str(mass)+"_8TeV_CMS_jj_VV.txt"
  print outfile
  f=open(outfile,"w")
 
- bulkWW={}
- for line in open("xsect_BulkG_WW_c0p5_xsect_in_pb_factor4wrong.txt").readlines():
-    split=line.replace(" ","").replace(" ","").replace(" ","").replace("\n","").split("\t")
-    bulkWW[int(split[0])]=float(split[1])
-
- HVTWW={}
- HVTWW[mass] = xsecMap['CX0(pb)'][m]*xsecMap['BRWW'][m]
- 
- HVTWZ={}
- HVTWZ[mass]=(xsecMap['CX-(pb)'][m]+xsecMap['CX+(pb)'][m])*xsecMap['BRZW'][m]
+ HVTZW={}
+ HVTWH={}
+ HVTZW[mass]=(xsecMap['CX-(pb)'][m]+xsecMap['CX+(pb)'][m])*xsecMap['BRZW'][m] #inclusive sample
+ HVTWH[mass]=(xsecMap['CX-(pb)'][m]+xsecMap['CX+(pb)'][m])*xsecMap['BRWh'][m] #inclusive sample
 
  xsecUnc =  get_xsec_unc(mass)
  pdf_Wprime = 1+xsecUnc['qq_PDF_Wprime']
@@ -128,14 +122,12 @@ for mass in masses:
    for s in range(len(fWWsplit)):
     try: float(fWWsplit[s])
     except: continue
-    signal=(s in [1,6,11,16]) # only change signal
+    signal=(s in [2,6]) # only change signal
     numberWW=float(fWWsplit[s])
     if signal:
-     #print numberWW,efficienciesBulk[mass][0]*19700.*bulkWW[mass]*0.2882464, efficienciesBulk[mass][0],19700.,bulkWW[mass],0.2882464
-     #efficienciesBulk[mass]=numberWW/19700./bulkWW[mass]/0.2882464
-     #print efficienciesBulk[mass]
-     #print "eff corr", (0.73+0.08*mass/1000.), "xsec fac", 1./bulkWW[mass]*(HVTWW[mass]+HVTWZ[mass]*69.91/67.60/2.)
-     numberWW=numberWW/bulkWW[mass]*(0.73+0.08*mass/1000.)*(HVTWW[mass]+HVTWZ[mass]*69.91/67.60/2.) #factor /2 from combinatorics of lnuqq into WW or WZ #+0.19*0.30*HVTWH[mass]*57.7/67.60/2.
+     eff = numberWW*100./19700.
+     #print eff,eff*0.14*0.577*100/0.9/0.6991
+     numberWW=numberWW*100.*HVTZW[mass]+eff*0.14*0.577*19700.*HVTWH[mass]/0.9/0.6991
      newline1+="%.3f  "%pdf_Wprime
      newline2+="%.3f  "%scale_Wprime
     else:
@@ -150,4 +142,4 @@ for mass in masses:
  f.write(newline1)
  f.write('\n')
  f.write(newline2)
- f.close()
+ f.close()   

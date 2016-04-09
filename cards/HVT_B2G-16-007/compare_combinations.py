@@ -139,13 +139,6 @@ def plot_Asympt_limits(label):
  names["JJLVJHVT13"]="lvJ, JJ (13 TeV)"
  names['ALLHVT8'] = "lllv, J#tau#tau, lvJ, llJ, JJ (8 TeV)"
 
- thMap13 = get_theo_map("13")
- xsecMap13 = thMap13[0]
- massMap13 = thMap13[1]
- thMap8 = get_theo_map("8")
- xsecMap8 = thMap8[0]
- massMap8 = thMap8[1]
-
  nPoints = 0
 
  xbins	   = array('d', [])

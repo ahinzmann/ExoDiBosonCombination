@@ -135,15 +135,17 @@ def plot_Asympt_limits(label,mainLabel):
  
  names = {}
  names["JJLVJHVT13"]="lvJ, JJ (13 TeV)"
- names["ALLWVHVT8"]="lllv, lvJ, llJ, JJ (8 TeV)"
- names['ALLHVHVT8'] = "J#tau#tau, lvJ, JJ (8 TeV)"
- names['ALLHVT8'] = "lllv, J#tau#tau, lvJ, JJ (8 TeV)"
+ names["ALLHVT13"]="llJ, lvJ, vvJ, JJ (13 TeV)"
+ names["ALLWVHVT8"]="lllv, llJ, lvJ, JJ (8 TeV)"
+ names['ALLHVHVT8'] = "lvJ, JJ, J#tau#tau (8 TeV)"
+ names['ALLHVT8'] = "lllv, lvJ, JJ, J#tau#tau (8 TeV)"
  names['lllv8']="lllv (8 TeV)"
  names["lvjwv8"]="lvqq (8 TeV)"
  names['lljwzh8']="llqq (8 TeV)"
  names["jjwvvh8"]="qqqq (8 TeV)"
  names["jjwvvh13"]="qqqq (13 TeV)"
  names["lvjwvh13"]="lvqq (13 TeV)" 
+ names["leptvh13"]="llbb/lvbb/vvbb (13 TeV)" 
  names['ttjvh8'] = "qq#tau#tau (8 TeV)"
  names['jjvh8'] = "qqbb(4q) (8 TeV)"
  names['lvjwh8'] = "lvbb (8 TeV)"
@@ -157,6 +159,7 @@ def plot_Asympt_limits(label,mainLabel):
  	     
  scale = {}
  scale['JJLVJHVT13'] = {}
+ scale['ALLHVT13'] = {}
  scale['ALLWVHVT8'] = {}
  scale['ALLHVHVT8'] = {}
  scale['ALLHVT8'] = {}
@@ -167,6 +170,7 @@ def plot_Asympt_limits(label,mainLabel):
    scale['ALLHVHVT8'][m] = 1
    scale['ALLHVT8'][m] = 1
    scale['JJLVJHVT13'][m] = (xsecMap13['CX-(pb)'][idx]+xsecMap13['CX+(pb)'][idx])*(xsecMap13['BRZW'][idx]+xsecMap13['BRWh'][idx]) + xsecMap13['CX0(pb)'][idx]*(xsecMap13['BRWW'][idx]+xsecMap13['BRhZ'][idx])
+   scale['ALLHVT13'][m] = (xsecMap13['CX-(pb)'][idx]+xsecMap13['CX+(pb)'][idx])*(xsecMap13['BRZW'][idx]+xsecMap13['BRWh'][idx]) + xsecMap13['CX0(pb)'][idx]*(xsecMap13['BRWW'][idx]+xsecMap13['BRhZ'][idx])
    if m < 3000:
     scale['ALLWVHVT8'][m] = (xsecMap8['CX-(pb)'][idx2]+xsecMap8['CX+(pb)'][idx2])*(xsecMap8['BRZW'][idx2]+xsecMap8['BRWh'][idx2]) + xsecMap8['CX0(pb)'][idx2]*(xsecMap8['BRWW'][idx2]+xsecMap8['BRhZ'][idx2])
     scale['ALLHVHVT8'][m] = (xsecMap8['CX-(pb)'][idx2]+xsecMap8['CX+(pb)'][idx2])*(xsecMap8['BRZW'][idx2]+xsecMap8['BRWh'][idx2]) + xsecMap8['CX0(pb)'][idx2]*(xsecMap8['BRWW'][idx2]+xsecMap8['BRhZ'][idx2])
@@ -187,6 +191,7 @@ def plot_Asympt_limits(label,mainLabel):
 
   curAsymLimits = getAsymLimits(infile,m);
   if curAsymLimits[0] == -1: continue
+  #print m,curAsymLimits[3]
   lastMass = m/1000.
   xbins.append( m/1000. );
   xbins_env.append( m/1000. );
@@ -336,11 +341,13 @@ def compare_Asympt_limits(labels,unblind,bands):
  #line color
  lcol = {}
  lcol["JJLVJHVT13"] = kBlack
+ lcol["ALLHVT13"] = kBlack
  lcol["ALLWVHVT8"] = kBlack
  lcol['ALLHVHVT8'] = kBlack
  lcol['ALLHVT8'] = kBlack
- lcol["lvjwvh13"] = col.GetColor(palette[10])
+ lcol["lvjwvh13"] = col.GetColor(palette[11])
  lcol["jjwvvh13"] = col.GetColor(palette[9])
+ lcol["leptvh13"] = col.GetColor(palette[10])
  lcol['lllv8'] = col.GetColor(palette[0])
  lcol['lljwzh8'] = col.GetColor(palette[1])
  lcol["lvjwv8"] = col.GetColor(palette[2])
@@ -352,11 +359,13 @@ def compare_Asympt_limits(labels,unblind,bands):
  #marker color
  mcol = {}
  mcol["JJLVJHVT13"] = kBlack
+ mcol["ALLHVT13"] = kBlack
  mcol["ALLWVHVT8"] = kBlack
  mcol['ALLHVHVT8'] = kBlack
  mcol['ALLHVT8'] = kBlack
- mcol["lvjwvh13"] = col.GetColor(palette[10])
+ mcol["lvjwvh13"] = col.GetColor(palette[11])
  mcol["jjwvvh13"] = col.GetColor(palette[9])
+ mcol["leptvh13"] = col.GetColor(palette[10])
  mcol['lllv8'] = col.GetColor(palette[0])
  mcol['lljwzh8'] = col.GetColor(palette[1])
  mcol["lvjwv8"] = col.GetColor(palette[2]) 
@@ -368,11 +377,13 @@ def compare_Asympt_limits(labels,unblind,bands):
  #marker style
  msty = {}
  msty["JJLVJHVT13"] = 20
+ msty["ALLHVT13"] = 20
  msty["ALLWVHVT8"] = 20
  msty['ALLHVHVT8'] = 20
  msty['ALLHVT8'] = 20
  msty["lvjwvh13"] = 26 
  msty["jjwvvh13"] = 22
+ msty["leptvh13"] = 31
  msty['lllv8'] = 22
  msty['lljwzh8'] = 25
  msty["lvjwv8"] = 26
@@ -383,39 +394,45 @@ def compare_Asympt_limits(labels,unblind,bands):
      
  names = {}
  names["JJLVJHVT13"]="lvJ, JJ (13 TeV)"
- names["ALLWVHVT8"]="lllv, lvJ, llJ, JJ (8 TeV)"
- names['ALLHVHVT8'] = "J#tau#tau, lvJ, JJ (8 TeV)"
- names['ALLHVT8'] = "lllv, J#tau#tau, lvJ, JJ (8 TeV)"
+ names["ALLHVT13"]="llJ, lvJ, vvJ, JJ (13 TeV)"
+ names["ALLWVHVT8"]="lllv, llJ, lvJ, JJ (8 TeV)"
+ names['ALLHVHVT8'] = "lvJ, JJ, J#tau#tau (8 TeV)"
+ names['ALLHVT8'] = "lllv, lvJ, JJ, J#tau#tau (8 TeV)"
  names['lllv8'] = "lllv"
  names["lvjwv8"]="lvqq"
  names['lljwzh8']="llqq"
  names["jjwvvh8"]="qqqq"
  names["jjwvvh13"]="qqqq"
  names["lvjwvh13"]="lvqq"
+ names["leptvh13"]="llbb/lvbb/vvbb" 
  names['ttjvh8'] = "qq#tau#tau"
  names['jjvh8'] = "qqbb(4q)"
  names['lvjwh8'] = "lvbb"
  
  legs1={}
  legs1["JJLVJHVT13"]=[0.38,0.68,0.90,0.84]
+ legs1["ALLHVT13"]=[0.38,0.68,0.90,0.84]
  legs1["ALLWVHVT8"]=[0.38,0.68,0.90,0.84]
  legs1["ALLHVHVT8"]=[0.38,0.68,0.90,0.84]
  legs1["ALLHVT8"]=[0.38,0.68,0.90,0.84]
     
  legs2={}
  legs2["JJLVJHVT13"]=[0.38,0.61,0.90,0.65]
+ legs2["ALLHVT13"]=[0.38,0.61,0.90,0.65]
  legs2["ALLWVHVT8"]=[0.38,0.57,0.90,0.65]
  legs2["ALLHVHVT8"]=[0.38,0.57,0.90,0.65]
  legs2["ALLHVT8"]=[0.38,0.55,0.90,0.65]
 
  legs3={}
  legs3["JJLVJHVT13"]=[0.19,0.20,0.42,0.29]
+ legs3["ALLHVT13"]=[0.19,0.20,0.42,0.29]
  legs3["ALLWVHVT8"]=[0.18,0.18,0.45,0.31]
  legs3["ALLHVHVT8"]=[0.19,0.18,0.47,0.31]
  legs3["ALLHVT8"]= [0.17,0.15,0.48,0.28]
   
  ncols = {} 
  ncols["JJLVJHVT13"] = 1
+ ncols["ALLHVT13"] = 1
  ncols["ALLWVHVT8"] = 1
  ncols["ALLHVHVT8"] = 1
  ncols["ALLHVT8"] = 2
@@ -424,6 +441,8 @@ def compare_Asympt_limits(labels,unblind,bands):
  ymax = {}  
  ymin["JJLVJHVT13"] = 0.002
  ymax["JJLVJHVT13"] = 10
+ ymin["ALLHVT13"] = 0.002
+ ymax["ALLHVT13"] = 10
  ymin["ALLWVHVT8"] = 0.002
  ymax["ALLWVHVT8"] = 1.2
  ymin["ALLHVHVT8"] = 0.001
@@ -610,8 +629,11 @@ if __name__ == '__main__':
  scenarios={} 
  
  # 13 TeV LVJ+JJ only
- scenarios["JJLVJHVT13TeV"]=["JJLVJHVT13","jjwvvh13","lvjwvh13"]
- 
+ scenarios["JJLVJHVT13TeV"]=["JJLVJHVT13","lvjwvh13","jjwvvh13"]
+
+ # 13 TeV LVJ+JJ+LLBB+NNBB
+ scenarios["ALLHVT13TeV"]=["ALLHVT13","lvjwvh13","leptvh13","jjwvvh13"]
+  
  # 8 TeV LLJ+LVJ+JJ (WV) only
  scenarios["ALLWVHVT8TeV"]=["ALLWVHVT8","lllv8","lvjwv8","lljwzh8","jjwvvh8"]
 

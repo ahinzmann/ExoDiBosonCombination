@@ -1,4 +1,4 @@
-for M in $( cat masses.txt ); do ./prepareCombinedCardsAndWS.sh $M ; done
+#for M in $( cat masses.txt ); do ./prepareCombinedCardsAndWS.sh $M ; done
 
 rm comb_job.*
 rm comb_*/output_* -r
@@ -7,14 +7,20 @@ rm -rf harvestedTrees/
 
 # 13 TeV LVJ+JJ
 for M in $( cat masses.txt ); do ./parallelizeCombine_T3.sh $M JJLVJZPRIME13; done
+for M in $( cat masses.txt ); do ./parallelizeCombine_T3.sh $M ALLZPRIME13; done
+for M in $( cat masses.txt ); do ./parallelizeCombine_T3.sh $M lljnnjzh13; done
 for M in $( cat masses.txt ); do ./parallelizeCombine_T3.sh $M lvjww13; done
 for M in $( cat masses.txt ); do ./parallelizeCombine_T3.sh $M jjwwzh13; done
 
-for M in $( cat masses.txt ); do ./mergeCombinationTrees.sh $M JJLVJZPRIME13; done
+#for M in $( cat masses.txt ); do ./mergeCombinationTrees.sh $M JJLVJZPRIME13; done
+for M in $( cat masses.txt ); do ./mergeCombinationTrees.sh $M ALLZPRIME13; done
+for M in $( cat masses.txt ); do ./mergeCombinationTrees.sh $M lljnnjzh13; done
 for M in $( cat masses.txt ); do ./mergeCombinationTrees.sh $M lvjww13; done
 for M in $( cat masses.txt ); do ./mergeCombinationTrees.sh $M jjwwzh13; done
 
 ./mergeHarvestedCombinationTrees.sh JJLVJZPRIME13
+./mergeHarvestedCombinationTrees.sh ALLZPRIME13
+./mergeHarvestedCombinationTrees.sh lljnnjzh13
 ./mergeHarvestedCombinationTrees.sh lvjww13
 ./mergeHarvestedCombinationTrees.sh jjwwzh13
 
@@ -54,6 +60,13 @@ for M in $( cat masses.txt ); do ./mergeCombinationTrees.sh $M jjzh8; done
 ./mergeHarvestedCombinationTrees.sh ttjzh8
 ./mergeHarvestedCombinationTrees.sh jjzh8
 
+#8+13 TeV VH only
+for M in $( cat masses.txt ); do ./parallelizeCombine_T3.sh $M ALLHVZPRIME138; done
+
+for M in $( cat masses.txt ); do ./mergeCombinationTrees.sh $M ALLHVZPRIME138; done
+
+./mergeHarvestedCombinationTrees.sh ALLHVZPRIME138
+
 #8 TeV VH+WV
 for M in $( cat masses.txt ); do ./parallelizeCombine_T3.sh $M ALLZPRIME8; done
 
@@ -68,6 +81,7 @@ for M in $( cat masses.txt ); do ./mergeCombinationTrees.sh $M ALLZPRIME138; don
 
 ./mergeHarvestedCombinationTrees.sh ALLZPRIME138
 
+mkdir results
 mv higgsCombine* results/.
 
 #make plots

@@ -135,13 +135,15 @@ def plot_Asympt_limits(label):
 	 3600,3700,3800,3900,4000]	 
  
  names = {}
+ names["ALLHVZPRIME138"]="llJ, vvJ, JJ, J#tau#tau (8+13 TeV)"
  names["ALLWVZPRIME138"]="lvJ, JJ (8+13 TeV)"
- names['ALLZPRIME138'] = "J#tau#tau, lvJ, JJ (8+13 TeV)"
+ names['ALLZPRIME138'] = "llJ, lvJ, vvJ, JJ, J#tau#tau (8+13 TeV)"
  names["lvjww8"]="lvqq (8 TeV)"
  names['lljzh8']="llqq (8 TeV)"
  names["jjwwzh8"]="qqqq (8 TeV)" 
  names["jjwwzh13"]="qqqq (13 TeV)"
  names["lvjww13"]="lvqq (13 TeV)"
+ names["lljnnjzh13"]="llbb/vvbb (13 TeV)"
  names['ttjzh8'] = "qq#tau#tau (8 TeV)"
  names['jjzh8'] = "qqbb(4q) (8 TeV)" 
   
@@ -314,9 +316,11 @@ def compare_Asympt_limits(labels,unblind,bands):
  #line color
  lcol = {}
  lcol["ALLWVZPRIME138"] = kBlack
+ lcol["ALLHVZPRIME138"] = kBlack
  lcol['ALLZPRIME138'] = kBlack  
- lcol["lvjww13"] = col.GetColor(palette[10])
- lcol["jjwwzh13"] = col.GetColor(palette[9]) 
+ lcol["lvjww13"] = col.GetColor(palette[11])
+ lcol["jjwwzh13"] = col.GetColor(palette[9])
+ lcol["lljnnjzh13"] = col.GetColor(palette[10])
  lcol['lljzh8'] = col.GetColor(palette[1])
  lcol["lvjww8"] = col.GetColor(palette[2])
  lcol["jjwwzh8"] = col.GetColor(palette[6])
@@ -326,9 +330,11 @@ def compare_Asympt_limits(labels,unblind,bands):
  #marker color
  mcol = {}
  mcol["ALLWVZPRIME138"] = kBlack
+ mcol["ALLHVZPRIME138"] = kBlack
  mcol['ALLZPRIME138'] = kBlack  
- mcol["lvjww13"] = col.GetColor(palette[10])
+ mcol["lvjww13"] = col.GetColor(palette[11])
  mcol["jjwwzh13"] = col.GetColor(palette[9])
+ mcol["lljnnjzh13"] = col.GetColor(palette[10])
  mcol['lljzh8'] = col.GetColor(palette[1])
  mcol["lvjww8"] = col.GetColor(palette[2])
  mcol["jjwwzh8"] = col.GetColor(palette[6])
@@ -339,8 +345,10 @@ def compare_Asympt_limits(labels,unblind,bands):
  msty = {}
  msty['ALLZPRIME138'] = 20
  msty["ALLWVZPRIME138"] = 20
+ msty["ALLHVZPRIME138"] = 20
  msty["lvjww13"] = 26
  msty["jjwwzh13"] = 22  
+ msty["lljnnjzh13"] = 31
  msty['lljzh8'] = 25
  msty["lvjww8"] = 26
  msty["jjwwzh8"] = 22 
@@ -348,35 +356,42 @@ def compare_Asympt_limits(labels,unblind,bands):
  msty['jjzh8'] = 31
      
  names = {}
+ names["ALLHVZPRIME138"]="llJ, vvJ, JJ, J#tau#tau (8+13 TeV)"
  names["ALLWVZPRIME138"]="lvJ, JJ (8+13 TeV)"
- names['ALLZPRIME138'] = "J#tau#tau, lvJ, llJ, JJ (8+13 TeV)"
+ names['ALLZPRIME138'] = "llJ, lvJ, vvJ, JJ, J#tau#tau (8+13 TeV)"
  names["lvjww8"]="lvqq (8 TeV)"
  names['lljzh8']="llqq (8 TeV)"
  names["jjwwzh8"]="qqqq (8 TeV)" 
  names["jjwwzh13"]="qqqq (13 TeV)"
  names["lvjww13"]="lvqq (13 TeV)"
+ names["lljnnjzh13"]="llbb/vvbb (13 TeV)"
  names['ttjzh8'] = "qq#tau#tau (8 TeV)"
  names['jjzh8'] = "qqbb(4q) (8 TeV)" 
  
  legs1={}
  legs1["ALLZPRIME138"]=[0.16,0.75,0.49,0.88]
  legs1["ALLWVZPRIME138"]=[0.16,0.75,0.49,0.88]
+ legs1["ALLHVZPRIME138"]=[0.16,0.75,0.49,0.88]
     
  legs2={}
  legs2["ALLWVZPRIME138"]=[0.37,0.18,0.88,0.29]
  legs2["ALLZPRIME138"]=[0.37,0.16,0.88,0.33]
+ legs2["ALLHVZPRIME138"]=[0.37,0.18,0.88,0.29]
 
  legs3={}
  legs3["ALLWVZPRIME138"]=[0.17,0.71,0.43,0.88]
  legs3["ALLZPRIME138"]=[0.15,0.66,0.41,0.90] 
+ legs3["ALLHVZPRIME138"]=[0.17,0.71,0.43,0.88]
     
  ymin = {}
  ymax = {}  
  ymin["ALLWVZPRIME138"] = 0.06
  ymax["ALLWVZPRIME138"] = 200
- ymin["ALLZPRIME138"] = 0.05
+ ymin["ALLZPRIME138"] = 0.04
  ymax["ALLZPRIME138"] = 1500
-             
+ ymin["ALLHVZPRIME138"] = 0.06
+ ymax["ALLHVZPRIME138"] = 200
+              
  files = []
  canvas = []
  graph_1s = []
@@ -433,7 +448,7 @@ def compare_Asympt_limits(labels,unblind,bands):
  leg2.SetTextFont(42)
  if not bands: leg2.SetNColumns(2)
  
- pt = ROOT.TPaveText(0.56,0.85,0.91,0.90,"NDC")#(0.5486577,0.8355482,0.8993289,0.8920266,"NDC")
+ pt = ROOT.TPaveText(0.56,0.85,0.91,0.90,"NDC")
  pt.SetTextFont(42)
  pt.SetTextSize(0.032)
  pt.SetTextAlign(32)
@@ -552,8 +567,11 @@ if __name__ == '__main__':
  # 8 + 13 TeV LLJ+LVJ+JJ (WV)
  scenarios["ALLWVZPRIME138TeV"]=["ALLWVZPRIME138","lvjww8","jjwwzh8","lvjww13","jjwwzh13"]
 
+ #8+13 TeV VH only
+ scenarios["ALLHVZPRIME138TeV"]=["ALLHVZPRIME138","jjzh8","ttjzh8","lljnnjzh13"]
+ 
  #8+13 TeV VH+WV
- scenarios["ALLZPRIME138TeV"]=["ALLZPRIME138","lljzh8","lvjww8","jjwwzh8","jjzh8","ttjzh8","lvjww13","jjwwzh13"]
+ scenarios["ALLZPRIME138TeV"]=["ALLZPRIME138","lljzh8","lvjww8","jjwwzh8","jjzh8","ttjzh8","lvjww13","lljnnjzh13","jjwwzh13"]
      
  if len(sys.argv)>1:
     scenarios_arg={}

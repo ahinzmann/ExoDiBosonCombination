@@ -135,14 +135,16 @@ def plot_Asympt_limits(label,mainLabel):
 	 
  names = {}
  names["JJLVJZPRIME13"]="lvJ, JJ (13 TeV)"
- names["ALLWVZPRIME8"]="lvJ, llJ, JJ (8 TeV)"
- names['ALLHVZPRIME8'] = "J#tau#tau, JJ (8 TeV)"
- names['ALLZPRIME8'] = "J#tau#tau, lvJ, JJ (8 TeV)"
+ names["ALLZPRIME13"]="lvJ, vvJ, JJ (13 TeV)"
+ names["ALLWVZPRIME8"]="llJ, lvJ, JJ (8 TeV)"
+ names['ALLHVZPRIME8'] = "JJ, J#tau#tau (8 TeV)"
+ names['ALLZPRIME8'] = "llJ, lvJ, JJ, J#tau#tau (8 TeV)"
  names["lvjww8"]="lvqq (8 TeV)"
  names['lljzh8']="llqq (8 TeV)"
  names["jjwwzh8"]="qqqq (8 TeV)" 
  names["jjwwzh13"]="qqqq (13 TeV)"
  names["lvjww13"]="lvqq (13 TeV)"
+ names["lljnnjzh13"]="llbb/vvbb (13 TeV)"
  names['ttjzh8'] = "qq#tau#tau (8 TeV)"
  names['jjzh8'] = "qqbb(4q) (8 TeV)" 
    
@@ -155,6 +157,7 @@ def plot_Asympt_limits(label,mainLabel):
  	     
  scale = {}
  scale['JJLVJZPRIME13'] = {}
+ scale['ALLZPRIME13'] = {}
  scale['ALLWVZPRIME8'] = {}
  scale['ALLHVZPRIME8'] = {}
  scale['ALLZPRIME8'] = {}
@@ -165,6 +168,7 @@ def plot_Asympt_limits(label,mainLabel):
   scale['ALLHVZPRIME8'][m] = 1
   scale['ALLZPRIME8'][m] = 1
   scale['JJLVJZPRIME13'][m] = xsecMap13['CX0(pb)'][idx]*(xsecMap13['BRWW'][idx]+xsecMap13['BRhZ'][idx])
+  scale['ALLZPRIME13'][m] = xsecMap13['CX0(pb)'][idx]*(xsecMap13['BRWW'][idx]+xsecMap13['BRhZ'][idx])
   if m < 3000:
    scale['ALLWVZPRIME8'][m] = xsecMap8['CX0(pb)'][idx2]*(xsecMap8['BRWW'][idx2]+xsecMap8['BRhZ'][idx2])
    scale['ALLHVZPRIME8'][m] = xsecMap8['CX0(pb)'][idx2]*(xsecMap8['BRWW'][idx2]+xsecMap8['BRhZ'][idx2])
@@ -334,11 +338,13 @@ def compare_Asympt_limits(labels,unblind,bands):
  #line color
  lcol = {}
  lcol["JJLVJZPRIME13"] = kBlack
+ lcol["ALLZPRIME13"] = kBlack
  lcol["ALLWVZPRIME8"] = kBlack
  lcol['ALLHVZPRIME8'] = kBlack
  lcol['ALLZPRIME8'] = kBlack
- lcol["lvjww13"] = col.GetColor(palette[10])
- lcol["jjwwzh13"] = col.GetColor(palette[9]) 
+ lcol["lvjww13"] = col.GetColor(palette[11])
+ lcol["jjwwzh13"] = col.GetColor(palette[9])
+ lcol["lljnnjzh13"] = col.GetColor(palette[10])
  lcol['lljzh8'] = col.GetColor(palette[1])
  lcol["lvjww8"] = col.GetColor(palette[2])
  lcol["jjwwzh8"] = col.GetColor(palette[6])
@@ -348,11 +354,13 @@ def compare_Asympt_limits(labels,unblind,bands):
  #marker color
  mcol = {}
  mcol["JJLVJZPRIME13"] = kBlack
+ mcol["ALLZPRIME13"] = kBlack
  mcol["ALLWVZPRIME8"] = kBlack
  mcol['ALLHVZPRIME8'] = kBlack
  mcol['ALLZPRIME8'] = kBlack 
- mcol["lvjww13"] = col.GetColor(palette[10])
+ mcol["lvjww13"] = col.GetColor(palette[11])
  mcol["jjwwzh13"] = col.GetColor(palette[9])
+ mcol["lljnnjzh13"] = col.GetColor(palette[10])
  mcol['lljzh8'] = col.GetColor(palette[1])
  mcol["lvjww8"] = col.GetColor(palette[2])
  mcol["jjwwzh8"] = col.GetColor(palette[6])
@@ -362,11 +370,13 @@ def compare_Asympt_limits(labels,unblind,bands):
  #marker style
  msty = {}
  msty["JJLVJZPRIME13"] = 20
+ msty["ALLZPRIME13"] = 20
  msty["ALLWVZPRIME8"] = 20
  msty['ALLHVZPRIME8'] = 20
  msty['ALLZPRIME8'] = 20
  msty["lvjww13"] = 26
  msty["jjwwzh13"] = 22  
+ msty["lljnnjzh13"] = 31
  msty['lljzh8'] = 25
  msty["lvjww8"] = 26
  msty["jjwwzh8"] = 22 
@@ -375,37 +385,43 @@ def compare_Asympt_limits(labels,unblind,bands):
      
  names = {}
  names["JJLVJZPRIME13"]="lvJ, JJ (13 TeV)"
- names["ALLWVZPRIME8"]="lvJ, llJ, JJ (8 TeV)"
- names['ALLHVZPRIME8'] = "J#tau#tau, JJ (8 TeV)"
- names['ALLZPRIME8'] = "J#tau#tau, lvJ, llJ, JJ (8 TeV)"
+ names["ALLZPRIME13"]="lvJ, vvJ, JJ (13 TeV)"
+ names["ALLWVZPRIME8"]="llJ, lvJ, JJ (8 TeV)"
+ names['ALLHVZPRIME8'] = "JJ, J#tau#tau (8 TeV)"
+ names['ALLZPRIME8'] = "llJ, lvJ, JJ, J#tau#tau (8 TeV)"
  names["lvjww8"]="lvqq"
  names['lljzh8']="llqq"
  names["jjwwzh8"]="qqqq" 
  names["jjwwzh13"]="qqqq"
  names["lvjww13"]="lvqq"
+ names["lljnnjzh13"]="llbb/vvbb"
  names['ttjzh8'] = "qq#tau#tau"
  names['jjzh8'] = "qqbb(4q)" 
  
  legs1={}
  legs1["JJLVJZPRIME13"]=[0.38,0.68,0.90,0.84]
+ legs1["ALLZPRIME13"]=[0.38,0.68,0.90,0.84]
  legs1["ALLWVZPRIME8"]=[0.38,0.68,0.90,0.84]
  legs1["ALLHVZPRIME8"]=[0.38,0.68,0.90,0.84]
  legs1["ALLZPRIME8"]=[0.38,0.68,0.90,0.84]
     
  legs2={}
  legs2["JJLVJZPRIME13"]=[0.38,0.61,0.90,0.65]
+ legs2["ALLZPRIME13"]=[0.38,0.61,0.90,0.65]
  legs2["ALLWVZPRIME8"]=[0.38,0.57,0.90,0.65]
  legs2["ALLHVZPRIME8"]=[0.38,0.57,0.90,0.65]
  legs2["ALLZPRIME8"]=[0.38,0.55,0.90,0.65]
 
  legs3={}
  legs3["JJLVJZPRIME13"]=[0.19,0.20,0.33,0.29]
+ legs3["ALLZPRIME13"]=[0.19,0.20,0.33,0.29]
  legs3["ALLWVZPRIME8"]=[0.18,0.18,0.45,0.31]
  legs3["ALLHVZPRIME8"]=[0.19,0.18,0.42,0.28]
  legs3["ALLZPRIME8"]=[0.17,0.15,0.45,0.28]
   
  ncols = {} 
  ncols["JJLVJZPRIME13"] = 1
+ ncols["ALLZPRIME13"] = 1
  ncols["ALLWVZPRIME8"] = 1
  ncols["ALLHVZPRIME8"] = 1
  ncols["ALLZPRIME8"] = 2
@@ -414,6 +430,8 @@ def compare_Asympt_limits(labels,unblind,bands):
  ymax = {}  
  ymin["JJLVJZPRIME13"] = 0.002
  ymax["JJLVJZPRIME13"] = 10
+ ymin["ALLZPRIME13"] = 0.002
+ ymax["ALLZPRIME13"] = 10
  ymin["ALLWVZPRIME8"] = 0.001
  ymax["ALLWVZPRIME8"] = 5
  ymin["ALLHVZPRIME8"] = 0.005
@@ -478,7 +496,7 @@ def compare_Asympt_limits(labels,unblind,bands):
  leg2.SetNColumns(ncols[labels[0]])
  leg2.SetTextSize(0.031)
  
- pt = ROOT.TPaveText(0.40,0.85,0.75,0.91,"NDC")#(0.3842282,0.8388704,0.7348993,0.8953488,"NDC")
+ pt = ROOT.TPaveText(0.40,0.85,0.75,0.91,"NDC")
  pt.SetTextFont(42)
  pt.SetTextSize(0.032)
  pt.SetTextAlign(12)
@@ -600,8 +618,11 @@ if __name__ == '__main__':
  scenarios={} 
  
  # 13 TeV LVJ+JJ only
- scenarios["JJLVJZPRIME13TeV"]=["JJLVJZPRIME13","jjwwzh13","lvjww13"]
- 
+ scenarios["JJLVJZPRIME13TeV"]=["JJLVJZPRIME13","lvjww13","jjwwzh13"]
+
+ # 13 TeV LVJ+JJ+LLBB+NNBB
+ scenarios["ALLZPRIME13TeV"]=["ALLZPRIME13","lvjww13","lljnnjzh13","jjwwzh13"]
+  
  # 8 TeV LLJ+LVJ+JJ (WV) only
  scenarios["ALLWVZPRIME8TeV"]=["ALLWVZPRIME8","lljzh8","lvjww8","jjwwzh8"]
 

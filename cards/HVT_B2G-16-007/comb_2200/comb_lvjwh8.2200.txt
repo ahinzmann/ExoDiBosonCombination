@@ -1,7 +1,7 @@
 Combination of lvjwh8_mv1JLP=whlvj_MWp_2200_bb_mu_ALLP_unbin.txt  lvjwh8_ev1JLP=whlvj_MWp_2200_bb_el_ALLP_unbin.txt
 imax 2 number of bins
 jmax 4 number of processes minus 1
-kmax 46 number of nuisance parameters
+kmax 48 number of nuisance parameters
 ----------------------------------------------------------------------------------------------------------------------------------
 shapes MWp_2200_bb_xwh  lvjwh8_ev1JLP    whlvj_MWp_2200_bb_el_ALLP_workspace.root workspace4limit_:$PROCESS_el_ALLP
 shapes STop_xwh         lvjwh8_ev1JLP    whlvj_MWp_2200_bb_el_ALLP_workspace.root workspace4limit_:$PROCESS_el_ALLP
@@ -44,8 +44,8 @@ CMS_xwh_btagger         lnN                  1.001            1.025            1
 CMS_jet_mass      lnN                  1.1              -                -                -                -                1.1              -                -                -                -              
 CMS_xww_trigger_e       lnN                  -                -                -                -                -                1.01             1.01             1.01             1.01             -              
 CMS_xww_trigger_m       lnN                  1.01             1.01             1.01             1.01             -                -                -                -                -                -              
-CMS_xww_XS_qq_PDF       lnN                  1.169            -                -                -                -                1.169            -                -                -                -              
-CMS_xww_XS_qq_scale     lnN                  1.14             -                -                -                -                1.14             -                -                -                -              
+CMS_xww_XS_qq_PDF       lnN                  -                -                -                -                -                1.169            -                -                -                -              
+CMS_xww_XS_qq_scale     lnN                  -                -                -                -                -                1.14             -                -                -                -              
 lumi_8TeV               lnN                  1.026            1.026            1.026            1.026            -                1.026            1.026            1.026            1.026            -              
 Deco_TTbar_xwh_signal_region_mu_ALLP_mlvj_eig0  param  0.0 2.0
 CMS_sig_p1_scale_e  param  0.0 1.0
@@ -70,3 +70,5 @@ Deco_WJets0_xwh_sb_lo_from_fitting_el_ALLP_mlvj_eig0  param  0.0 1.4
 Deco_WJets0_xwh_sb_lo_from_fitting_el_ALLP_mlvj_eig1  param  0.0 1.4
 CMS_sig_p2_scale_e  param  0.0 1.0
 CMS_sig_p2_scale_m  param  0.0 1.0
+CMS_XS_qq_PDF lnN 1.169 - - - - 1.169 - - - -
+CMS_XS_qq_scale lnN 1.140 - - - - 1.140 - - - -

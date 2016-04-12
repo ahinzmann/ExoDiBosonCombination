@@ -7,14 +7,20 @@ rm -rf harvestedTrees/
 
 # 13 TeV LVJ+JJ
 for M in $( cat masses.txt ); do ./parallelizeCombine_T3.sh $M JJLVJWPRIME13; done
+for M in $( cat masses.txt ); do ./parallelizeCombine_T3.sh $M ALLWPRIME13; done
+for M in $( cat masses.txt ); do ./parallelizeCombine_T3.sh $M lvjwh13; done
 for M in $( cat masses.txt ); do ./parallelizeCombine_T3.sh $M lvjwzh13; done
 for M in $( cat masses.txt ); do ./parallelizeCombine_T3.sh $M jjwzwh13; done
 
-for M in $( cat masses.txt ); do ./mergeCombinationTrees.sh $M JJLVJWPRIME13; done
+#for M in $( cat masses.txt ); do ./mergeCombinationTrees.sh $M JJLVJWPRIME13; done
+for M in $( cat masses.txt ); do ./mergeCombinationTrees.sh $M ALLWPRIME13; done
+for M in $( cat masses.txt ); do ./mergeCombinationTrees.sh $M lvjwh13; done
 for M in $( cat masses.txt ); do ./mergeCombinationTrees.sh $M lvjwzh13; done
 for M in $( cat masses.txt ); do ./mergeCombinationTrees.sh $M jjwzwh13; done
 
 ./mergeHarvestedCombinationTrees.sh JJLVJWPRIME13
+./mergeHarvestedCombinationTrees.sh ALLWPRIME13
+./mergeHarvestedCombinationTrees.sh lvjwh13
 ./mergeHarvestedCombinationTrees.sh lvjwzh13
 ./mergeHarvestedCombinationTrees.sh jjwzwh13
 
@@ -60,6 +66,13 @@ for M in $( cat masses.txt ); do ./mergeCombinationTrees.sh $M lvjwh8; done
 ./mergeHarvestedCombinationTrees.sh jjwh8
 ./mergeHarvestedCombinationTrees.sh lvjwh8
 
+#8+13 TeV VH only
+for M in $( cat masses.txt ); do ./parallelizeCombine_T3.sh $M ALLHVWPRIME138; done
+
+for M in $( cat masses.txt ); do ./mergeCombinationTrees.sh $M ALLHVWPRIME138; done
+
+./mergeHarvestedCombinationTrees.sh ALLHVWPRIME138
+
 #8 TeV VH+WV
 for M in $( cat masses.txt ); do ./parallelizeCombine_T3.sh $M ALLWPRIME8; done
 
@@ -74,6 +87,7 @@ for M in $( cat masses.txt ); do ./mergeCombinationTrees.sh $M ALLWPRIME138; don
 
 ./mergeHarvestedCombinationTrees.sh ALLWPRIME138
 
+mkdir results
 mv higgsCombine* results/.
 
 #make plots

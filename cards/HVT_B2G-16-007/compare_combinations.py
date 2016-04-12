@@ -135,9 +135,9 @@ def plot_Asympt_limits(label):
 	 3600,3700,3800,3900,4000]
  
  names = {}
- names['ALLHVT138'] = "lllv, J#tau#tau, lvJ, llJ, JJ (8+13 TeV)"
+ names['ALLHVT138'] = "lllv, llJ, lvJ, vvJ, JJ, J#tau#tau (8+13 TeV)"
  names["JJLVJHVT13"]="lvJ, JJ (13 TeV)"
- names['ALLHVT8'] = "lllv, J#tau#tau, lvJ, llJ, JJ (8 TeV)"
+ names['ALLHVT8'] = "lllv, lvJ, JJ, J#tau#tau (8 TeV)"
 
  nPoints = 0
 

@@ -48,5 +48,3 @@ CMS_sig_p2_scale_m param 0.0 1.0
 CMS_sig_p1_jes param 0.0 1.0 
 CMS_sig_p2_jes param 0.0 1.0 
 CMS_sig_p2_jer param 0.0 1.0 
-CMS_xww_XS_qq_PDF lnN 1.074 - - - -
-CMS_xww_XS_qq_scale lnN 1.105 - - - -

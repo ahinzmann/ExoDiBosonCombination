@@ -135,14 +135,16 @@ def plot_Asympt_limits(label):
 	 3600,3700,3800,3900,4000]
  
  names = {}
- names["ALLWVHVT138"]="lllv, lvJ, llJ, JJ (8+13 TeV)"
- names['ALLHVT138'] = "lllv, J#tau#tau, lvJ, JJ (8+13 TeV)"
+ names["ALLWVHVT138"]="lllv, llJ, lvJ, JJ (8+13 TeV)"
+ names['ALLHVHVT138'] = "llJ, lvJ, vvJ, JJ, J#tau#tau (8+13 TeV)"
+ names['ALLHVT138'] = "lllv, llJ, lvJ, vvJ, JJ, J#tau#tau (8+13 TeV)"
  names['lllv8']="lllv (8 TeV)"
  names["lvjwv8"]="lvqq (8 TeV)"
  names['lljwzh8']="llqq (8 TeV)"
  names["jjwvvh8"]="qqqq (8 TeV)"
  names["jjwvvh13"]="qqqq (13 TeV)"
  names["lvjwvh13"]="lvqq (13 TeV)" 
+ names["leptvh13"]="llbb/lvbb/vvbb (13 TeV)" 
  names['ttjvh8'] = "qq#tau#tau (8 TeV)"
  names['jjvh8'] = "qqbb(4q) (8 TeV)"
  names['lvjwh8'] = "lvbb (8 TeV)"
@@ -316,9 +318,11 @@ def compare_Asympt_limits(labels,unblind,bands):
  #line color
  lcol = {}
  lcol["ALLWVHVT138"] = kBlack
+ lcol["ALLHVHVT138"] = kBlack
  lcol['ALLHVT138'] = kBlack
- lcol["lvjwvh13"] = col.GetColor(palette[10])
+ lcol["lvjwvh13"] = col.GetColor(palette[11])
  lcol["jjwvvh13"] = col.GetColor(palette[9])
+ lcol["leptvh13"] = col.GetColor(palette[10])
  lcol['lllv8'] = col.GetColor(palette[0])
  lcol['lljwzh8'] = col.GetColor(palette[1])
  lcol["lvjwv8"] = col.GetColor(palette[2])
@@ -330,9 +334,11 @@ def compare_Asympt_limits(labels,unblind,bands):
  #marker color
  mcol = {}
  mcol["ALLWVHVT138"] = kBlack
+ mcol["ALLHVHVT138"] = kBlack
  mcol['ALLHVT138'] = kBlack
- mcol["lvjwvh13"] = col.GetColor(palette[10])
+ mcol["lvjwvh13"] = col.GetColor(palette[11])
  mcol["jjwvvh13"] = col.GetColor(palette[9])
+ mcol["leptvh13"] = col.GetColor(palette[10])
  mcol['lllv8'] = col.GetColor(palette[0])
  mcol['lljwzh8'] = col.GetColor(palette[1])
  mcol["lvjwv8"] = col.GetColor(palette[2]) 
@@ -345,8 +351,10 @@ def compare_Asympt_limits(labels,unblind,bands):
  msty = {}
  msty['ALLHVT138'] = 20
  msty["ALLWVHVT138"] = 20
+ msty["ALLHVHVT138"] = 20
  msty["lvjwvh13"] = 26 
  msty["jjwvvh13"] = 22
+ msty["leptvh13"] = 31
  msty['lllv8'] = 22
  msty['lljwzh8'] = 25
  msty["lvjwv8"] = 26
@@ -356,37 +364,49 @@ def compare_Asympt_limits(labels,unblind,bands):
  msty['jjvh8'] = 31
      
  names = {}
- names["ALLWVHVT138"]="lllv, lvJ, llJ, JJ (8+13 TeV)"
- names['ALLHVT138'] = "lllv, J#tau#tau, lvJ, JJ (8+13 TeV)"
+ names["ALLWVHVT138"]="lllv, llJ, lvJ, JJ (8+13 TeV)"
+ names['ALLHVHVT138'] = "llJ, lvJ, vvJ, JJ, J#tau#tau (8+13 TeV)"
+ names['ALLHVT138'] = "lllv, llJ, lvJ, vvJ, JJ, J#tau#tau (8+13 TeV)"
  names['lllv8']="lllv (8 TeV)"
  names["lvjwv8"]="lvqq (8 TeV)"
  names['lljwzh8']="llqq (8 TeV)"
  names["jjwvvh8"]="qqqq (8 TeV)"
  names["jjwvvh13"]="qqqq (13 TeV)"
  names["lvjwvh13"]="lvqq (13 TeV)" 
+ names["leptvh13"]="llbb/lvbb/vvbb (13 TeV)" 
  names['ttjvh8'] = "qq#tau#tau (8 TeV)"
  names['jjvh8'] = "qqbb(4q) (8 TeV)"
  names['lvjwh8'] = "lvbb (8 TeV)"
  
  legs1={}
  legs1["ALLHVT138"]=[0.16,0.75,0.49,0.88]
+ legs1["ALLHVHVT138"]=[0.16,0.75,0.49,0.88]
  legs1["ALLWVHVT138"]=[0.16,0.75,0.49,0.88]
     
  legs2={}
- legs2["ALLWVHVT138"]=[0.37,0.18,0.88,0.29]#[0.43,0.18,0.88,0.29]
- legs2["ALLHVT138"]=[0.37,0.16,0.88,0.33]#[0.31,0.16,0.88,0.31]
+ legs2["ALLWVHVT138"]=[0.37,0.18,0.88,0.29]
+ legs2["ALLHVHVT138"]=[0.37,0.18,0.88,0.29]
+ legs2["ALLHVT138"]=[0.37,0.16,0.88,0.33]
 
  legs3={}
  legs3["ALLWVHVT138"]=[0.17,0.71,0.43,0.88]
- legs3["ALLHVT138"]=[0.15,0.62,0.41,0.91]
+ legs3["ALLHVHVT138"]=[0.17,0.71,0.43,0.88]
+ legs3["ALLHVT138"]=[0.15,0.74,0.87,0.91]#[0.15,0.62,0.41,0.91]
     
  ymin = {}
  ymax = {}  
  ymin["ALLWVHVT138"] = 0.03
  ymax["ALLWVHVT138"] = 100
- ymin["ALLHVT138"] = 0.03
- ymax["ALLHVT138"] = 100
-             
+ ymin["ALLHVHVT138"] = 0.06
+ ymax["ALLHVHVT138"] = 200
+ ymin["ALLHVT138"] = 0.02
+ ymax["ALLHVT138"] = 500
+
+ ncols = {}  
+ ncols["ALLWVHVT138"] = 1
+ ncols["ALLHVHVT138"] = 1
+ ncols["ALLHVT138"] = 2
+              
  files = []
  canvas = []
  graph_1s = []
@@ -442,6 +462,7 @@ def compare_Asympt_limits(labels,unblind,bands):
  leg2.SetLineWidth(1)
  leg2.SetFillColor(0)
  leg2.SetTextFont(42)
+ leg2.SetNColumns(ncols[labels[0]])
  if not bands: leg2.SetNColumns(2)
  
  pt = ROOT.TPaveText(0.56,0.85,0.91,0.90,"NDC")
@@ -569,8 +590,12 @@ if __name__ == '__main__':
  # 8 + 13 TeV LLJ+LVJ+JJ (WV)
  scenarios["ALLWVHVT138TeV"]=["ALLWVHVT138","lllv8","lljwzh8","lvjwv8","jjwvvh8","lvjwvh13","jjwvvh13"]
 
+ #8+13 TeV VH only
+ scenarios["ALLHVHVT138TeV"]=["ALLHVHVT138","lvjwh8","jjvh8","ttjvh8","leptvh13"]
+ 
  #8+13 TeV VH+WV
- scenarios["ALLHVT138TeV"]=["ALLHVT138","lllv8","lljwzh8","lvjwv8","lvjwh8","jjwvvh8","jjvh8","ttjvh8","lvjwvh13","jjwvvh13"]
+ #scenarios["ALLHVT138TeV"]=["ALLHVT138","lllv8","lljwzh8","lvjwv8","lvjwh8","jjwvvh8","jjvh8","ttjvh8","lvjwvh13","jjwvvh13","leptvh13"]
+ scenarios["ALLHVT138TeV"]=["ALLHVT138","lllv8","jjvh8","lljwzh8","ttjvh8","lvjwv8","lvjwvh13","lvjwh8","leptvh13","jjwvvh8","jjwvvh13"]
      
  if len(sys.argv)>1:
     scenarios_arg={}

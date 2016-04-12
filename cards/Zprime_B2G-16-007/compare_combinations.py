@@ -135,9 +135,10 @@ def plot_Asympt_limits(label):
 	 3600,3700,3800,3900,4000]
  
  names = {}
- names['ALLZPRIME138'] = "lllv, J#tau#tau, lvJ, llJ, JJ (8+13 TeV)"
+ names['ALLZPRIME138'] = "llJ, lvJ, vvJ, JJ, J#tau#tau (8+13 TeV)"
  names["JJLVJZPRIME13"]="lvJ, JJ (13 TeV)"
- names['ALLZPRIME8'] = "lllv, J#tau#tau, lvJ, llJ, JJ (8 TeV)"
+ names["ALLZPRIME13"]="lvJ, vvJ, JJ (13 TeV)"
+ names['ALLZPRIME8'] = "llJ, lvJ, JJ, J#tau#tau (8 TeV)"
 
  nPoints = 0
 
@@ -309,23 +310,27 @@ def compare_Asympt_limits(labels):
  lcol = {}
  lcol['ALLZPRIME138'] = col.GetColor(palette[5])
  lcol["JJLVJZPRIME13"] = col.GetColor(palette[9])
+ lcol["ALLZPRIME13"] = col.GetColor(palette[9])
  lcol['ALLZPRIME8'] = col.GetColor(palette[2])
  
  #marker color
  mcol = {}
  mcol['ALLZPRIME138'] = col.GetColor(palette[5])
  mcol["JJLVJZPRIME13"] = col.GetColor(palette[9])
+ mcol["ALLZPRIME13"] = col.GetColor(palette[9])
  mcol['ALLZPRIME8'] = col.GetColor(palette[2])
 
  #marker style
  msty = {}
  msty['ALLZPRIME138'] = 20
  msty["JJLVJZPRIME13"] = 26
+ msty["ALLZPRIME13"] = 26
  msty['ALLZPRIME8'] = 31
          
  names = {}
  names['ALLZPRIME138'] = "8+13 TeV combination"
  names["JJLVJZPRIME13"]="13 TeV VV channels"
+ names["ALLZPRIME13"]="13 TeV VV channels"
  names['ALLZPRIME8'] = "8 TeV VV+VH channels"
              
  files = []
@@ -457,7 +462,7 @@ if __name__ == '__main__':
  scenarios={} 
 
  #compare all combinations
- scenarios["ALLZPRIME"]=["ALLZPRIME8","JJLVJZPRIME13","ALLZPRIME138"]
+ scenarios["ALLZPRIME"]=["ALLZPRIME8","ALLZPRIME13","ALLZPRIME138"]
      
  if len(sys.argv)>1:
     scenarios_arg={}

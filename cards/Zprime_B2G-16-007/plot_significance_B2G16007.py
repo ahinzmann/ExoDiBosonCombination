@@ -147,17 +147,20 @@ def plot_significance(label):
  
  names = {}
  names["JJLVJZPRIME13"]="lvJ, JJ (13 TeV)"
- names["ALLWVZPRIME8"]="lvJ, llJ, JJ (8 TeV)"
- names['ALLHVZPRIME8'] = "J#tau#tau, JJ (8 TeV)"
- names['ALLZPRIME8'] = "J#tau#tau, lvJ, JJ (8 TeV)"
+ names["ALLZPRIME13"]="lvJ, vvJ, JJ (13 TeV)"
+ names["ALLWVZPRIME8"]="llJ, lvJ, JJ (8 TeV)"
+ names['ALLHVZPRIME8'] = "JJ, J#tau#tau (8 TeV)"
+ names["ALLHVZPRIME138"]="llJ, vvJ, JJ, J#tau#tau (8+13 TeV)"
+ names['ALLZPRIME8'] = "llJ, lvJ, JJ, J#tau#tau (8 TeV)"
  names["ALLWVZPRIME138"]="lvJ, JJ (8+13 TeV)"
- names['ALLZPRIME138'] = "J#tau#tau, lvJ, JJ (8+13 TeV)"
+ names['ALLZPRIME138'] = "llJ, lvJ, vvJ, JJ, J#tau#tau (8+13 TeV)"
  names["lvjww8"]="lvqq (8 TeV)"
  names['lljzh8']="llqq (8 TeV)"
  names["jjwwzh8"]="qqqq (8 TeV)" 
  names["jjww13"]="qqqq (13 TeV)"
  names["jjwwzh13"]="qqqq (13 TeV)"
  names["lvjww13"]="lvqq (13 TeV)"
+ names["lljnnjzh13"]="llbb/vvbb (13 TeV)"
  names['ttjzh8'] = "qq#tau#tau (8 TeV)"
  names['jjzh8'] = "qqbb(4q) (8 TeV)" 
   
@@ -306,13 +309,16 @@ def compare_significance(labels):
  #line color
  lcol = {}
  lcol["JJLVJZPRIME13"] = kBlack
+ lcol["ALLZPRIME13"] = kBlack
  lcol["ALLWVZPRIME8"] = kBlack
  lcol['ALLHVZPRIME8'] = kBlack
  lcol['ALLZPRIME8'] = kBlack
  lcol["ALLWVZPRIME138"] = kBlack
+ lcol["ALLHVZPRIME138"] = kBlack
  lcol['ALLZPRIME138'] = kBlack  
- lcol["lvjww13"] = col.GetColor(palette[10])
- lcol["jjwwzh13"] = col.GetColor(palette[9]) 
+ lcol["lvjww13"] = col.GetColor(palette[11])
+ lcol["jjwwzh13"] = col.GetColor(palette[9])
+ lcol["lljnnjzh13"] = col.GetColor(palette[10])
  lcol['lljzh8'] = col.GetColor(palette[1])
  lcol["lvjww8"] = col.GetColor(palette[2])
  lcol["jjwwzh8"] = col.GetColor(palette[6])
@@ -322,13 +328,16 @@ def compare_significance(labels):
  #marker color
  mcol = {}
  mcol["JJLVJZPRIME13"] = kBlack
+ mcol["ALLZPRIME13"] = kBlack
  mcol["ALLWVZPRIME8"] = kBlack
  mcol['ALLHVZPRIME8'] = kBlack
  mcol['ALLZPRIME8'] = kBlack 
  mcol["ALLWVZPRIME138"] = kBlack
+ mcol["ALLHVZPRIME138"] = kBlack
  mcol['ALLZPRIME138'] = kBlack  
- mcol["lvjww13"] = col.GetColor(palette[10])
+ mcol["lvjww13"] = col.GetColor(palette[11])
  mcol["jjwwzh13"] = col.GetColor(palette[9])
+ mcol["lljnnjzh13"] = col.GetColor(palette[10])
  mcol['lljzh8'] = col.GetColor(palette[1])
  mcol["lvjww8"] = col.GetColor(palette[2])
  mcol["jjwwzh8"] = col.GetColor(palette[6])
@@ -338,13 +347,16 @@ def compare_significance(labels):
  #marker style
  msty = {}
  msty["JJLVJZPRIME13"] = 20
+ msty["ALLZPRIME13"] = 20
  msty["ALLWVZPRIME8"] = 20
  msty['ALLHVZPRIME8'] = 20
  msty['ALLZPRIME8'] = 20
  msty['ALLZPRIME138'] = 20
  msty["ALLWVZPRIME138"] = 20
+ msty["ALLHVZPRIME138"] = 20
  msty["lvjww13"] = 26
  msty["jjwwzh13"] = 22  
+ msty["lljnnjzh13"] = 31 
  msty['lljzh8'] = 25
  msty["lvjww8"] = 26
  msty["jjwwzh8"] = 22 
@@ -353,17 +365,20 @@ def compare_significance(labels):
      
  names = {}
  names["JJLVJZPRIME13"]="lvJ, JJ (13 TeV)"
- names["ALLWVZPRIME8"]="lvJ, llJ, JJ (8 TeV)"
- names['ALLHVZPRIME8'] = "J#tau#tau, JJ (8 TeV)"
- names['ALLZPRIME8'] = "J#tau#tau, lvJ, llJ, JJ (8 TeV)"
+ names["ALLZPRIME13"]="lvJ, vvJ, JJ (13 TeV)"
+ names["ALLWVZPRIME8"]="llJ, lvJ, JJ (8 TeV)"
+ names['ALLHVZPRIME8'] = "JJ, J#tau#tau (8 TeV)"
+ names["ALLHVZPRIME138"]="llJ, vvJ, JJ, J#tau#tau (8+13 TeV)"
+ names['ALLZPRIME8'] = "llJ, lvJ, JJ, J#tau#tau (8 TeV)"
  names["ALLWVZPRIME138"]="lvJ, JJ (8+13 TeV)"
- names['ALLZPRIME138'] = "J#tau#tau, lvJ, llJ, JJ (8+13 TeV)"
+ names['ALLZPRIME138'] = "llJ, lvJ, vvJ, JJ, J#tau#tau (8+13 TeV)"
  if "138" in labels[0]:
   names["lvjww8"]="lvqq (8 TeV)"
   names['lljzh8']="llqq (8 TeV)"
   names["jjwwzh8"]="qqqq (8 TeV)" 
   names["jjwwzh13"]="qqqq (13 TeV)"
   names["lvjww13"]="lvqq (13 TeV)"
+  names["lljnnjzh13"]="llbb/vvbb (13 TeV)"
   names['ttjzh8'] = "qq#tau#tau (8 TeV)"
   names['jjzh8'] = "qqbb(4q) (8 TeV)" 
  else: 
@@ -372,22 +387,27 @@ def compare_significance(labels):
   names["jjwwzh8"]="qqqq" 
   names["jjwwzh13"]="qqqq"
   names["lvjww13"]="lvqq"
+  names["lljnnjzh13"]="llbb/vvbb"
   names['ttjzh8'] = "qq#tau#tau"
   names['jjzh8'] = "qqbb(4q)" 
     
  legs1={}
  legs1["JJLVJZPRIME13"]=[0.47,0.48,0.89,0.56]
+ legs1["ALLZPRIME13"]=[0.47,0.48,0.89,0.56]
  legs1["ALLWVZPRIME8"]=[0.47,0.48,0.89,0.56]
  legs1["ALLWVZPRIME138"]=[0.47,0.48,0.89,0.56]
  legs1["ALLHVZPRIME8"]=[0.47,0.48,0.89,0.56]
+ legs1["ALLHVZPRIME138"]=[0.47,0.48,0.89,0.56]
  legs1["ALLZPRIME8"]=[0.47,0.48,0.89,0.56]
  legs1["ALLZPRIME138"]=[0.47,0.48,0.89,0.56]
     
  legs2={}
  legs2["JJLVJZPRIME13"]=[0.48,0.35,0.72,0.45]
+ legs2["ALLZPRIME13"]=[0.48,0.35,0.72,0.45]
  legs2["ALLWVZPRIME8"]=[0.48,0.34,0.72,0.45]
  legs2["ALLWVZPRIME138"]=[0.48,0.31,0.72,0.45]
  legs2["ALLHVZPRIME8"]=[0.48,0.35,0.72,0.45]
+ legs2["ALLHVZPRIME138"]=[0.48,0.35,0.72,0.45]
  legs2["ALLZPRIME8"]=[0.48,0.28,0.72,0.45]
  legs2["ALLZPRIME138"]=[0.48,0.22,0.72,0.45]
       
@@ -548,14 +568,20 @@ if __name__ == '__main__':
  scenarios={}
  
  # 13 TeV LVJ+JJ only
- scenarios["JJLVJZPRIME13TeV"]=["JJLVJZPRIME13","jjwwzh13","lvjww13"]
- 
+ scenarios["JJLVJZPRIME13TeV"]=["JJLVJZPRIME13","lvjww13","jjwwzh13"]
+
+ # 13 TeV LVJ+JJ+LLBB+NNBB
+ scenarios["ALLZPRIME13TeV"]=["ALLZPRIME13","lvjww13","lljnnjzh13","jjwwzh13"]
+  
  # 8 TeV LLJ+LVJ+JJ (WV) only
  scenarios["ALLWVZPRIME8TeV"]=["ALLWVZPRIME8","lljzh8","lvjww8","jjwwzh8"]
 
  #8 TeV VH only
  scenarios["ALLHVZPRIME8TeV"]=["ALLHVZPRIME8","jjzh8","ttjzh8"]
- 
+
+ #8+13 TeV VH only
+ scenarios["ALLHVZPRIME138TeV"]=["ALLHVZPRIME138","jjzh8","ttjzh8","lljnnjzh13"]
+  
  #8 TeV VH+WV
  scenarios["ALLZPRIME8TeV"]=["ALLZPRIME8","lljzh8","lvjww8","jjwwzh8","jjzh8","ttjzh8"]
  
@@ -563,7 +589,7 @@ if __name__ == '__main__':
  scenarios["ALLWVZPRIME138TeV"]=["ALLWVZPRIME138","lvjww8","jjwwzh8","lvjww13","jjwwzh13"]
 
  #8+13 TeV VH+WV
- scenarios["ALLZPRIME138TeV"]=["ALLZPRIME138","lljzh8","lvjww8","jjwwzh8","jjzh8","ttjzh8","lvjww13","jjwwzh13"]
+ scenarios["ALLZPRIME138TeV"]=["ALLZPRIME138","lljzh8","lvjww8","jjwwzh8","jjzh8","ttjzh8","lvjww13","lljnnjzh13","jjwwzh13"]
     
  if len(sys.argv)>1:
     scenarios_arg={}

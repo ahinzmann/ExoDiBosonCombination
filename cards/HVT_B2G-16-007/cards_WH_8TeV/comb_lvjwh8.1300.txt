@@ -44,8 +44,8 @@ CMS_xwh_btagger         lnN                  1.001            1.025            1
 CMS_jet_mass      lnN                  1.07             -                -                -                -                1.07             -                -                -                -              
 CMS_xww_trigger_e       lnN                  -                -                -                -                -                1.01             1.01             1.01             1.01             -              
 CMS_xww_trigger_m       lnN                  1.01             1.01             1.01             1.01             -                -                -                -                -                -              
-CMS_xww_XS_qq_PDF       lnN                  1.064            -                -                -                -                1.064            -                -                -                -              
-CMS_xww_XS_qq_scale     lnN                  1.093            -                -                -                -                1.093            -                -                -                -              
+CMS_xww_XS_qq_PDF       lnN                  -                -                -                -                -                1.064            -                -                -                -              
+CMS_xww_XS_qq_scale     lnN                  -                -                -                -                -                1.093            -                -                -                -              
 lumi_8TeV               lnN                  1.026            1.026            1.026            1.026            -                1.026            1.026            1.026            1.026            -              
 Deco_TTbar_xwh_signal_region_mu_ALLP_mlvj_eig0  param  0.0 2.0
 CMS_sig_p1_scale_e  param  0.0 1.0

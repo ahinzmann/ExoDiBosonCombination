@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/shome/jngadiub/EXOVVAnalysisRunII/CMSSW_7_1_5/bin/slc6_amd64_gcc481/combineCards.py", line 47, in <module>
+    DC = parseCard(file, options)
+  File "/shome/jngadiub/EXOVVAnalysisRunII/CMSSW_7_1_5/python/HiggsAnalysis/CombinedLimit/DatacardParser.py", line 276, in parseCard
+    raise RuntimeError, "Found %d systematics, expected %d" % (len(ret.systs), nuisances)
+RuntimeError: Found 94 systematics, expected 93
